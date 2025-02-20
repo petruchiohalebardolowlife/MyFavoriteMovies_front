@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { Form, Field } from "react-final-form";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+interface FormValues {
+  username: string;
+  password: string;
 }
 
-export default App
+const LoginForm: React.FC = () => {
+  const onSubmit = (values: FormValues) => {
+    console.log("Recieved data", values);
+  };
+
+  const validate = (values: FormValues) => {
+    const errors: Partial<FormValues> = {};
+    if (!values.username) {
+      errors.username = "Username is required";
+    }
+    if (!values.password) {
+      errors.password = "Password is required";
+    }
+    return errors;
+  };
+
+  return (
+    <Form<FormValues>
+      onSubmit={onSubmit}
+      validate={validate}
+      render={({ handleSubmit, submitting }) => (
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Username</label>
+            <Field name="username">
+              {({ input, meta }) => (
+                <div>
+                  <input {...input} placeholder="input username" />
+                  {meta.error && meta.touched && <span>{meta.error}</span>}
+                </div>
+              )}
+            </Field>
+            <Field name="password">
+              {({ input, meta }) => (
+                <div>
+                  <input
+                    {...input}
+                    type="password"
+                    placeholder="input password"
+                  />
+                  {meta.error && meta.touched && <span>{meta.error}</span>}
+                </div>
+              )}
+            </Field>
+          </div>
+          <button type="submit" disabled={submitting}>
+            Send
+          </button>
+        </form>
+      )}
+    />
+  );
+};
+
+export default LoginForm;
