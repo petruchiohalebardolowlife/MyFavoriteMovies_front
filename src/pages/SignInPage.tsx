@@ -4,7 +4,7 @@ import { Form } from "react-final-form";
 import { useNavigate } from "react-router-dom";
 import { Container, Label } from "../styled/Styled";
 import { SignInFormValues } from "../models";
-import InputField from "../components/InputrField";
+import InputField from "../components/InputField";
 
 const SignInForm: React.FC = () => {
   const navigate = useNavigate();
