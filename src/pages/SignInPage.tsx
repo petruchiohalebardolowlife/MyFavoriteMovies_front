@@ -12,7 +12,8 @@ function SignInForm() {
   localStorage.setItem("username", "password");
   const onSubmit = (values: SignInFormValues) => {
     if (localStorage.getItem(values.username) === values.password) {
-      navigate("/main");
+      sessionStorage.setItem(values.username, "someToken")
+      navigate("/");
     }
     return setError("Invalid username or password");
   };
