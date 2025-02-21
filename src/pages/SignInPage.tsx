@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import logo from "../assets/logo.jpg";
 import { Form } from "react-final-form";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { Container, Label } from "../styled/Styled";
 import { SignInFormValues } from "../models";
 import InputField from "../components/InputField";
 
-const SignInForm: React.FC = () => {
+function SignInForm() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   localStorage.setItem("username", "password");
@@ -68,6 +68,6 @@ const SignInForm: React.FC = () => {
       />
     </Container>
   );
-};
+}
 
 export default SignInForm;
