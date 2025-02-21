@@ -1,35 +1,23 @@
 import React, { useState } from "react";
-import logo from "../../public/logo.jpg";
+import logo from "../assets/logo.jpg";
 import { Form, Field } from "react-final-form";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-
-interface FormValues {
-  username: string;
-  password: string;
-}
-
-const Container = styled.div`
-  background-color: #f5f5f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-`;
+import { Container } from "../styled/Container";
+import { SignInFormValues } from "../models";
 
 const SignInForm: React.FC = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   localStorage.setItem("username", "password");
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = (values: SignInFormValues) => {
     if (localStorage.getItem(values.username) === values.password) {
       navigate("/main");
     }
     return setError("Invalid username or password");
   };
 
-  const validate = (values: FormValues) => {
-    const errors: Partial<FormValues> = {};
+  const validate = (values: SignInFormValues) => {
+    const errors: Partial<SignInFormValues> = {};
     if (!values.username) {
       errors.username = "Username is required";
     }
@@ -41,7 +29,7 @@ const SignInForm: React.FC = () => {
 
   return (
     <Container>
-      <Form<FormValues>
+      <Form<SignInFormValues>
         onSubmit={onSubmit}
         validate={validate}
         render={({ handleSubmit, submitting }) => (
