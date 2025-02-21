@@ -8,3 +8,7 @@ export const Container = styled.div`
   min-height: 100vh;
 `;
 
+export const Label = styled.label`
+  display: block;
+  color: #4a4a4a;
+`

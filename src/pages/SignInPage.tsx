@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.jpg";
-import { Form, Field } from "react-final-form";
+import { Form } from "react-final-form";
 import { useNavigate } from "react-router-dom";
-import { Container } from "../styled/Container";
+import { Container, Label } from "../styled/Styled";
 import { SignInFormValues } from "../models";
+import InputField from "../components/InputrField";
 
 const SignInForm: React.FC = () => {
   const navigate = useNavigate();
@@ -39,41 +40,21 @@ const SignInForm: React.FC = () => {
           >
             <img src={logo} alt="Logo" className="w-15  mx-auto mb-4" />
             <div className="mb-4">
-              <label className="block text-gray-700">Username</label>
-              <Field name="username">
-                {({ input, meta }) => (
-                  <div>
-                    <input
-                      {...input}
-                      placeholder="input username"
-                      className="w-full p-2 border rounded mt-1"
-                    />
-                    {meta.error && meta.touched && (
-                      <span className="text-red-500 text-sm">{meta.error}</span>
-                    )}
-                  </div>
-                )}
-              </Field>
+              <Label>Username</Label>
+              <InputField
+                name="username"
+                type="text"
+                placeholder="Enter username"
+              />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Password</label>
-              <Field name="password">
-                {({ input, meta }) => (
-                  <div>
-                    <input
-                      {...input}
-                      type="password"
-                      placeholder="input password"
-                      className="w-full p-2 border rounded mt-1"
-                    />
-                    {meta.error && meta.touched && (
-                      <span className="text-red-500 text-sm">{meta.error}</span>
-                    )}
-                  </div>
-                )}
-              </Field>
+              <Label>Password</Label>
+              <InputField
+                name="password"
+                type="password"
+                placeholder="Enter password"
+              />
             </div>
-
             <button
               type="submit"
               disabled={submitting}
