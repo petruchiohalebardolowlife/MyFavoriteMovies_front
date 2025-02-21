@@ -9,7 +9,7 @@ function MainPage() {
     if (!userSession) {
       navigate("/signin");
     }
-  }, [navigate]);
+  }, []);
 
   return (
     <div>
