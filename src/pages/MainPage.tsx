@@ -1,16 +1,6 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import {withAuth} from "../middlewares/withAuth";
 
 function MainPage() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const userSession = sessionStorage.getItem("username");
-    if (!userSession) {
-      navigate("/signin");
-    }
-  }, []);
-
   return (
     <div>
       <h1>Main Page</h1>
@@ -18,4 +8,4 @@ function MainPage() {
   );
 }
 
-export default MainPage;
+export default withAuth(MainPage);

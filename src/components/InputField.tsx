@@ -1,5 +1,11 @@
 import { Field } from "react-final-form";
-import { InputFieldProps } from "../models";
+import "../App.css";
+
+interface InputFieldProps {
+  name: string;
+  type: string;
+  placeholder: string;
+}
 
 function InputField({ name, type, placeholder }: InputFieldProps) {
   return (

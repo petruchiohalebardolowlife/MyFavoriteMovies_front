@@ -2,20 +2,26 @@ import { useState } from "react";
 import logo from "../assets/logo.jpg";
 import { Form } from "react-final-form";
 import { useNavigate } from "react-router-dom";
-import { Container, Label } from "../styled/Styled";
-import { SignInFormValues } from "../models";
+import "../App.css";
 import InputField from "../components/InputField";
+import { signIn } from "../services/auth";
+
+interface SignInFormValues {
+  username: string;
+  password: string;
+}
 
 function SignInForm() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  localStorage.setItem("username", "password");
+
   const onSubmit = (values: SignInFormValues) => {
-    if (localStorage.getItem(values.username) === values.password) {
-      sessionStorage.setItem(values.username, "someToken")
+    const result = signIn(values.username, values.password);
+    if (result.success) {
       navigate("/");
+    } else {
+      setError(result.error ?? "");
     }
-    return setError("Invalid username or password");
   };
 
   const validate = (values: SignInFormValues) => {
@@ -30,7 +36,8 @@ function SignInForm() {
   };
 
   return (
-    <Container>
+    <div className="bg-gray-100 flex flex-col items-center justify-center min-h-screen">
+      <img src={logo} alt="Logo" className="w-15  mx-auto mb-4" />
       <Form<SignInFormValues>
         onSubmit={onSubmit}
         validate={validate}
@@ -39,9 +46,8 @@ function SignInForm() {
             onSubmit={handleSubmit}
             className="bg-white p-6 rounded-lg shadow-md w-96"
           >
-            <img src={logo} alt="Logo" className="w-15  mx-auto mb-4" />
             <div className="mb-4">
-              <Label>Username</Label>
+              <label className="text-gray-700">Username</label>
               <InputField
                 name="username"
                 type="text"
@@ -49,7 +55,7 @@ function SignInForm() {
               />
             </div>
             <div className="mb-4">
-              <Label>Password</Label>
+              <label className="text-gray-700">Password</label>
               <InputField
                 name="password"
                 type="password"
@@ -67,7 +73,7 @@ function SignInForm() {
           </form>
         )}
       />
-    </Container>
+    </div>
   );
 }
 
