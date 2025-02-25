@@ -5,10 +5,8 @@ export const CREDENTIALS = {
 
 export const signIn = (username: string, password: string) => {
   if (username === CREDENTIALS.username && password === CREDENTIALS.password) {
-    const token = "someToken";
-    sessionStorage.setItem("authToken", token);
-    return { success: true, token };
+    sessionStorage.setItem("authToken", "someToken");
+    return { success: true };
   }
   return { success: false, error: `Invalid username or password` };
 };
-
