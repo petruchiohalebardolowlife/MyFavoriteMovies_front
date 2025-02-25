@@ -1,0 +1,1 @@
+export const messages = JSON.parse("{\"f7sXvi\":[\"Enter password\"],\"WLnvCZ\":[\"Enter username\"],\"dSKHAa\":[\"Invalid username or password\"],\"Z3FXyt\":[\"Loading...\"],\"8ZsakT\":[\"Password\"],\"gYigjt\":[\"Password cannot be empty\"],\"n1ekoW\":[\"Sign In\"],\"7sNhEz\":[\"Username\"],\"hwPrq9\":[\"Username cannot be empty\"]}");

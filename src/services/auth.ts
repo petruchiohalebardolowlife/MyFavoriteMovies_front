@@ -9,6 +9,6 @@ export const signIn = (username: string, password: string) => {
     sessionStorage.setItem("authToken", token);
     return { success: true, token };
   }
-  return { success: false, error: "Invalid username or password" };
+  return { success: false, error: `Invalid username or password` };
 };
 

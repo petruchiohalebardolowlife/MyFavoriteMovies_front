@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "extract": "lingui extract",
+    "compile": "lingui compile"
   },
   "dependencies": {
     "@lingui/react": "^5.2.0",

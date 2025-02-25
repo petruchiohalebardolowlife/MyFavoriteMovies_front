@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { Trans } from "@lingui/react/macro";
 
 export function withAuth(WrappedComponent: React.ComponentType<object>) {
   return function WithAuthComponent(props: object) {
@@ -8,7 +8,7 @@ export function withAuth(WrappedComponent: React.ComponentType<object>) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-      const userSession = sessionStorage.getItem("username");
+      const userSession = sessionStorage.getItem("authToken");
       if (!userSession) {
         navigate("/signin");
       } else {
@@ -17,10 +17,13 @@ export function withAuth(WrappedComponent: React.ComponentType<object>) {
     }, [navigate]);
 
     if (loading) {
-      return <p className="flex flex-col items-center justify-center min-h-screen">Loading...</p>;
+      return (
+        <p className="flex flex-col items-center justify-center min-h-screen">
+          <Trans>Loading...</Trans>
+        </p>
+      );
     }
 
     return <WrappedComponent {...props} />;
   };
 }
-
