@@ -1,5 +1,5 @@
 import { Field } from "react-final-form";
-import "../App.css";
+
 
 interface InputFieldProps {
   name: string;

@@ -1,5 +1,3 @@
-import {withAuth} from "../middlewares/withAuth";
-
 function MainPage() {
   return (
     <div>
@@ -8,4 +6,4 @@ function MainPage() {
   );
 }
 
-export default withAuth(MainPage);
+export default MainPage;

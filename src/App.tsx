@@ -7,6 +7,7 @@ import { i18n } from "@lingui/core";
 import { useEffect, useState } from "react";
 import { dynamicActivate } from "../locales/i18n";
 import Header from "./components/Header";
+import { withAuth } from "./middlewares/withAuth";
 
 function App() {
   const [locale, setLocale] = useState(localStorage.getItem("language"));
@@ -28,7 +29,7 @@ function App() {
         <Header changeLanguage={setLocale} />
         <Routes>
           <Route path="/signin" element={<SignInForm />} />
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={withAuth(MainPage)({})} />
         </Routes>
       </Router>
     </I18nProvider>

@@ -6,7 +6,6 @@ import InputField from "../components/InputField";
 import { signIn } from "../services/auth";
 import { Trans } from "@lingui/react/macro";
 import { useLingui } from "@lingui/react/macro";
-import "../App.css";
 
 
 interface SignInFormValues {
@@ -78,7 +77,7 @@ function SignInForm() {
               <Trans>Sign In</Trans>
             </button>
             {error && (
-              <span className="text-red-500 text-sm">{t`Invalid username or password`}</span>
+              <span className="text-red-500 text-sm"><Trans>Invalid username or password</Trans></span>
             )}
           </form>
         )}
