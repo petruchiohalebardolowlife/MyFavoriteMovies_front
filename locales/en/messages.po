@@ -13,38 +13,38 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/SignInPage.tsx:70
+#: src/pages/SignInPage.tsx:68
 msgid "Enter password"
 msgstr "Enter password"
 
-#: src/pages/SignInPage.tsx:60
+#: src/pages/SignInPage.tsx:58
 msgid "Enter username"
 msgstr "Enter username"
 
-#: src/pages/SignInPage.tsx:81
+#: src/pages/SignInPage.tsx:79
 msgid "Invalid username or password"
 msgstr "Invalid username or password"
 
-#: src/middlewares/withAuth.tsx:22
+#: src/middlewares/withAuth.tsx:23
 msgid "Loading..."
 msgstr "Loading..."
 
-#: src/pages/SignInPage.tsx:65
+#: src/pages/SignInPage.tsx:63
 msgid "Password"
 msgstr "Password"
 
-#: src/pages/SignInPage.tsx:37
+#: src/pages/SignInPage.tsx:35
 msgid "Password cannot be empty"
 msgstr "Password cannot be empty"
 
-#: src/pages/SignInPage.tsx:78
+#: src/pages/SignInPage.tsx:76
 msgid "Sign In"
 msgstr "Sign In"
 
-#: src/pages/SignInPage.tsx:55
+#: src/pages/SignInPage.tsx:53
 msgid "Username"
 msgstr "Username"
 
-#: src/pages/SignInPage.tsx:34
+#: src/pages/SignInPage.tsx:32
 msgid "Username cannot be empty"
 msgstr "Username cannot be empty"

@@ -4,7 +4,6 @@ import { Form } from "react-final-form";
 import { useNavigate } from "react-router-dom";
 import InputField from "../components/InputField";
 import { signIn } from "../services/auth";
-import { Trans } from "@lingui/react/macro";
 import { useLingui } from "@lingui/react/macro";
 
 
@@ -51,7 +50,7 @@ function SignInForm() {
           >
             <div className="mb-4">
               <label className="text-gray-700">
-                <Trans>Username</Trans>
+                {t`Username`}
               </label>
               <InputField
                 name="username"
@@ -61,7 +60,7 @@ function SignInForm() {
             </div>
             <div className="mb-4">
               <label className="text-gray-700">
-                <Trans>Password</Trans>
+                {t`Password`}
               </label>
               <InputField
                 name="password"
@@ -74,10 +73,10 @@ function SignInForm() {
               disabled={submitting}
               className="w-full bg-black text-white py-2 rounded hover:bg-gray-600 disabled:bg-gray-400"
             >
-              <Trans>Sign In</Trans>
+              {t`Sign In`}
             </button>
             {error && (
-              <span className="text-red-500 text-sm"><Trans>Invalid username or password</Trans></span>
+              <span className="text-red-500 text-sm">{t`Invalid username or password`}</span>
             )}
           </form>
         )}
