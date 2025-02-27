@@ -6,10 +6,10 @@ import { withAuth } from "./middlewares/withAuth";
 import Header from "./components/Header";
 
 
-function App({ setLocale }: { setLocale: React.Dispatch<React.SetStateAction<string>> }) {
+function App() {
   return (
     <>
-      <Header changeLanguage={setLocale} />
+      <Header/>
       <Routes>
         <Route path="/signin" element={<SignInForm />} />
         <Route path="/" element={withAuth(MainPage)({})} />

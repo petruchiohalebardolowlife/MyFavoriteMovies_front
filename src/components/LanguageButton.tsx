@@ -1,15 +1,17 @@
-interface LanguageButtonProps {
-  locale: string;
-  changeLanguage: (locale: string) => void;
-}
+import { useLocale } from "../localeContext";
 
-function LanguageButton({ locale, changeLanguage }: LanguageButtonProps) {
+function LanguageButton({ locale }: { locale: string }) {
+  const { setLocale } = useLocale();
+
   const handleClick = () => {
     localStorage.setItem("language", locale);
-    changeLanguage(locale);
+    setLocale(locale);
   };
   return (
-    <button onClick={handleClick} className="py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-600 disabled:bg-gray-400">
+    <button
+      onClick={handleClick}
+      className="py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-600 disabled:bg-gray-400"
+    >
       {locale}
     </button>
   );
