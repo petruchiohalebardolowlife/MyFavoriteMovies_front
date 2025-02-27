@@ -12,7 +12,7 @@ interface LocaleProviderProps {
   children: ReactNode;
 }
 
-export const LocaleContext = createContext<LocaleContextType | undefined>(undefined);
+const LocaleContext = createContext<LocaleContextType | undefined>(undefined);
 
 export function LocaleProvider({ children }: LocaleProviderProps) {
   const [locale, setLocale] = useState(
@@ -27,9 +27,7 @@ export function LocaleProvider({ children }: LocaleProviderProps) {
 
   return (
     <LocaleContext.Provider value={{ locale, setLocale }}>
-      <I18nProvider i18n={i18n}>
-        {children}
-        </I18nProvider>
+      <I18nProvider i18n={i18n}>{children}</I18nProvider>
     </LocaleContext.Provider>
   );
 }
