@@ -23,6 +23,7 @@ export function LocaleProvider({ children }: LocaleProviderProps) {
       await dynamicActivate(locale);
     };
     activateLanguage();
+    localStorage.setItem("language", locale);
   }, [locale]);
 
   return (

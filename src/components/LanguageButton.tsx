@@ -4,7 +4,6 @@ function LanguageButton({ locale }: { locale: string }) {
   const { setLocale } = useLocale();
 
   const handleClick = () => {
-    localStorage.setItem("language", locale);
     setLocale(locale);
   };
   return (
