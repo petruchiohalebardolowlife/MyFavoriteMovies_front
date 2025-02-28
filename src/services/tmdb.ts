@@ -1,33 +1,33 @@
 import axios from "axios";
 
 interface Genre {
-  ID: number;
-  Name: string;
+  id: number;
+  name: string;
 }
 interface Movie {
-  ID: number;
-  Title: string;
-  PosterPath: string;
-  GenreIDs: number[];
-  ReleaseDate: string
+  id: number;
+  title: string;
+  posterPath: string;
+  genreIDs: number[];
+  releaseDate: string;
 }
 
 interface FilteredMoviesResponse {
   page: number;
-  results: Movie[]
+  results: Movie[];
 }
 
 interface FilterParams {
   page?: number;
-  with_genres?: string[];
-  primary_release_year?: number;
-  "vote_average.gte"?: number;
+  withGenres?: string[];
+  primaryReleaseYear?: number;
+  voteAverageGte?: number;
 }
 
 export const fetchGenres = async (): Promise<Genre[]> => {
   try {
     const response = await axios.get<{ genres: Genre[] }>(
-      `${import.meta.env.VITE_API_URL}/genre/movie/list`,
+      `${import.meta.env.VITE_BASE_URL}/genre/movie/list`,
       {
         params: { api_key: import.meta.env.VITE_API_KEY },
       }
@@ -41,22 +41,23 @@ export const fetchGenres = async (): Promise<Genre[]> => {
 
 export const fetchFilteredMovies = async (
   filterParams: FilterParams
-): Promise<Movie[]> => {
-  const params = {
-    api_key: import.meta.env.VITE_API_KEY,
-    ...filterParams,
-    with_genres: filterParams.with_genres?.length
-      ? filterParams.with_genres.join(",")
-      : undefined,
-  };
+): Promise<Partial<FilteredMoviesResponse>> => {
   try {
     const response = await axios.get<FilteredMoviesResponse>(
-      `${import.meta.env.VITE_API_URL}/discover/movie`,
-      { params }
+      `${import.meta.env.VITE_BASE_URL}/discover/movie`,
+      {
+        params: {
+          api_key: import.meta.env.VITE_API_KEY,
+          page: filterParams.page,
+          with_genres: filterParams.withGenres?.join(","),
+          "vote_average.gte": filterParams.voteAverageGte,
+          primary_release_year: filterParams.primaryReleaseYear,
+        },
+      }
     );
-    return response.data.results;
+    return response.data;
   } catch (error) {
     console.error("Error fetching films:", error);
-    return [];
+    return {};
   }
 };
