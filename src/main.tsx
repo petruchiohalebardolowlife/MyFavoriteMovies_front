@@ -3,14 +3,17 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
 import { LocaleProvider } from "./localeContext.tsx";
+import { QueryProvider } from "./queryContext.tsx";
 
 function Root() {
   return (
-    <LocaleProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </LocaleProvider>
+    <QueryProvider>
+      <LocaleProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </LocaleProvider>
+    </QueryProvider>
   );
 }
 

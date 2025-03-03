@@ -5,11 +5,10 @@ import MainPage from "./pages/MainPage";
 import { withAuth } from "./middlewares/withAuth";
 import Header from "./components/Header";
 
-
 function App() {
   return (
     <>
-      <Header/>
+      <Header />
       <Routes>
         <Route path="/signin" element={<SignInForm />} />
         <Route path="/" element={withAuth(MainPage)({})} />
