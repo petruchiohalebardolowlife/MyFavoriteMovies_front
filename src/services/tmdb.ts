@@ -27,7 +27,7 @@ interface FilterParams {
 export const fetchGenres = async (): Promise<Genre[]> => {
   try {
     const response = await axios.get<{ genres: Genre[] }>(
-      `${import.meta.env.VITE_BASE_URL}/genre/movie/list`,
+      `${import.meta.env.VITE_GENRELIST_URL}`,
       {
         params: { api_key: import.meta.env.VITE_API_KEY },
       }
@@ -44,7 +44,7 @@ export const fetchFilteredMovies = async (
 ): Promise<Partial<FilteredMoviesResponse>> => {
   try {
     const response = await axios.get<FilteredMoviesResponse>(
-      `${import.meta.env.VITE_BASE_URL}/discover/movie`,
+      `${import.meta.env.VITE_FILTEREDMOVIE_URL}`,
       {
         params: {
           api_key: import.meta.env.VITE_API_KEY,
