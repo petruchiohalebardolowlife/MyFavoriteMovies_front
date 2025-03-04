@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
+import { useLocale } from "../localeContext";
 
-interface Genre {
+export interface Genre {
   id: number;
   name: string;
 }
@@ -31,12 +32,18 @@ interface FilterParams {
 const API_URL = import.meta.env.VITE_BASE_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;
 
+const getLanguageFromLocale = (locale: string) => {
+  return locale === "en" ? "en-US" : "ru-RU";
+};
+
 export const useFetchGenres = () => {
+  const { locale } = useLocale();
+  const language = getLanguageFromLocale(locale);
   return useQuery<GenreResponse>({
-    queryKey: ["genres"],
+    queryKey: ["genres", locale],
     queryFn: async () => {
       const response = await fetch(
-        `${API_URL}/genre/movie/list?api_key=${API_KEY}`
+        `${API_URL}/genre/movie/list?api_key=${API_KEY}&language=${language}`
       );
       if (!response.ok) {
         throw console.error("Error fetching genres");
@@ -47,6 +54,8 @@ export const useFetchGenres = () => {
 };
 
 export const useFetchMovies = (filters: FilterParams) => {
+  const { locale } = useLocale();
+  const language = getLanguageFromLocale(locale);
   return useQuery<FilteredMoviesResponse>({
     queryKey: ["movies", filters],
     queryFn: async () => {
@@ -68,7 +77,9 @@ export const useFetchMovies = (filters: FilterParams) => {
       if (filters.voteAverageGte) {
         params.append("vote_average.gte", filters.voteAverageGte.toString());
       }
-      const response = await fetch(`${API_URL}/discover/movie?${params}`);
+      const response = await fetch(
+        `${API_URL}/discover/movie?${params}&language=${language}`
+      );
       if (!response.ok) {
         console.error("Error fetching movies");
       }

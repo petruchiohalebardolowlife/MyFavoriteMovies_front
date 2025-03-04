@@ -21,6 +21,11 @@ msgstr "Введите пароль"
 msgid "Enter username"
 msgstr "Введите имя пользователя"
 
+#. placeholder {0}: CREDENTIALS.username
+#: src/pages/MainPage.tsx:8
+msgid "Hello, {0}"
+msgstr "Привет, {0}"
+
 #: src/pages/SignInPage.tsx:79
 msgid "Invalid username or password"
 msgstr "Неверное имя пользователя или пароль"
@@ -28,6 +33,10 @@ msgstr "Неверное имя пользователя или пароль"
 #: src/middlewares/withAuth.tsx:23
 msgid "Loading..."
 msgstr "Загрузка..."
+
+#: src/components/LogoutButton.tsx:16
+msgid "Logout"
+msgstr "Выйти"
 
 #: src/pages/SignInPage.tsx:63
 msgid "Password"
