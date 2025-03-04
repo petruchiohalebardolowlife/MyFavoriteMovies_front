@@ -5,7 +5,7 @@ export interface Genre {
   id: number;
   name: string;
 }
-interface Movie {
+export interface Movie {
   id: number;
   title: string;
   posterPath: string;
@@ -48,6 +48,8 @@ export const useFetchGenres = () => {
       if (!response.ok) {
         throw console.error("Error fetching genres");
       }
+
+      console.log(response.json)
       return response.json();
     },
   });
