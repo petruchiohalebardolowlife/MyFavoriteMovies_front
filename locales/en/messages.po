@@ -13,13 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/MainPage/FavMoviesBlock.tsx:69
+#: src/pages/MainPage/FavMoviesBlock.tsx:77
 msgid "Add movie"
 msgstr "Add movie"
-
-#: src/pages/MainPage/FavMoviesBlock.tsx:28
-#~ msgid "Change Style Button"
-#~ msgstr "Change Style Button"
 
 #: src/pages/SignInPage.tsx:68
 msgid "Enter password"
@@ -55,12 +51,8 @@ msgstr "Password"
 msgid "Password cannot be empty"
 msgstr "Password cannot be empty"
 
-#: src/pages/MainPage/FavMoviesBlock.tsx:38
-#~ msgid "Primary release year {0}"
-#~ msgstr "Primary release year {0}"
-
 #. placeholder {0}: favMovie.releaseDate.slice( 0, 4 )
-#: src/pages/MainPage/FavMoviesBlock.tsx:85
+#: src/pages/MainPage/FavMoviesBlock.tsx:91
 msgid "Primary release year: {0}"
 msgstr "Primary release year: {0}"
 
@@ -80,6 +72,6 @@ msgstr "Username"
 msgid "Username cannot be empty"
 msgstr "Username cannot be empty"
 
-#: src/pages/MainPage/FavMoviesBlock.tsx:71
+#: src/pages/MainPage/FavMoviesBlock.tsx:79
 msgid "Your favorite movies"
 msgstr "Your favorite movies"
