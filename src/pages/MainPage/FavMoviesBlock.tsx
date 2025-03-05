@@ -60,7 +60,7 @@ function FavoriteMoviesBlock() {
         <button
           onClick={() => setStyle("list")}
           className={`${
-            style === "list" ? "!bg-yellow-500 !text-white" : ""
+            style === "list" ? "!bg-yellow-500" : ""
           } button`}
         >
           <List size={24} />
@@ -68,7 +68,7 @@ function FavoriteMoviesBlock() {
         <button
           onClick={() => setStyle("grid")}
           className={`${
-            style === "grid" ? "!bg-yellow-500 !text-white" : ""
+            style === "grid" ? "!bg-yellow-500" : ""
           } button`}
         >
           <Grid size={24} />
