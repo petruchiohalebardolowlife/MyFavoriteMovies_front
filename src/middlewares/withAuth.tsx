@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLingui } from "@lingui/react/macro";
 
-export function withAuth(WrappedComponent: React.ComponentType<object>) {
+export function  withAuth(WrappedComponent: React.ComponentType<object>) {
   return function WithAuthComponent(props: object) {
     const { t } = useLingui()
     const navigate = useNavigate();

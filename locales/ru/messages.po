@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/pages/MainPage/FavMoviesBlock.tsx:77
+msgid "Add movie"
+msgstr "Добавить"
+
 #: src/pages/SignInPage.tsx:68
 msgid "Enter password"
 msgstr "Введите пароль"
@@ -21,13 +25,23 @@ msgstr "Введите пароль"
 msgid "Enter username"
 msgstr "Введите имя пользователя"
 
+#. placeholder {0}: CREDENTIALS.username
+#: src/pages/MainPage/LogoutHeader.tsx:20
+msgid "Hello, {0}"
+msgstr "Привет, {0}"
+
 #: src/pages/SignInPage.tsx:79
 msgid "Invalid username or password"
 msgstr "Неверное имя пользователя или пароль"
 
+#: src/pages/MainPage/MainPage.tsx:18
 #: src/middlewares/withAuth.tsx:23
 msgid "Loading..."
 msgstr "Загрузка..."
+
+#: src/pages/MainPage/LogoutHeader.tsx:18
+msgid "Logout"
+msgstr "Выйти"
 
 #: src/pages/SignInPage.tsx:63
 msgid "Password"
@@ -36,6 +50,15 @@ msgstr "Пароль"
 #: src/pages/SignInPage.tsx:35
 msgid "Password cannot be empty"
 msgstr "Пароль не может быть пустым"
+
+#. placeholder {0}: favMovie.releaseDate.slice( 0, 4 )
+#: src/pages/MainPage/FavMoviesBlock.tsx:91
+msgid "Primary release year: {0}"
+msgstr "Год премьеры {0}"
+
+#: src/pages/MainPage/GenresBlock.tsx:50
+msgid "Select your favorite genres"
+msgstr "Выберите любимые жанры"
 
 #: src/pages/SignInPage.tsx:76
 msgid "Sign In"
@@ -48,3 +71,7 @@ msgstr "Имя пользователя"
 #: src/pages/SignInPage.tsx:32
 msgid "Username cannot be empty"
 msgstr "Имя пользователя не может быть пустым"
+
+#: src/pages/MainPage/FavMoviesBlock.tsx:79
+msgid "Your favorite movies"
+msgstr "Ваши любимые фильмы"
