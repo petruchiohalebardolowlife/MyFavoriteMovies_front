@@ -59,17 +59,13 @@ function FavoriteMoviesBlock() {
       <div className="flex flex-row-reverse my-7 p-2 max-w">
         <button
           onClick={() => setStyle("list")}
-          className={`${
-            style === "list" ? "!bg-yellow-500" : ""
-          } button`}
+          className={`${style === "list" ? "!bg-yellow-500" : ""} button`}
         >
           <List size={24} />
         </button>
         <button
           onClick={() => setStyle("grid")}
-          className={`${
-            style === "grid" ? "!bg-yellow-500" : ""
-          } button`}
+          className={`${style === "grid" ? "!bg-yellow-500" : ""} button`}
         >
           <Grid size={24} />
         </button>
