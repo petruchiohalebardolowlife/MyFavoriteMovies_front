@@ -49,7 +49,7 @@ export const useFetchGenres = () => {
         throw console.error("Error fetching genres");
       }
 
-      console.log(response.json)
+      console.log(response.json);
       return response.json();
     },
   });
