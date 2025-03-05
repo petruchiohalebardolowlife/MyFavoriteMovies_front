@@ -17,6 +17,7 @@ interface FavoriteMovie {
 function FavoriteMoviesBlock() {
   const { t } = useLingui();
   const [favoriteMovies, setFavoriteMovies] = useState<FavoriteMovie[]>([]);
+  const [style, setStyle] = useState<"list" | "grid">("list");
   const genres: { id: number; name: string }[] = JSON.parse(
     localStorage.getItem("genres") || "[]"
   );
@@ -56,10 +57,20 @@ function FavoriteMoviesBlock() {
   return (
     <>
       <div className="flex flex-row-reverse my-7 p-2 max-w">
-        <button className="button">
+        <button
+          onClick={() => setStyle("list")}
+          className={`${
+            style === "list" ? "!bg-yellow-500 !text-white" : ""
+          } button`}
+        >
           <List size={24} />
         </button>
-        <button className="button">
+        <button
+          onClick={() => setStyle("grid")}
+          className={`${
+            style === "grid" ? "!bg-yellow-500 !text-white" : ""
+          } button`}
+        >
           <Grid size={24} />
         </button>
         <button onClick={handleClick} className="button">
