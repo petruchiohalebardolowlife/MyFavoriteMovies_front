@@ -13,13 +13,13 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/MainPage/FavMoviesBlock.tsx:26
+#: src/pages/MainPage/FavMoviesBlock.tsx:69
 msgid "Add movie"
 msgstr "Add movie"
 
 #: src/pages/MainPage/FavMoviesBlock.tsx:28
-msgid "Change Style Button"
-msgstr "Change Style Button"
+#~ msgid "Change Style Button"
+#~ msgstr "Change Style Button"
 
 #: src/pages/SignInPage.tsx:68
 msgid "Enter password"
@@ -38,7 +38,7 @@ msgstr "Hello, {0}"
 msgid "Invalid username or password"
 msgstr "Invalid username or password"
 
-#: src/pages/MainPage/MainPage.tsx:53
+#: src/pages/MainPage/MainPage.tsx:18
 #: src/middlewares/withAuth.tsx:23
 msgid "Loading..."
 msgstr "Loading..."
@@ -55,12 +55,16 @@ msgstr "Password"
 msgid "Password cannot be empty"
 msgstr "Password cannot be empty"
 
-#. placeholder {0}: favMovie.releaseDate.slice( 0, 4 )
 #: src/pages/MainPage/FavMoviesBlock.tsx:38
-msgid "Primary release year {0}"
-msgstr "Primary release year {0}"
+#~ msgid "Primary release year {0}"
+#~ msgstr "Primary release year {0}"
 
-#: src/pages/MainPage/GenresBlock.tsx:14
+#. placeholder {0}: favMovie.releaseDate.slice( 0, 4 )
+#: src/pages/MainPage/FavMoviesBlock.tsx:85
+msgid "Primary release year: {0}"
+msgstr "Primary release year: {0}"
+
+#: src/pages/MainPage/GenresBlock.tsx:50
 msgid "Select your favorite genres"
 msgstr "Select your favorite genres"
 
@@ -76,6 +80,6 @@ msgstr "Username"
 msgid "Username cannot be empty"
 msgstr "Username cannot be empty"
 
-#: src/pages/MainPage/FavMoviesBlock.tsx:29
+#: src/pages/MainPage/FavMoviesBlock.tsx:71
 msgid "Your favorite movies"
 msgstr "Your favorite movies"
