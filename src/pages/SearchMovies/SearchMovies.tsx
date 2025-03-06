@@ -1,6 +1,5 @@
 function SearchMovies() {
-  
-  return <div>Search Movies Page</div>
+  return <div>Search Movies Page</div>;
 }
 
-export default SearchMovies
+export default SearchMovies;

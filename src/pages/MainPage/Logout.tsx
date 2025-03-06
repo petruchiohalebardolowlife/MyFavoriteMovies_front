@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useLingui } from "@lingui/react/macro";
 import { CREDENTIALS } from "../../services/auth";
+import { useAuth } from "../../authContext";
 
 function Logout() {
   const navigate = useNavigate();
   const { t } = useLingui();
+  const { logout } = useAuth();
   const handleClick = () => {
-    sessionStorage.removeItem("authToken");
+    logout();
     navigate("/signin");
   };
   return (

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import InputField from "../../components/InputField";
 import { signIn } from "../../services/auth";
 import { useLingui } from "@lingui/react/macro";
+import { useAuth } from "../../authContext";
 
 interface SignInFormValues {
   username: string;
@@ -15,10 +16,12 @@ function SignInForm() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const { t } = useLingui();
+  const { login } = useAuth();
 
   const onSubmit = (values: SignInFormValues) => {
     const result = signIn(values.username, values.password);
     if (result.success) {
+      login(values.username);
       navigate("/");
     } else {
       setError(result.error || "");

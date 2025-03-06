@@ -7,12 +7,7 @@ interface ButtonProps {
   children: ReactNode;
 }
 
-function Button({
-  onClick,
-  isActive,
-  buttonView,
-  children
-}: ButtonProps) {
+function Button({ onClick, isActive, buttonView, children }: ButtonProps) {
   return (
     <button
       onClick={onClick}
@@ -30,4 +25,4 @@ function Button({
   );
 }
 
-export default Button
+export default Button;

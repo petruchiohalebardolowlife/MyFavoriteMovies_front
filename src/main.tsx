@@ -4,13 +4,16 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
 import { LocaleProvider } from "./localeContext.tsx";
 import { QueryProvider } from "./queryContext.tsx";
+import { AuthProvider } from "./authContext.tsx";
 
 function Root() {
   return (
     <QueryProvider>
       <LocaleProvider>
         <BrowserRouter>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </BrowserRouter>
       </LocaleProvider>
     </QueryProvider>
