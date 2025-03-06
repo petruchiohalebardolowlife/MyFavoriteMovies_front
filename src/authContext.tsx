@@ -5,18 +5,21 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import { CREDENTIALS } from "./services/auth";
 
 interface AuthContextType {
   user: { username: string } | null;
   logout: () => void;
-  login: (username: string) => void;
+  login: (username: string, password: string) => boolean;
   loading: boolean;
 }
 
 interface AuthProviderProps {
   children: ReactNode;
 }
+const hardcodedUser = {
+  username: "username",
+  password: "password",
+};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -27,14 +30,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     const token = sessionStorage.getItem("authToken");
     if (token) {
-      setUser({ username: CREDENTIALS.username });
+      setUser({ username: hardcodedUser.username });
     }
     setLoading(false);
   }, []);
 
-  const login = (username: string) => {
-    sessionStorage.setItem("authToken", "some-token");
-    setUser({ username });
+  const login = (username: string, password: string) => {
+    if (
+      username == hardcodedUser.username &&
+      password == hardcodedUser.password
+    ) {
+      sessionStorage.setItem("authToken", "some-token");
+      setUser({ username: hardcodedUser.username });
+      return true;
+    } else {
+      return false;
+    }
   };
 
   const logout = () => {

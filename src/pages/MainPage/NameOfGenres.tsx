@@ -1,11 +1,11 @@
 import { Genre } from "../../services/tmdbQuery";
 
-interface RenderGenresOfMovieProps {
+interface NameOfGenresProps {
   genreIDs: number[];
   genres: Genre[];
 }
 
-function RenderGenresOfMovie({ genreIDs, genres }: RenderGenresOfMovieProps) {
+function NameOfGenres({ genreIDs, genres }: NameOfGenresProps) {
   return (
     <>
       {genreIDs.map((genreID) => {
@@ -16,4 +16,4 @@ function RenderGenresOfMovie({ genreIDs, genres }: RenderGenresOfMovieProps) {
   );
 }
 
-export default RenderGenresOfMovie;
+export default NameOfGenres;

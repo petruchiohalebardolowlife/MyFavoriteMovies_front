@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { List, Grid, X, Eye } from "lucide-react";
 import { useEffect, useState } from "react";
 import Button from "../../components/Button";
-import RenderGenresOfMovie from "./RenderGenres";
+import NameOfGenres from "./NameOfGenres";
 import { Genre } from "../../services/tmdbQuery";
 
 const API_PICS = import.meta.env.VITE_PICS_URL;
@@ -90,10 +90,7 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
               4
             )}`}</span>
             <div className="flex flex-col">
-              <RenderGenresOfMovie
-                genreIDs={favMovie.genreIDs}
-                genres={genres}
-              />
+              <NameOfGenres genreIDs={favMovie.genreIDs} genres={genres} />
             </div>
             <div className="flex flex-row gap-2">
               <Button

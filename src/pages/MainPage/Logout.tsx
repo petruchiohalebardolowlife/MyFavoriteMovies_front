@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useLingui } from "@lingui/react/macro";
-import { CREDENTIALS } from "../../services/auth";
 import { useAuth } from "../../authContext";
 
 function Logout() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { t } = useLingui();
   const { logout } = useAuth();
   const handleClick = () => {
@@ -19,7 +19,7 @@ function Logout() {
       >
         {t`Logout`}
       </button>
-      <p className="mx-2 my-2 font-medium">{t`Hello, ${CREDENTIALS.username}`}</p>
+      <p className="mx-2 my-2 font-medium">{t`Hello, ${user?.username}`}</p>
     </div>
   );
 }

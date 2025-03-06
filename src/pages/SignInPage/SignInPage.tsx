@@ -3,7 +3,6 @@ import logo from "../../assets/logo.jpg";
 import { Form } from "react-final-form";
 import { useNavigate } from "react-router-dom";
 import InputField from "../../components/InputField";
-import { signIn } from "../../services/auth";
 import { useLingui } from "@lingui/react/macro";
 import { useAuth } from "../../authContext";
 
@@ -19,12 +18,11 @@ function SignInForm() {
   const { login } = useAuth();
 
   const onSubmit = (values: SignInFormValues) => {
-    const result = signIn(values.username, values.password);
-    if (result.success) {
-      login(values.username);
+    const result = login(values.username, values.password);
+    if (result) {
       navigate("/");
     } else {
-      setError(result.error || "");
+      setError(result || "");
     }
   };
 
