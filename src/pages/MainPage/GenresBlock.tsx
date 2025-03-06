@@ -8,40 +8,32 @@ interface GenresBlockProps {
 
 function GenresBlock({ genres }: GenresBlockProps) {
   const { t } = useLingui();
-  const [pressed, setPressed] = useState<Record<number, boolean>>({});
+  const [selected, setSelected] = useState<Record<number, boolean>>(() => {
+    const storedGenres = localStorage.getItem("favoriteGenres");
+    if (storedGenres) {
+      const parsedGenres = JSON.parse(storedGenres);
+      const initialSelectedState: Record<number, boolean> = {};
+      parsedGenres.forEach((id: number) => {
+        initialSelectedState[id] = true;
+      });
+      return initialSelectedState;
+    }
+    return [];
+  });
 
   useEffect(() => {
-    const storedGenres = JSON.parse(localStorage.getItem("favoriteGenres") || "[]");
-    const initialPressedState: Record<number, boolean> = {};
+    const updatedGenres = Object.keys(selected)
+      .filter((key) => selected[parseInt(key)])
+      .map((key) => parseInt(key));
 
-    storedGenres.forEach((id: number) => {
-      initialPressedState[id] = true;
-    });
-
-    setPressed(initialPressedState);
-  }, []);
+    localStorage.setItem("favoriteGenres", JSON.stringify(updatedGenres));
+  }, [selected]);
 
   const toggleFavoriteGenre = (id: number) => {
-    setPressed((prevState) => {
-      const newState = {
-        ...prevState,
-        [id]: !prevState[id],
-      };
-
-      const favoriteGenres = JSON.parse(localStorage.getItem("favoriteGenres") || "[]");
-
-      if (newState[id]) {
-        localStorage.setItem(
-          "favoriteGenres",
-          JSON.stringify([...favoriteGenres, id])
-        );
-      } else {
-        const updatedGenres = favoriteGenres.filter((genreID: number) => genreID !== id);
-        localStorage.setItem("favoriteGenres", JSON.stringify(updatedGenres));
-      }
-
-      return newState;
-    });
+    setSelected((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
   };
 
   return (
@@ -50,11 +42,15 @@ function GenresBlock({ genres }: GenresBlockProps) {
         {t`Select your favorite genres`}
       </div>
       <div className="flex flex-wrap justify-center content-center px-4 gap-2">
-        {genres?.map((genre) => (
+        {genres.map((genre) => (
           <button
             onClick={() => toggleFavoriteGenre(genre.id)}
             key={genre.id}
-            className={`py-2 px-4  ${pressed[genre.id] ? "bg-gray-300 hover:bg-gray-600" : "bg-gray-800"} text-white rounded hover:bg-gray-500`}
+            className={`py-2 px-4  ${
+              selected[genre.id]
+                ? "bg-gray-300 hover:bg-gray-600"
+                : "bg-gray-800"
+            } text-white rounded hover:bg-gray-500`}
           >
             {genre.name}
           </button>

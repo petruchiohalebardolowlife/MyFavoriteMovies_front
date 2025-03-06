@@ -39,7 +39,7 @@ const getLanguageFromLocale = (locale: string) => {
 export const useFetchGenres = () => {
   const { locale } = useLocale();
   const language = getLanguageFromLocale(locale);
-  return useQuery<GenreResponse>({
+  return useQuery<Genre[]>({
     queryKey: ["genres", locale],
     queryFn: async () => {
       const response = await fetch(
@@ -49,7 +49,8 @@ export const useFetchGenres = () => {
         throw console.error("Error fetching genres");
       }
 
-      return response.json();
+      const data: GenreResponse = await response.json();
+      return data.genres;
     },
   });
 };

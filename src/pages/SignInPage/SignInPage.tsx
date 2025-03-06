@@ -1,11 +1,10 @@
 import { useState } from "react";
-import logo from "../assets/logo.jpg";
+import logo from "../../assets/logo.jpg";
 import { Form } from "react-final-form";
 import { useNavigate } from "react-router-dom";
-import InputField from "../components/InputField";
-import { signIn } from "../services/auth";
+import InputField from "../../components/InputField";
+import { signIn } from "../../services/auth";
 import { useLingui } from "@lingui/react/macro";
-
 
 interface SignInFormValues {
   username: string;
@@ -49,9 +48,7 @@ function SignInForm() {
             className="bg-white p-6 rounded-lg shadow-md w-96"
           >
             <div className="mb-4">
-              <label className="text-gray-700">
-                {t`Username`}
-              </label>
+              <label className="text-gray-700">{t`Username`}</label>
               <InputField
                 name="username"
                 type="text"
@@ -59,9 +56,7 @@ function SignInForm() {
               />
             </div>
             <div className="mb-4">
-              <label className="text-gray-700">
-                {t`Password`}
-              </label>
+              <label className="text-gray-700">{t`Password`}</label>
               <InputField
                 name="password"
                 type="password"

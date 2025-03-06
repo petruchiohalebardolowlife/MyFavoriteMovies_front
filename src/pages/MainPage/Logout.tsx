@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useLingui } from "@lingui/react/macro";
 import { CREDENTIALS } from "../../services/auth";
 
-function LogoutHeader() {
+function Logout() {
   const navigate = useNavigate();
   const { t } = useLingui();
   const handleClick = () => {
@@ -17,9 +17,9 @@ function LogoutHeader() {
       >
         {t`Logout`}
       </button>
-      <h1 className="mx-2 my-2 font-medium">{t`Hello, ${CREDENTIALS.username}`}</h1>
+      <p className="mx-2 my-2 font-medium">{t`Hello, ${CREDENTIALS.username}`}</p>
     </div>
   );
 }
 
-export default LogoutHeader;
+export default Logout;
