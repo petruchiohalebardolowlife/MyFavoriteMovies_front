@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { List, Grid, X, Eye } from "lucide-react";
 import { useEffect, useState } from "react";
 import Button from "@components/Button.tsx";
-import NameOfGenres from "../GenresBlock/components/NameOfGenres/index.tsx";
+import NameOfGenres from "./components/NameOfGenres";
 import { Genre } from "@services/tmdbQuery.ts";
 
 const API_PICS = import.meta.env.VITE_PICS_URL;
