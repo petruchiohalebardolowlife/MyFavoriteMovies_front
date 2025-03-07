@@ -1,19 +1,19 @@
 import { Route, Routes } from "react-router-dom";
-import SignInForm from "./pages/SignInPage/SignInPage";
+import SignInPage from "@pages/SignInPage";
 import "./App.css";
-import MainPage from "./pages/MainPage/MainPage";
-import { withAuth } from "./middlewares/withAuth";
-import Header from "./components/Header";
-import SearchMovies from "./pages/SearchMovies/SearchMovies";
+import MainPage from "@pages/MainPage";
+import { withAuth } from "@middlewares/withAuth";
+import Header from "@components/Header";
+import SearchMoviesPage from "@pages/SearchMoviesPage";
 
 function App() {
   return (
     <>
       <Header />
       <Routes>
-        <Route path="/signin" element={<SignInForm />} />
+        <Route path="/signin" element={<SignInPage />} />
         <Route path="/" element={withAuth(MainPage)({})} />
-        <Route path="/searchmovies" element={withAuth(SearchMovies)({})} />
+        <Route path="/searchmovies" element={withAuth(SearchMoviesPage)({})} />
       </Routes>
     </>
   );

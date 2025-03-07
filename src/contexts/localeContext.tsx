@@ -1,4 +1,4 @@
-import { dynamicActivate } from "../locales/i18n";
+import { dynamicActivate } from "../../locales/i18n";
 import { ReactNode } from "react";
 import { useState, useEffect, useContext, createContext } from "react";
 import { I18nProvider } from "@lingui/react";

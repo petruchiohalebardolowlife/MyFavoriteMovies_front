@@ -2,9 +2,9 @@ import { useLingui } from "@lingui/react/macro";
 import { useNavigate } from "react-router-dom";
 import { List, Grid, X, Eye } from "lucide-react";
 import { useEffect, useState } from "react";
-import Button from "../../components/Button";
-import NameOfGenres from "./NameOfGenres";
-import { Genre } from "../../services/tmdbQuery";
+import Button from "@components/Button.tsx";
+import NameOfGenres from "../GenresBlock/components/NameOfGenres/index.tsx";
+import { Genre } from "@services/tmdbQuery.ts";
 
 const API_PICS = import.meta.env.VITE_PICS_URL;
 

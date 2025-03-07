@@ -1,6 +1,6 @@
 import { useLingui } from "@lingui/react/macro";
 import { useState, useEffect } from "react";
-import { Genre } from "../../services/tmdbQuery";
+import { Genre } from "@services/tmdbQuery";
 
 interface GenresBlockProps {
   genres: Genre[];
@@ -10,15 +10,15 @@ function GenresBlock({ genres }: GenresBlockProps) {
   const { t } = useLingui();
   const [selected, setSelected] = useState<Record<number, boolean>>(() => {
     const storedGenres = localStorage.getItem("favoriteGenres");
-    if (storedGenres) {
-      const parsedGenres = JSON.parse(storedGenres);
-      const initialSelectedState: Record<number, boolean> = {};
-      parsedGenres.forEach((id: number) => {
-        initialSelectedState[id] = true;
-      });
-      return initialSelectedState;
+    if (!storedGenres) {
+      return [];
     }
-    return [];
+    const parsedGenres = JSON.parse(storedGenres);
+    const initialSelectedState: Record<number, boolean> = {};
+    parsedGenres.forEach((id: number) => {
+      initialSelectedState[id] = true;
+    });
+    return initialSelectedState;
   });
 
   useEffect(() => {

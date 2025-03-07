@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useLocale } from "../localeContext";
+import { useLocale } from "@contexts/localeContext";
 
 export interface Genre {
   id: number;

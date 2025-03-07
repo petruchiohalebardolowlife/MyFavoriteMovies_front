@@ -2,16 +2,16 @@ import { useState } from "react";
 import logo from "../../assets/logo.jpg";
 import { Form } from "react-final-form";
 import { useNavigate } from "react-router-dom";
-import InputField from "../../components/InputField";
+import InputField from "@components/InputField";
 import { useLingui } from "@lingui/react/macro";
-import { useAuth } from "../../authContext";
+import { useAuth } from "@contexts/authContext";
 
 interface SignInFormValues {
   username: string;
   password: string;
 }
 
-function SignInForm() {
+function SignInPage() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const { t } = useLingui();
@@ -81,4 +81,4 @@ function SignInForm() {
   );
 }
 
-export default SignInForm;
+export default SignInPage;

@@ -50,6 +50,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = () => {
     sessionStorage.removeItem("authToken");
+    setUser(null);
   };
 
   return (

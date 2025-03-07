@@ -1,8 +1,7 @@
 import { useLingui } from "@lingui/react/macro";
-import { useFetchGenres } from "../../services/tmdbQuery";
-import GenresBlock from "./GenresBlock";
-import FavoriteMoviesBlock from "./FavMoviesBlock";
-import Logout from "./Logout";
+import { useFetchGenres } from "@services/tmdbQuery";
+import GenresBlock from "./components/GenresBlock";
+import FavoriteMoviesBlock from "./components/FavoriteMovieBlock";
 
 function MainPage() {
   const { t } = useLingui();
@@ -13,7 +12,6 @@ function MainPage() {
 
   return (
     <>
-      <Logout />
       <GenresBlock genres={genres} />
       <FavoriteMoviesBlock genres={genres} />
     </>
