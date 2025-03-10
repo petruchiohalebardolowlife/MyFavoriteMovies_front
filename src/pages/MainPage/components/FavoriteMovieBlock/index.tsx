@@ -1,14 +1,12 @@
 import { useLingui } from "@lingui/react/macro";
 import { useNavigate } from "react-router-dom";
-import { List, Grid, X, Eye } from "lucide-react";
 import { useEffect, useState } from "react";
 import Button from "@components/Button.tsx";
-import NameOfGenres from "./components/NameOfGenres";
 import { Genre } from "@services/tmdbQuery.ts";
+import ViewButton from "@components/ViewButton";
+import OneFavoriteMovie from "./components/OneMovie";
 
-const API_PICS = import.meta.env.VITE_PICS_URL;
-
-interface FavoriteMovie {
+export interface FavoriteMovie {
   id: number;
   title: string;
   posterPath: string;
@@ -24,7 +22,7 @@ interface FavoriteMoviesBlockProps {
 function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   const { t } = useLingui();
   const [favoriteMovies, setFavoriteMovies] = useState<FavoriteMovie[]>([]);
-  const [view, setView] = useState<"list" | "grid">("list");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("list");
   const navigate = useNavigate();
   const addMovieClick = () => {
     navigate("/searchmovies");
@@ -61,52 +59,26 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   return (
     <>
       <div className="flex flex-row-reverse my-7 p-2 max-w">
-        <Button onClick={() => setView("grid")} isActive={view === "grid"}>
-          <Grid size={24} />
-        </Button>
-        <Button onClick={() => setView("list")} isActive={view === "list"}>
-          <List size={24} />
-        </Button>
+        <ViewButton setViewMode={setViewMode} viewMode={viewMode} />
         <Button onClick={addMovieClick}>{t`Add movie`}</Button>
         <h1 className="mx-8 my-2 text-2xl font-medium flex-grow flex justify-center items-center">{t`Your favorite movies`}</h1>
       </div>
-      <div className="flex flex-col gap-6 mx-4">
+      <div
+        className={`${
+          viewMode === "grid"
+            ? "grid grid-cols-3 grid-rows-3 gap-4"
+            : "flex flex-col flex-wrap gap-6 mx-4"
+        }`}
+      >
         {favoriteMovies?.map((favMovie) => (
-          <div
-            key={favMovie.id}
-            className={`${
-              favMovie.watchedStatus ? "grayscale opacity-50" : ""
-            } flex flex-row items-center gap-4 justify-between border border-gray-400 rounded-lg bg-gray-100 px-2 text-xl`}
-          >
-            <span>{favoriteMovies.indexOf(favMovie) + 1 + "."}</span>
-            <p className="break-words overflow-hidden">{favMovie.title}</p>
-            <img
-              className="my-2 max-h-64"
-              alt={`poster of ${favMovie.title}`}
-              src={API_PICS + favMovie.posterPath}
-            />
-            <span className="text-center">{t`Primary release year: ${favMovie.releaseDate.slice(
-              0,
-              4
-            )}`}</span>
-            <div className="flex flex-col">
-              <NameOfGenres genreIDs={favMovie.genreIDs} genres={genres} />
-            </div>
-            <div className="flex flex-row gap-2">
-              <Button
-                onClick={() => toggleWatchedStatus(favMovie.id)}
-                buttonView="square"
-              >
-                <Eye size={24} />
-              </Button>
-              <Button
-                onClick={() => deleteHandleClick(favMovie.id)}
-                buttonView="square"
-              >
-                <X size={24} />
-              </Button>
-            </div>
-          </div>
+          <OneFavoriteMovie
+            favMovie={favMovie}
+            viewMode={viewMode}
+            toggleWatchedStatus={toggleWatchedStatus}
+            deleteHandleClick={deleteHandleClick}
+            genres={genres}
+            number={favoriteMovies.indexOf(favMovie) + 1 + "."}
+          ></OneFavoriteMovie>
         ))}
       </div>
     </>
