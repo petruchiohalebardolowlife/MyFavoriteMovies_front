@@ -7,6 +7,7 @@ interface MainPageProps {
   viewMode: "grid" | "list";
   setViewMode: (viewMode: "grid" | "list") => void;
 }
+
 function MainPage({ viewMode, setViewMode }: MainPageProps) {
   const { t } = useLingui();
   const { isPending, error, data: genres } = useFetchGenres();
