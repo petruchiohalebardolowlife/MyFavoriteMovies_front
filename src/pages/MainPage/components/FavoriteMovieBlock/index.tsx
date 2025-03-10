@@ -17,12 +17,17 @@ export interface FavoriteMovie {
 
 interface FavoriteMoviesBlockProps {
   genres: Genre[];
+  viewMode: "grid" | "list";
+  setViewMode: (viewMode: "grid" | "list") => void;
 }
 
-function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
+function FavoriteMoviesBlock({
+  genres,
+  setViewMode,
+  viewMode,
+}: FavoriteMoviesBlockProps) {
   const { t } = useLingui();
   const [favoriteMovies, setFavoriteMovies] = useState<FavoriteMovie[]>([]);
-  const [viewMode, setViewMode] = useState<"grid" | "list">("list");
   const navigate = useNavigate();
   const addMovieClick = () => {
     navigate("/searchmovies");
@@ -66,12 +71,13 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
       <div
         className={`${
           viewMode === "grid"
-            ? "grid grid-cols-3 grid-rows-3 gap-4"
+            ? "grid grid-cols-4 grid-rows-3 gap-4"
             : "flex flex-col flex-wrap gap-6 mx-4"
         }`}
       >
         {favoriteMovies?.map((favMovie) => (
           <OneFavoriteMovie
+            key={favMovie.id}
             favMovie={favMovie}
             viewMode={viewMode}
             toggleWatchedStatus={toggleWatchedStatus}
