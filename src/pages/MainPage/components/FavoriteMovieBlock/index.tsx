@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Button from "@components/Button.tsx";
 import { Genre } from "@services/tmdbQuery.ts";
 import ViewButton from "@components/ViewButton";
-import OneFavoriteMovie from "./components/OneMovie";
+import OneFavoriteMovie from "./components/OneFavoriteMovie";
 
 export interface FavoriteMovie {
   id: number;
