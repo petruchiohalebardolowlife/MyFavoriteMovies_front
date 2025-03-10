@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useLingui } from "@lingui/react/macro";
+import { useAuth } from "@contexts/authContext";
 
-export function withAuth(WrappedComponent: React.ComponentType<object>) {
-  return function WithAuthComponent(props: object) {
-    const { t } = useLingui()
+export function withAuth<T extends object>(
+  WrappedComponent: React.ComponentType<T>
+) {
+  return function WithAuthComponent(props: T) {
+    const { t } = useLingui();
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(true);
+    const { user, loading } = useAuth();
 
-    useEffect(() => {
-      const userSession = sessionStorage.getItem("authToken");
-      if (!userSession) {
+    React.useEffect(() => {
+      if (!loading && !user) {
         navigate("/signin");
-      } else {
-        setLoading(false);
       }
-    }, [navigate]);
+    }, [loading, user, navigate]);
 
     if (loading) {
       return (
         <p className="flex flex-col items-center justify-center min-h-screen">
-         {t`Loading...`}
+          {t`Loading...`}
         </p>
       );
     }

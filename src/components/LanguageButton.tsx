@@ -1,4 +1,4 @@
-import { useLocale } from "../localeContext";
+import { useLocale } from "@contexts/localeContext";
 
 function LanguageButton({ locale }: { locale: string }) {
   const { setLocale } = useLocale();

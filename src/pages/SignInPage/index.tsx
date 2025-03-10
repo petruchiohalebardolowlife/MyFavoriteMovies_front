@@ -1,28 +1,28 @@
 import { useState } from "react";
-import logo from "../assets/logo.jpg";
+import logo from "../../assets/logo.jpg";
 import { Form } from "react-final-form";
 import { useNavigate } from "react-router-dom";
-import InputField from "../components/InputField";
-import { signIn } from "../services/auth";
+import InputField from "@components/InputField";
 import { useLingui } from "@lingui/react/macro";
-
+import { useAuth } from "@contexts/authContext";
 
 interface SignInFormValues {
   username: string;
   password: string;
 }
 
-function SignInForm() {
+function SignInPage() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const { t } = useLingui();
+  const { login } = useAuth();
 
   const onSubmit = (values: SignInFormValues) => {
-    const result = signIn(values.username, values.password);
-    if (result.success) {
+    const result = login(values.username, values.password);
+    if (result) {
       navigate("/");
     } else {
-      setError(result.error || "");
+      setError(result || "");
     }
   };
 
@@ -49,9 +49,7 @@ function SignInForm() {
             className="bg-white p-6 rounded-lg shadow-md w-96"
           >
             <div className="mb-4">
-              <label className="text-gray-700">
-                {t`Username`}
-              </label>
+              <label className="text-gray-700">{t`Username`}</label>
               <InputField
                 name="username"
                 type="text"
@@ -59,9 +57,7 @@ function SignInForm() {
               />
             </div>
             <div className="mb-4">
-              <label className="text-gray-700">
-                {t`Password`}
-              </label>
+              <label className="text-gray-700">{t`Password`}</label>
               <InputField
                 name="password"
                 type="password"
@@ -85,4 +81,4 @@ function SignInForm() {
   );
 }
 
-export default SignInForm;
+export default SignInPage;
