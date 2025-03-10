@@ -6,7 +6,7 @@ import { Genre } from "@services/tmdbQuery.ts";
 import ViewButton from "@components/ViewButton";
 import OneFavoriteMovie from "./components/OneFavoriteMovie";
 
-interface FavoriteMovie {
+export interface FavoriteMovie {
   id: number;
   title: string;
   posterPath: string;

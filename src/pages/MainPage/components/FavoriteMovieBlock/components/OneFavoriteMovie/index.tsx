@@ -26,46 +26,43 @@ function OneFavoriteMovie({
 }: OneFavoriteMovieProps) {
   const { t } = useLingui();
 
-  if (viewMode === "list")
-    return (
-      <div
-        key={favMovie.id}
-        className={`${
-          favMovie.watchedStatus ? "grayscale opacity-50" : ""
-        } flex flex-row items-center gap-4 justify-between border border-gray-400 rounded-lg bg-gray-100 px-2`}
-      >
-        <span>{number}</span>
-        <p className="break-words overflow-hidden">{favMovie.title}</p>
-        <img
-          className="my-2 max-h-64"
-          alt={`poster of ${favMovie.title}`}
-          src={API_PICS + favMovie.posterPath}
-        />
-        <span className="text-center">{t`Primary release year: ${favMovie.releaseDate.slice(
-          0,
-          4
-        )}`}</span>
-        <div className="flex flex-col">
-          <NameOfGenres genreIDs={favMovie.genreIDs} genres={genres} />
-        </div>
-        <div className="flex flex-row gap-2">
-          <Button
-            onClick={() => toggleWatchedStatus(favMovie.id)}
-            buttonView="square"
-          >
-            <Eye size={24} />
-          </Button>
-          <Button
-            onClick={() => deleteHandleClick(favMovie.id)}
-            buttonView="square"
-          >
-            <X size={24} />
-          </Button>
-        </div>
+  return viewMode === "list" ? (
+    <div
+      key={favMovie.id}
+      className={`${
+        favMovie.watchedStatus ? "grayscale opacity-50" : ""
+      } flex flex-row items-center gap-4 justify-between border border-gray-400 rounded-lg bg-gray-100 px-2`}
+    >
+      <span>{number}</span>
+      <p className="break-words overflow-hidden">{favMovie.title}</p>
+      <img
+        className="my-2 max-h-64"
+        alt={`poster of ${favMovie.title}`}
+        src={API_PICS + favMovie.posterPath}
+      />
+      <span>{t`Primary release year: ${favMovie.releaseDate.slice(
+        0,
+        4
+      )}`}</span>
+      <div className="flex flex-col">
+        <NameOfGenres genreIDs={favMovie.genreIDs} genres={genres} />
       </div>
-    );
-
-  return (
+      <div className="flex flex-row gap-2">
+        <Button
+          onClick={() => toggleWatchedStatus(favMovie.id)}
+          buttonView="square"
+        >
+          <Eye size={24} />
+        </Button>
+        <Button
+          onClick={() => deleteHandleClick(favMovie.id)}
+          buttonView="square"
+        >
+          <X size={24} />
+        </Button>
+      </div>
+    </div>
+  ) : (
     <div
       className={`${
         favMovie.watchedStatus ? "grayscale opacity-50" : ""
@@ -94,10 +91,9 @@ function OneFavoriteMovie({
         </div>
       </div>
       <p className="break-words overflow-hidden">{favMovie.title}</p>
-      <span className="text-center">{t`Primary release year: ${favMovie.releaseDate.slice(
-        0,
-        4
-      )}`}</span>
+      <span className="text-center">
+        {t`Primary release year: ${favMovie.releaseDate.slice(0, 4)}`}
+      </span>
       <div className="flex flex-col">
         <NameOfGenres genreIDs={favMovie.genreIDs} genres={genres} />
       </div>
