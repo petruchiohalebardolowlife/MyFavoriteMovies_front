@@ -52,19 +52,19 @@ msgid "Password cannot be empty"
 msgstr "Пароль не может быть пустым"
 
 #. placeholder {0}: favMovie.title
-#: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/index.tsx:40
+#: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/components/FavoriteMovieListCard/index.tsx:27
 msgid "poster of {0}"
 msgstr "постер {0}"
 
+#. placeholder {0}: favMovie.releaseDate.slice(0, 4)
+#: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/components/FavoriteMovieGridCard/index.tsx:40
+msgid "Primary release year: {0}"
+msgstr "Год премьеры: {0}"
+
 #. placeholder {1}: favMovie.releaseDate.slice(0, 4)
-#: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/index.tsx:44
+#: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/components/FavoriteMovieListCard/index.tsx:31
 msgid "Primary release year: {1}"
 msgstr "Год премьеры: {1}"
-
-#. placeholder {2}: favMovie.releaseDate.slice(0, 4)
-#: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/index.tsx:86
-msgid "Primary release year: {2}"
-msgstr "Год премьеры: {2}"
 
 #: src/pages/SearchMoviesPage/index.tsx:11
 msgid "Search Movies Page"
