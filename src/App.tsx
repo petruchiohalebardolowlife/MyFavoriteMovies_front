@@ -5,23 +5,15 @@ import MainPage from "@pages/MainPage";
 import { withAuth } from "@middlewares/withAuth";
 import Header from "@components/Header";
 import SearchMoviesPage from "@pages/SearchMoviesPage";
-import { useState } from "react";
 
 function App() {
-  const [viewMode, setViewMode] = useState<"grid" | "list">("list");
   return (
     <>
       <Header />
       <Routes>
         <Route path="/signin" element={<SignInPage />} />
-        <Route
-          path="/"
-          element={withAuth(MainPage)({ setViewMode, viewMode })}
-        />
-        <Route
-          path="/searchmovies"
-          element={withAuth(SearchMoviesPage)({ setViewMode, viewMode })}
-        />
+        <Route path="/" element={withAuth(MainPage)({})} />
+        <Route path="/searchmovies" element={withAuth(SearchMoviesPage)({})} />
       </Routes>
     </>
   );

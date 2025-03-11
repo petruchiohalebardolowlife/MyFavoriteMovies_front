@@ -3,12 +3,7 @@ import { useFetchGenres } from "@services/tmdbQuery";
 import GenresBlock from "./components/GenresBlock";
 import FavoriteMoviesBlock from "./components/FavoriteMovieBlock";
 
-interface MainPageProps {
-  viewMode: "grid" | "list";
-  setViewMode: (viewMode: "grid" | "list") => void;
-}
-
-function MainPage({ viewMode, setViewMode }: MainPageProps) {
+function MainPage() {
   const { t } = useLingui();
   const { isPending, error, data: genres } = useFetchGenres();
 
@@ -18,11 +13,7 @@ function MainPage({ viewMode, setViewMode }: MainPageProps) {
   return (
     <>
       <GenresBlock genres={genres} />
-      <FavoriteMoviesBlock
-        genres={genres}
-        viewMode={viewMode}
-        setViewMode={setViewMode}
-      />
+      <FavoriteMoviesBlock genres={genres} />
     </>
   );
 }

@@ -1,18 +1,19 @@
 import Button from "@components/Button.tsx";
 import { List, Grid } from "lucide-react";
+import { ViewModeType } from "types";
 
 interface ViewButtonProps {
-  viewMode: "list" | "grid";
-  setViewMode: (viewMode: "list"|"grid") => void;
+  viewMode: ViewModeType;
+  setViewMode: (viewMode: ViewModeType) => void;
 }
 
-function ViewButton({viewMode, setViewMode}: ViewButtonProps) {
+function ViewButton({ viewMode, setViewMode }: ViewButtonProps) {
   return (
     <>
-      <Button onClick={() => setViewMode("grid")} isActive={viewMode === "grid"}>
+      <Button onClick={() => setViewMode("grid")} isActive={viewMode == "grid"}>
         <Grid size={24} />
       </Button>
-      <Button onClick={() => setViewMode("list")} isActive={viewMode === "list"}>
+      <Button onClick={() => setViewMode("list")} isActive={viewMode == "list"}>
         <List size={24} />
       </Button>
     </>

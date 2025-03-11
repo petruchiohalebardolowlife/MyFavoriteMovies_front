@@ -1,15 +1,15 @@
 import ViewButton from "@components/ViewButton";
+import { useLingui } from "@lingui/react/macro";
+import { useState } from "react";
+import { ViewModeType } from "types";
 
-interface SearchMoviesPageProps {
-  viewMode: "grid" | "list";
-  setViewMode: (viewMode: "grid" | "list") => void;
-}
-
-function SearchMoviesPage({ viewMode, setViewMode }: SearchMoviesPageProps) {
+function SearchMoviesPage() {
+  const [viewMode, setViewMode] = useState<ViewModeType>("list");
+  const { t } = useLingui();
   return (
     <>
-      <div>Search Movies Page</div>
-      <ViewButton viewMode={viewMode} setViewMode={setViewMode}></ViewButton>
+      <h1>{t`Search Movies Page`}</h1>
+      <ViewButton viewMode={viewMode} setViewMode={setViewMode} />
     </>
   );
 }

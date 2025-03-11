@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import Button from "@components/Button.tsx";
 import { Genre } from "@services/tmdbQuery.ts";
 import ViewButton from "@components/ViewButton";
-import OneFavoriteMovie from "./components/OneFavoriteMovie";
+import FavoriteMovieCard from "./components/FavoriteMovieCard";
+import { ViewModeType } from "types";
 
 export interface FavoriteMovie {
   id: number;
@@ -17,21 +18,16 @@ export interface FavoriteMovie {
 
 interface FavoriteMoviesBlockProps {
   genres: Genre[];
-  viewMode: "grid" | "list";
-  setViewMode: (viewMode: "grid" | "list") => void;
 }
 
-function FavoriteMoviesBlock({
-  genres,
-  setViewMode,
-  viewMode,
-}: FavoriteMoviesBlockProps) {
+function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   const { t } = useLingui();
   const [favoriteMovies, setFavoriteMovies] = useState<FavoriteMovie[]>([]);
   const navigate = useNavigate();
   const addMovieClick = () => {
     navigate("/searchmovies");
   };
+  const [viewMode, setViewMode] = useState<ViewModeType>("list");
 
   useEffect(() => {
     const storedFavoriteMovies = JSON.parse(
@@ -54,7 +50,7 @@ function FavoriteMoviesBlock({
     localStorage.setItem("favoriteMovies", JSON.stringify(updatedMovies));
   };
 
-  const deleteHandleClick = (id: number) => {
+  const handleDelete = (id: number) => {
     const updatedMovies = favoriteMovies.filter(
       (favMovie: FavoriteMovie) => favMovie.id !== id
     );
@@ -76,15 +72,15 @@ function FavoriteMoviesBlock({
         }`}
       >
         {favoriteMovies?.map((favMovie) => (
-          <OneFavoriteMovie
+          <FavoriteMovieCard
             key={favMovie.id}
             favMovie={favMovie}
             viewMode={viewMode}
             toggleWatchedStatus={toggleWatchedStatus}
-            deleteHandleClick={deleteHandleClick}
+            handleDelete={handleDelete}
             genres={genres}
             number={favoriteMovies.indexOf(favMovie) + 1 + "."}
-          ></OneFavoriteMovie>
+          />
         ))}
       </div>
     </>
