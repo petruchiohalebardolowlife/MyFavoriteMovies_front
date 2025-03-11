@@ -23,11 +23,11 @@ interface FavoriteMoviesBlockProps {
 function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   const { t } = useLingui();
   const [favoriteMovies, setFavoriteMovies] = useState<FavoriteMovie[]>([]);
+  const [viewMode, setViewMode] = useState<ViewModeType>("list");
   const navigate = useNavigate();
   const addMovieClick = () => {
     navigate("/searchmovies");
   };
-  const [viewMode, setViewMode] = useState<ViewModeType>("list");
 
   useEffect(() => {
     const storedFavoriteMovies = JSON.parse(
