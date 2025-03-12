@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:65
+#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:63
 msgid "Add movie"
 msgstr "Add movie"
 
@@ -34,7 +34,7 @@ msgstr "Hello, {0}"
 msgid "Invalid username or password"
 msgstr "Invalid username or password"
 
-#: src/pages/MainPage/index.tsx:10
+#: src/pages/MainPage/index.tsx:24
 #: src/middlewares/withAuth.tsx:23
 msgid "Loading..."
 msgstr "Loading..."
@@ -87,6 +87,6 @@ msgstr "Username"
 msgid "Username cannot be empty"
 msgstr "Username cannot be empty"
 
-#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:66
+#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:64
 msgid "Your favorite movies"
 msgstr "Your favorite movies"

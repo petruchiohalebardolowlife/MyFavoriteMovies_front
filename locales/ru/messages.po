@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:65
+#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:63
 msgid "Add movie"
 msgstr "Добавить"
 
@@ -34,7 +34,7 @@ msgstr "Привет, {0}"
 msgid "Invalid username or password"
 msgstr "Неверное имя пользователя или пароль"
 
-#: src/pages/MainPage/index.tsx:10
+#: src/pages/MainPage/index.tsx:24
 #: src/middlewares/withAuth.tsx:23
 msgid "Loading..."
 msgstr "Загрузка..."
@@ -87,6 +87,6 @@ msgstr "Имя пользователя"
 msgid "Username cannot be empty"
 msgstr "Имя пользователя не может быть пустым"
 
-#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:66
+#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:64
 msgid "Your favorite movies"
 msgstr "Ваши любимые фильмы"

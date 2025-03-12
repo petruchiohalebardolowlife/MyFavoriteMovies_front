@@ -1,41 +1,39 @@
 import { useLingui } from "@lingui/react/macro";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "@components/Button.tsx";
 import { Genre } from "@services/tmdbQuery.ts";
 import ViewButton from "@components/ViewButton";
 import FavoriteMovieCard from "./components/FavoriteMovieCard";
 import { ViewModeType } from "types";
 import { GRID_VIEW, LIST_VIEW } from "@components/constants";
-
-export interface FavoriteMovie {
-  id: number;
-  title: string;
-  posterPath: string;
-  genreIDs: number[];
-  releaseDate: string;
-  watchedStatus: boolean;
-}
+import { FavoriteMovie } from "types";
+import { MOVIES_PER_PAGE } from "@components/constants";
 
 interface FavoriteMoviesBlockProps {
   genres: Genre[];
+  favoriteMovies: FavoriteMovie[];
+  setFavoriteMovies: (movies: FavoriteMovie[]) => void;
+  currentPage: number;
 }
 
-function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
+function FavoriteMoviesBlock({
+  genres,
+  favoriteMovies,
+  setFavoriteMovies,
+  currentPage,
+}: FavoriteMoviesBlockProps) {
   const { t } = useLingui();
-  const [favoriteMovies, setFavoriteMovies] = useState<FavoriteMovie[]>([]);
   const [viewMode, setViewMode] = useState<ViewModeType>(LIST_VIEW);
   const navigate = useNavigate();
   const addMovieClick = () => {
     navigate("/searchmovies");
   };
 
-  useEffect(() => {
-    const storedFavoriteMovies = JSON.parse(
-      localStorage.getItem("favoriteMovies") || "[]"
-    );
-    setFavoriteMovies(storedFavoriteMovies);
-  }, []);
+  const favoriteMoviesForRender = favoriteMovies.slice(
+    (currentPage - 1) * MOVIES_PER_PAGE,
+    currentPage * MOVIES_PER_PAGE
+  );
 
   const toggleWatchedStatus = (id: number) => {
     const updatedMovies = favoriteMovies.map((movie) => {
@@ -72,7 +70,7 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
             : "flex flex-col flex-wrap gap-6 mx-4"
         }`}
       >
-        {favoriteMovies?.map((favMovie) => (
+        {favoriteMoviesForRender?.map((favMovie) => (
           <FavoriteMovieCard
             key={favMovie.id}
             favMovie={favMovie}
