@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:64
+#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:65
 msgid "Add movie"
 msgstr "Add movie"
 
@@ -53,20 +53,21 @@ msgstr "Password cannot be empty"
 
 #. placeholder {0}: favMovie.title
 #: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/components/FavoriteMovieListCard/index.tsx:27
+#: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/components/FavoriteMovieGridCard/index.tsx:27
 msgid "poster of {0}"
 msgstr "poster of {0}"
 
-#. placeholder {0}: favMovie.releaseDate.slice(0, 4)
 #: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/components/FavoriteMovieGridCard/index.tsx:40
-msgid "Primary release year: {0}"
-msgstr "Primary release year: {0}"
+#~ msgid "Primary release year: {0}"
+#~ msgstr "Primary release year: {0}"
 
 #. placeholder {1}: favMovie.releaseDate.slice(0, 4)
 #: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/components/FavoriteMovieListCard/index.tsx:31
+#: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/components/FavoriteMovieGridCard/index.tsx:40
 msgid "Primary release year: {1}"
 msgstr "Primary release year: {1}"
 
-#: src/pages/SearchMoviesPage/index.tsx:11
+#: src/pages/SearchMoviesPage/index.tsx:12
 msgid "Search Movies Page"
 msgstr "Search Movies Page"
 
@@ -86,6 +87,6 @@ msgstr "Username"
 msgid "Username cannot be empty"
 msgstr "Username cannot be empty"
 
-#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:65
+#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:66
 msgid "Your favorite movies"
 msgstr "Your favorite movies"

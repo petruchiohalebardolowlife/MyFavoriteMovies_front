@@ -3,6 +3,7 @@ import { Genre } from "@services/tmdbQuery";
 import { ViewModeType } from "types";
 import FavoriteMovieListCard from "./components/FavoriteMovieListCard";
 import FavoriteMovieGridCard from "./components/FavoriteMovieGridCard";
+import { LIST_VIEW } from "@components/constants";
 
 export interface FavoriteMovieCardProps {
   favMovie: FavoriteMovie;
@@ -21,7 +22,7 @@ function FavoriteMovieCard({
   genres,
   number,
 }: FavoriteMovieCardProps) {
-  return viewMode === "list" ? (
+  return viewMode === LIST_VIEW ? (
     <FavoriteMovieListCard
       favMovie={favMovie}
       toggleWatchedStatus={toggleWatchedStatus}

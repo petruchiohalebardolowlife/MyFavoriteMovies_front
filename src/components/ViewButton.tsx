@@ -1,6 +1,7 @@
 import Button from "@components/Button.tsx";
 import { List, Grid } from "lucide-react";
 import { ViewModeType } from "types";
+import { GRID_VIEW, ICON_SIZE, LIST_VIEW } from "./constants";
 
 interface ViewButtonProps {
   viewMode: ViewModeType;
@@ -10,11 +11,17 @@ interface ViewButtonProps {
 function ViewButton({ viewMode, setViewMode }: ViewButtonProps) {
   return (
     <>
-      <Button onClick={() => setViewMode("grid")} isActive={viewMode == "grid"}>
-        <Grid size={24} />
+      <Button
+        onClick={() => setViewMode(GRID_VIEW)}
+        isActive={viewMode == GRID_VIEW}
+      >
+        <Grid size={ICON_SIZE} />
       </Button>
-      <Button onClick={() => setViewMode("list")} isActive={viewMode == "list"}>
-        <List size={24} />
+      <Button
+        onClick={() => setViewMode(LIST_VIEW)}
+        isActive={viewMode == LIST_VIEW}
+      >
+        <List size={ICON_SIZE} />
       </Button>
     </>
   );

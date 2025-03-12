@@ -1,4 +1,5 @@
 import Button from "@components/Button";
+import { ICON_SIZE } from "@components/constants";
 import { X, Eye } from "lucide-react";
 
 interface CardButtondProps {
@@ -7,17 +8,18 @@ interface CardButtondProps {
   movieid: number;
 }
 
-function FavoriteMovieCardButtons({ toggleWatchedStatus, handleDelete, movieid }: CardButtondProps) {
+function FavoriteMovieCardButtons({
+  toggleWatchedStatus,
+  handleDelete,
+  movieid,
+}: CardButtondProps) {
   return (
     <>
-      <Button
-        onClick={() => toggleWatchedStatus(movieid)}
-        buttonView="square"
-      >
-        <Eye size={24} />
+      <Button onClick={() => toggleWatchedStatus(movieid)} buttonView="square">
+        <Eye size={ICON_SIZE} />
       </Button>
       <Button onClick={() => handleDelete(movieid)} buttonView="square">
-        <X size={24} />
+        <X size={ICON_SIZE} />
       </Button>
     </>
   );

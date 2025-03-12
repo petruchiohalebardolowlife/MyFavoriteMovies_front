@@ -6,6 +6,7 @@ import { Genre } from "@services/tmdbQuery.ts";
 import ViewButton from "@components/ViewButton";
 import FavoriteMovieCard from "./components/FavoriteMovieCard";
 import { ViewModeType } from "types";
+import { GRID_VIEW, LIST_VIEW } from "@components/constants";
 
 export interface FavoriteMovie {
   id: number;
@@ -23,7 +24,7 @@ interface FavoriteMoviesBlockProps {
 function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   const { t } = useLingui();
   const [favoriteMovies, setFavoriteMovies] = useState<FavoriteMovie[]>([]);
-  const [viewMode, setViewMode] = useState<ViewModeType>("list");
+  const [viewMode, setViewMode] = useState<ViewModeType>(LIST_VIEW);
   const navigate = useNavigate();
   const addMovieClick = () => {
     navigate("/searchmovies");
@@ -66,7 +67,7 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
       </div>
       <div
         className={`${
-          viewMode === "grid"
+          viewMode === GRID_VIEW
             ? "grid grid-cols-4 grid-rows-3 gap-4"
             : "flex flex-col flex-wrap gap-6 mx-4"
         }`}

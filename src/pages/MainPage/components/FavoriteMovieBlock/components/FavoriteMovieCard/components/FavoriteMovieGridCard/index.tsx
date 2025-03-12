@@ -24,7 +24,7 @@ function FavoriteMovieGridCard({
       <div className="flex flex-row gap-4">
         <img
           className="my-2 max-h-64 mx-auto"
-          alt={`poster of ${favMovie.title}`}
+          alt={t`poster of ${favMovie.title}`}
           src={API_PICS + favMovie.posterPath}
         />
         <div className="flex flex-col">
