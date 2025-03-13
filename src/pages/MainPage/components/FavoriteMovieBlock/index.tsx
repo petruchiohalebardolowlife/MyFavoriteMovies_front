@@ -8,7 +8,6 @@ import FavoriteMovieCard from "./components/FavoriteMovieCard";
 import { ViewModeType } from "types";
 import { GRID_VIEW, LIST_VIEW } from "@components/constants";
 import { FavoriteMovie } from "types";
-import { MOVIES_PER_PAGE } from "@components/constants";
 import getPaginatedFavoriteMovies from "@services/getFavoriteMoviesPage";
 import Pagination from "@components/Pagination";
 import { START_PAGE } from "@components/constants";
@@ -70,7 +69,7 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
       <div
         className={`${
           viewMode === GRID_VIEW
-            ? "grid grid-cols-4gr gap-4"
+            ? "grid grid-cols-4 gr gap-4"
             : "flex flex-col flex-wrap gap-6 mx-4"
         }`}
       >

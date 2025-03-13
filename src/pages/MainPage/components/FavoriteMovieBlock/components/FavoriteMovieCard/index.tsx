@@ -1,4 +1,4 @@
-import { FavoriteMovie } from "../..";
+import { FavoriteMovie } from "types";
 import { Genre } from "@services/tmdbQuery";
 import { ViewModeType } from "types";
 import FavoriteMovieListCard from "./components/FavoriteMovieListCard";
@@ -12,6 +12,7 @@ export interface FavoriteMovieCardProps {
   handleDelete: (id: number) => void;
   genres: Genre[];
   number: string;
+  isFavorite: boolean;
 }
 
 function FavoriteMovieCard({
@@ -29,6 +30,7 @@ function FavoriteMovieCard({
       handleDelete={handleDelete}
       genres={genres}
       number={number}
+      isFavorite={false}
     />
   ) : (
     <FavoriteMovieGridCard
@@ -37,6 +39,7 @@ function FavoriteMovieCard({
       handleDelete={handleDelete}
       genres={genres}
       number={number}
+      isFavorite={false}
     />
   );
 }

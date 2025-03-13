@@ -8,14 +8,15 @@ export interface Genre {
 export interface Movie {
   id: number;
   title: string;
-  posterPath: string;
-  genreIDs: number[];
-  releaseDate: string;
+  poster_path: string;
+  genre_ids: number[];
+  release_date: string;
 }
 
 interface FilteredMoviesResponse {
   page: number;
   results: Movie[];
+  total_pages: number;
 }
 
 interface GenreResponse {
@@ -24,7 +25,7 @@ interface GenreResponse {
 
 interface FilterParams {
   page?: number;
-  withGenres?: string[];
+  withGenres?: number[];
   primaryReleaseYear?: number;
   voteAverageGte?: number;
 }
@@ -85,7 +86,8 @@ export const useFetchMovies = (filters: FilterParams) => {
       if (!response.ok) {
         console.error("Error fetching movies");
       }
-      return response.json();
+      const data: FilteredMoviesResponse = await response.json();
+      return data;
     },
   });
 };
