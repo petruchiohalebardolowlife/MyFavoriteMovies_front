@@ -70,7 +70,7 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
       <div
         className={`${
           viewMode === GRID_VIEW
-            ? "grid grid-cols-4 gap-4"
+            ? "grid grid-cols-4gr gap-4"
             : "flex flex-col flex-wrap gap-6 mx-4"
         }`}
       >
@@ -82,12 +82,7 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
             toggleWatchedStatus={toggleWatchedStatus}
             handleDelete={handleDelete}
             genres={genres}
-            number={
-              (currentPage - 1) * MOVIES_PER_PAGE +
-              moviesOnPage.indexOf(favMovie) +
-              1 +
-              "."
-            }
+            number={moviesOnPage.indexOf(favMovie) + 1 + "."}
           />
         ))}
       </div>
