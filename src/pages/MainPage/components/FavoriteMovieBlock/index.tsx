@@ -7,15 +7,11 @@ import ViewButton from "@components/ViewButton";
 import FavoriteMovieCard from "./components/FavoriteMovieCard";
 import { ViewModeType } from "types";
 import { GRID_VIEW, LIST_VIEW } from "@components/constants";
-
-export interface FavoriteMovie {
-  id: number;
-  title: string;
-  posterPath: string;
-  genreIDs: number[];
-  releaseDate: string;
-  watchedStatus: boolean;
-}
+import { FavoriteMovie } from "types";
+import { MOVIES_PER_PAGE } from "@components/constants";
+import getPaginatedFavoriteMovies from "@services/getFavoriteMoviesPage";
+import Pagination from "@components/Pagination";
+import { START_PAGE } from "@components/constants";
 
 interface FavoriteMoviesBlockProps {
   genres: Genre[];
@@ -23,19 +19,25 @@ interface FavoriteMoviesBlockProps {
 
 function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   const { t } = useLingui();
-  const [favoriteMovies, setFavoriteMovies] = useState<FavoriteMovie[]>([]);
   const [viewMode, setViewMode] = useState<ViewModeType>(LIST_VIEW);
+  const [currentPage, setPage] = useState(START_PAGE);
+  const [moviesOnPage, setMoviesOnPage] = useState<FavoriteMovie[]>([]);
+  const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
   const addMovieClick = () => {
     navigate("/searchmovies");
   };
 
+  const [favoriteMovies, setFavoriteMovies] = useState<FavoriteMovie[]>(
+    JSON.parse(localStorage.getItem("favoriteMovies") || "[]")
+  );
+
   useEffect(() => {
-    const storedFavoriteMovies = JSON.parse(
-      localStorage.getItem("favoriteMovies") || "[]"
-    );
-    setFavoriteMovies(storedFavoriteMovies);
-  }, []);
+    const { paginatedFavoriteMovies, totalPages } =
+      getPaginatedFavoriteMovies(currentPage);
+    setMoviesOnPage(paginatedFavoriteMovies);
+    setTotalPages(totalPages);
+  }, [currentPage, favoriteMovies]);
 
   const toggleWatchedStatus = (id: number) => {
     const updatedMovies = favoriteMovies.map((movie) => {
@@ -68,11 +70,11 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
       <div
         className={`${
           viewMode === GRID_VIEW
-            ? "grid grid-cols-4 grid-rows-3 gap-4"
+            ? "grid grid-cols-4gr gap-4"
             : "flex flex-col flex-wrap gap-6 mx-4"
         }`}
       >
-        {favoriteMovies?.map((favMovie) => (
+        {moviesOnPage?.map((favMovie) => (
           <FavoriteMovieCard
             key={favMovie.id}
             favMovie={favMovie}
@@ -80,10 +82,15 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
             toggleWatchedStatus={toggleWatchedStatus}
             handleDelete={handleDelete}
             genres={genres}
-            number={favoriteMovies.indexOf(favMovie) + 1 + "."}
+            number={moviesOnPage.indexOf(favMovie) + 1 + "."}
           />
         ))}
       </div>
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        setPage={setPage}
+      />
     </>
   );
 }
