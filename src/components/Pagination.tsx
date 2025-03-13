@@ -21,7 +21,7 @@ function Pagination({ totalPages, currentPage, setPage }: PaginationProps) {
           >
             {START_PAGE}
           </Button>
-          {!(Math.min(...listOfPages) - 1 === START_PAGE) ? (
+          {Math.min(...listOfPages) - 1 !== START_PAGE ? (
             <Ellipsis size={ICON_SIZE} />
           ) : null}
         </>
@@ -37,7 +37,7 @@ function Pagination({ totalPages, currentPage, setPage }: PaginationProps) {
       ))}
       {!listOfPages.includes(totalPages) ? (
         <>
-          {!(Math.max(...listOfPages) + 1 === totalPages) ? (
+          {Math.max(...listOfPages) + 1 !== totalPages ? (
             <Ellipsis size={ICON_SIZE} />
           ) : null}
           <Button

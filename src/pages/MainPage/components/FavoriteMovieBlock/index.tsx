@@ -1,6 +1,6 @@
 import { useLingui } from "@lingui/react/macro";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@components/Button.tsx";
 import { Genre } from "@services/tmdbQuery.ts";
 import ViewButton from "@components/ViewButton";
@@ -9,31 +9,35 @@ import { ViewModeType } from "types";
 import { GRID_VIEW, LIST_VIEW } from "@components/constants";
 import { FavoriteMovie } from "types";
 import { MOVIES_PER_PAGE } from "@components/constants";
+import getPaginatedFavoriteMovies from "@services/getFavoriteMoviesPage";
+import Pagination from "@components/Pagination";
+import { START_PAGE } from "@components/constants";
 
 interface FavoriteMoviesBlockProps {
   genres: Genre[];
-  favoriteMovies: FavoriteMovie[];
-  setFavoriteMovies: (movies: FavoriteMovie[]) => void;
-  currentPage: number;
 }
 
-function FavoriteMoviesBlock({
-  genres,
-  favoriteMovies,
-  setFavoriteMovies,
-  currentPage,
-}: FavoriteMoviesBlockProps) {
+function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   const { t } = useLingui();
   const [viewMode, setViewMode] = useState<ViewModeType>(LIST_VIEW);
+  const [currentPage, setPage] = useState(START_PAGE);
+  const [moviesOnPage, setMoviesOnPage] = useState<FavoriteMovie[]>([]);
+  const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
   const addMovieClick = () => {
     navigate("/searchmovies");
   };
 
-  const favoriteMoviesForRender = favoriteMovies.slice(
-    (currentPage - 1) * MOVIES_PER_PAGE,
-    currentPage * MOVIES_PER_PAGE
+  const [favoriteMovies, setFavoriteMovies] = useState<FavoriteMovie[]>(
+    JSON.parse(localStorage.getItem("favoriteMovies") || "[]")
   );
+
+  useEffect(() => {
+    const { paginatedFavoriteMovies, totalPages } =
+      getPaginatedFavoriteMovies(currentPage);
+    setMoviesOnPage(paginatedFavoriteMovies);
+    setTotalPages(totalPages);
+  }, [currentPage]);
 
   const toggleWatchedStatus = (id: number) => {
     const updatedMovies = favoriteMovies.map((movie) => {
@@ -70,7 +74,7 @@ function FavoriteMoviesBlock({
             : "flex flex-col flex-wrap gap-6 mx-4"
         }`}
       >
-        {favoriteMoviesForRender?.map((favMovie) => (
+        {moviesOnPage?.map((favMovie) => (
           <FavoriteMovieCard
             key={favMovie.id}
             favMovie={favMovie}
@@ -78,10 +82,20 @@ function FavoriteMoviesBlock({
             toggleWatchedStatus={toggleWatchedStatus}
             handleDelete={handleDelete}
             genres={genres}
-            number={favoriteMovies.indexOf(favMovie) + 1 + "."}
+            number={
+              (currentPage - 1) * MOVIES_PER_PAGE +
+              moviesOnPage.indexOf(favMovie) +
+              1 +
+              "."
+            }
           />
         ))}
       </div>
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        setPage={setPage}
+      />
     </>
   );
 }
