@@ -1,8 +1,8 @@
 import { LIST_VIEW } from "@components/constants";
 import ViewButton from "@components/ViewButton";
 import { useLingui } from "@lingui/react/macro";
-import { useState } from "react";
-import { ViewModeType } from "types";
+import { useState, useEffect } from "react";
+import { Movie, ViewModeType } from "types";
 import AddMoviesBlock from "./components/AddMoviesBlock";
 import { useFetchGenres } from "@services/tmdbQuery";
 
@@ -10,9 +10,20 @@ function SearchMoviesPage() {
   const [viewMode, setViewMode] = useState<ViewModeType>(LIST_VIEW);
   const { t } = useLingui();
   const { isPending, error, data: genres } = useFetchGenres();
+  const [favoriteMovies, setFavoriteMovies] = useState<Movie[]>(() => {
+    return JSON.parse(localStorage.getItem("favoriteMovies") || "[]");
+  });
+
+  const handleAdd = (movie: Movie) => {
+    setFavoriteMovies((prevState) => [...prevState, movie]);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("favoriteMovies", JSON.stringify(favoriteMovies));
+  }, [favoriteMovies]);
 
   if (isPending) return <div>{t`Loading...`}</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) return <div>{t`Error: {error.message}`}</div>;
 
   return (
     <>
@@ -20,7 +31,11 @@ function SearchMoviesPage() {
       <div className="flex flex-row-reverse">
         <ViewButton viewMode={viewMode} setViewMode={setViewMode} />
       </div>
-      <AddMoviesBlock genres={genres} viewMode={viewMode}></AddMoviesBlock>
+      <AddMoviesBlock
+        genres={genres}
+        viewMode={viewMode}
+        handleAdd={handleAdd}
+      ></AddMoviesBlock>
     </>
   );
 }

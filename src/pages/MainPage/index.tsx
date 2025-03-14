@@ -8,7 +8,7 @@ function MainPage() {
   const { isPending, error, data: genres } = useFetchGenres();
 
   if (isPending) return <div>{t`Loading...`}</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) return <div>{t`Error: {error.message}`}</div>;
 
   return (
     <>

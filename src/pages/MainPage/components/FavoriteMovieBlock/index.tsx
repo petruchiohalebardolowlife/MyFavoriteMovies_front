@@ -9,7 +9,7 @@ import { ViewModeType, FavoriteMovie } from "types";
 import { GRID_VIEW, LIST_VIEW, START_PAGE } from "@components/constants";
 import getPaginatedFavoriteMovies from "@services/getFavoriteMoviesPage";
 import Pagination from "@components/Pagination";
-import FavoriteMovieCardButtons from "./components/FavoriteMovieCardButtoms";
+import FavoriteMovieCardButtons from "./components/FavoriteMovieCardButtons";
 
 interface FavoriteMoviesBlockProps {
   genres: Genre[];

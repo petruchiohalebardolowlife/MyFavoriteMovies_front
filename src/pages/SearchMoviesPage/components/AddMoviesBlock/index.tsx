@@ -7,13 +7,14 @@ import Pagination from "@components/Pagination";
 import { START_PAGE } from "@components/constants";
 import GenresBlock from "@components/GenresBlock";
 import MovieCard from "@components/MovieCard";
-import Button from "@components/Button";
-import { ViewModeType } from "types";
+import { Movie, ViewModeType } from "types";
 import { GRID_VIEW } from "@components/constants";
+import AddMovieButton from "./components/AddMovieButton";
 
 interface AddMoviesBlockProps {
   genres: Genre[];
   viewMode: ViewModeType;
+  handleAdd: (movie: Movie) => void;
 }
 
 interface SelectOption {
@@ -21,7 +22,7 @@ interface SelectOption {
   label: string;
 }
 
-function AddMoviesBlock({ genres, viewMode }: AddMoviesBlockProps) {
+function AddMoviesBlock({ genres, viewMode, handleAdd }: AddMoviesBlockProps) {
   const [rating, setRating] = useState(0);
   const [currentPage, setPage] = useState(START_PAGE);
   const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
@@ -58,7 +59,7 @@ function AddMoviesBlock({ genres, viewMode }: AddMoviesBlockProps) {
     withGenres: selected,
   });
 
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) return <div>{t`Error: {error.message}`}</div>;
 
   return (
     <div>
@@ -115,9 +116,7 @@ function AddMoviesBlock({ genres, viewMode }: AddMoviesBlockProps) {
               genres={genres}
               viewMode={viewMode}
               number={response.results.indexOf(movie) + 1 + "."}
-              buttons={
-                <Button onClick={() => {}} children={<span>CLICK ME</span>} />
-              }
+              buttons={<AddMovieButton movie={movie} handleAdd={handleAdd} />}
             />
           ))
         )}
