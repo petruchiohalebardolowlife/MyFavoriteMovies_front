@@ -3,17 +3,17 @@ import Select from "react-select";
 import getYears from "@utils/getYears";
 import { Genre, useFetchMovies } from "@services/tmdbQuery";
 import { useLingui } from "@lingui/react/macro";
-import { API_PICS } from "@components/constants";
 import Pagination from "@components/Pagination";
 import { START_PAGE } from "@components/constants";
 import GenresBlock from "@components/GenresBlock";
+import MovieCard from "@components/MovieCard";
+import Button from "@components/Button";
+import { ViewModeType } from "types";
+import { GRID_VIEW } from "@components/constants";
 
-interface FilterParams {
-  page?: number;
-  withGenres?: number[];
-  primaryReleaseYear?: number;
-  voteAverageGte?: number;
+interface AddMoviesBlockProps {
   genres: Genre[];
+  viewMode: ViewModeType;
 }
 
 interface SelectOption {
@@ -21,13 +21,7 @@ interface SelectOption {
   label: string;
 }
 
-function FiltersBlock({
-  page,
-  withGenres,
-  primaryReleaseYear,
-  voteAverageGte,
-  genres,
-}: FilterParams) {
+function AddMoviesBlock({ genres, viewMode }: AddMoviesBlockProps) {
   const [rating, setRating] = useState(0);
   const [currentPage, setPage] = useState(START_PAGE);
   const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
@@ -41,6 +35,10 @@ function FiltersBlock({
     setSelected(JSON.parse(localStorage.getItem("favoriteGenres") || "[]"));
   }, []);
 
+  useEffect(() => {
+    setPage(START_PAGE);
+  }, [selectedOption, rating]);
+
   const toggleGenreForFilter = (id: number) => {
     setSelected((prevState) =>
       prevState.includes(id)
@@ -49,10 +47,14 @@ function FiltersBlock({
     );
   };
 
-  const { isPending, error, data } = useFetchMovies({
+  const {
+    isPending,
+    error,
+    data: response,
+  } = useFetchMovies({
     page: currentPage,
-    primaryReleaseYear: 2024,
-    voteAverageGte: 7,
+    primaryReleaseYear: selectedOption?.value,
+    voteAverageGte: rating,
     withGenres: selected,
   });
 
@@ -96,26 +98,41 @@ function FiltersBlock({
       </div>
 
       {/* СПИСОК ФИЛЬМОВ */}
-      <div className="flex flex-row">
+
+      <div
+        className={`${
+          viewMode === GRID_VIEW
+            ? "grid grid-cols-4 gr gap-4"
+            : "flex flex-col flex-wrap gap-6 mx-4"
+        }`}
+      >
         {isPending ? (
           <span>{t`Loading...`}</span>
         ) : (
-          data?.results.map((movie) => (
-            <div key={movie.id}>
-              <img src={API_PICS + movie.poster_path} alt={movie.title} />
-            </div>
+          response?.results.map((movie) => (
+            <MovieCard
+              movie={movie}
+              genres={genres}
+              viewMode={viewMode}
+              number={response.results.indexOf(movie) + 1 + "."}
+              buttons={
+                <Button onClick={() => {}} children={<span>CLICK ME</span>} />
+              }
+            />
           ))
         )}
       </div>
 
+      <></>
+
       {/* ПАГИНАЦИЯ */}
       <Pagination
         currentPage={currentPage}
-        totalPages={data?.total_pages || 1}
+        totalPages={response?.totalPages || START_PAGE}
         setPage={setPage}
       />
     </div>
   );
 }
 
-export default FiltersBlock;
+export default AddMoviesBlock;

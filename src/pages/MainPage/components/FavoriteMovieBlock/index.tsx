@@ -4,13 +4,12 @@ import { useEffect, useState } from "react";
 import Button from "@components/Button.tsx";
 import { Genre } from "@services/tmdbQuery.ts";
 import ViewButton from "@components/ViewButton";
-import FavoriteMovieCard from "./components/FavoriteMovieCard";
-import { ViewModeType } from "types";
-import { GRID_VIEW, LIST_VIEW } from "@components/constants";
-import { FavoriteMovie } from "types";
+import MovieCard from "@components/MovieCard";
+import { ViewModeType, FavoriteMovie } from "types";
+import { GRID_VIEW, LIST_VIEW, START_PAGE } from "@components/constants";
 import getPaginatedFavoriteMovies from "@services/getFavoriteMoviesPage";
 import Pagination from "@components/Pagination";
-import { START_PAGE } from "@components/constants";
+import FavoriteMovieCardButtons from "./components/FavoriteMovieCardButtoms";
 
 interface FavoriteMoviesBlockProps {
   genres: Genre[];
@@ -74,14 +73,19 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
         }`}
       >
         {moviesOnPage?.map((favMovie) => (
-          <FavoriteMovieCard
+          <MovieCard
             key={favMovie.id}
-            favMovie={favMovie}
+            movie={favMovie}
             viewMode={viewMode}
-            toggleWatchedStatus={toggleWatchedStatus}
-            handleDelete={handleDelete}
             genres={genres}
             number={moviesOnPage.indexOf(favMovie) + 1 + "."}
+            buttons={
+              <FavoriteMovieCardButtons
+                toggleWatchedStatus={toggleWatchedStatus}
+                handleDelete={handleDelete}
+                movieid={favMovie.id}
+              />
+            }
           />
         ))}
       </div>

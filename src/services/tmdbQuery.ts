@@ -1,21 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocale } from "@contexts/localeContext";
+import { MovieResponse } from "types";
+import { convertAPIResponse } from "@utils/formatAPIData";
+import { FormatResponse } from "@utils/formatAPIData";
 
 export interface Genre {
   id: number;
   name: string;
 }
-export interface Movie {
-  id: number;
-  title: string;
-  poster_path: string;
-  genre_ids: number[];
-  release_date: string;
-}
 
-interface FilteredMoviesResponse {
+export interface APIResponse {
   page: number;
-  results: Movie[];
+  results: MovieResponse[];
   total_pages: number;
 }
 
@@ -59,7 +55,7 @@ export const useFetchGenres = () => {
 export const useFetchMovies = (filters: FilterParams) => {
   const { locale } = useLocale();
   const language = getLanguageFromLocale(locale);
-  return useQuery<FilteredMoviesResponse>({
+  return useQuery<FormatResponse>({
     queryKey: ["movies", filters],
     queryFn: async () => {
       const params = new URLSearchParams({
@@ -86,8 +82,8 @@ export const useFetchMovies = (filters: FilterParams) => {
       if (!response.ok) {
         console.error("Error fetching movies");
       }
-      const data: FilteredMoviesResponse = await response.json();
-      return data;
+      const data: APIResponse = await response.json();
+      return convertAPIResponse(data);
     },
   });
 };
