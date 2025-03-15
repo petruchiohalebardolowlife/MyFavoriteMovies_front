@@ -36,7 +36,7 @@ function SearchMoviesPage() {
         viewMode={viewMode}
         handleAdd={handleAdd}
         favoriteMovies={favoriteMovies}
-      ></AddMoviesBlock>
+      />
     </>
   );
 }

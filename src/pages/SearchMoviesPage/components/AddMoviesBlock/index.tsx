@@ -9,7 +9,7 @@ import { Movie, ViewModeType } from "types";
 import { GRID_VIEW } from "@components/constants";
 import AddMovieButton from "./components/AddMovieButton";
 import { alreadyInFavorites } from "@utils/isActive";
-import FiltersBlock from "./components/InputFilter/InputFilter";
+import FiltersBlock from "./components/FiltersBlock";
 
 interface AddMoviesBlockProps {
   genres: Genre[];
