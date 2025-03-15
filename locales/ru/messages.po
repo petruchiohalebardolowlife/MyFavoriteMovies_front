@@ -13,9 +13,14 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:63
-msgid "Add movie"
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/AddMovieButton/index.tsx:17
+#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:65
+msgid "Add"
 msgstr "Добавить"
+
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/InputFilter/InputFilter.tsx:50
+msgid "Choose year"
+msgstr "Выбрать год"
 
 #: src/pages/SignInPage/index.tsx:64
 msgid "Enter password"
@@ -25,16 +30,29 @@ msgstr "Введите пароль"
 msgid "Enter username"
 msgstr "Введите имя пользователя"
 
+#. placeholder {0}: error.message
+#: src/pages/SearchMoviesPage/index.tsx:26
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/index.tsx:67
+#: src/pages/MainPage/index.tsx:12
+msgid "Error: {0}"
+msgstr "Ошибка: {0}"
+
 #. placeholder {0}: user.username
 #: src/components/Header.tsx:21
 msgid "Hello, {0}"
 msgstr "Привет, {0}"
 
+#: src/pages/SearchMoviesPage/index.tsx:30
+msgid "Here you can find movies"
+msgstr "Здесь Вы можете найти фильмы"
+
 #: src/pages/SignInPage/index.tsx:75
 msgid "Invalid username or password"
 msgstr "Неверное имя пользователя или пароль"
 
-#: src/pages/MainPage/index.tsx:24
+#: src/pages/SearchMoviesPage/index.tsx:25
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/index.tsx:90
+#: src/pages/MainPage/index.tsx:10
 #: src/middlewares/withAuth.tsx:23
 msgid "Loading..."
 msgstr "Загрузка..."
@@ -51,27 +69,35 @@ msgstr "Пароль"
 msgid "Password cannot be empty"
 msgstr "Пароль не может быть пустым"
 
-#. placeholder {0}: favMovie.title
-#: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/components/FavoriteMovieListCard/index.tsx:27
-#: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/components/FavoriteMovieGridCard/index.tsx:27
+#. placeholder {0}: movie.title
+#: src/components/MovieListCard.tsx:21
+#: src/components/MovieGridCard.tsx:32
 msgid "poster of {0}"
 msgstr "постер {0}"
+
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/InputFilter/InputFilter.tsx:46
+msgid "Primary release year"
+msgstr "Год премьеры"
 
 #: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/components/FavoriteMovieGridCard/index.tsx:40
 #~ msgid "Primary release year: {0}"
 #~ msgstr "Год премьеры: {0}"
 
-#. placeholder {1}: favMovie.releaseDate.slice(0, 4)
-#: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/components/FavoriteMovieListCard/index.tsx:31
-#: src/pages/MainPage/components/FavoriteMovieBlock/components/FavoriteMovieCard/components/FavoriteMovieGridCard/index.tsx:40
+#. placeholder {1}: movie.releaseDate.slice(0, 4)
+#: src/components/MovieListCard.tsx:24
+#: src/components/MovieGridCard.tsx:38
 msgid "Primary release year: {1}"
 msgstr "Год премьеры: {1}"
 
-#: src/pages/SearchMoviesPage/index.tsx:12
-msgid "Search Movies Page"
-msgstr "Страница поиска фильмов"
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/InputFilter/InputFilter.tsx:31
+msgid "Rating"
+msgstr "Рейтинг"
 
-#: src/pages/MainPage/components/GenresBlock/index.tsx:42
+#: src/pages/SearchMoviesPage/index.tsx:12
+#~ msgid "Search Movies Page"
+#~ msgstr "Страница поиска фильмов"
+
+#: src/pages/MainPage/components/GenresBlock/index.tsx:31
 msgid "Select your favorite genres"
 msgstr "Выберите любимые жанры"
 
@@ -87,6 +113,6 @@ msgstr "Имя пользователя"
 msgid "Username cannot be empty"
 msgstr "Имя пользователя не может быть пустым"
 
-#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:64
+#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:66
 msgid "Your favorite movies"
 msgstr "Ваши любимые фильмы"

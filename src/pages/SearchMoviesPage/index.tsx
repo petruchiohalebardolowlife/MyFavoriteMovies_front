@@ -23,11 +23,11 @@ function SearchMoviesPage() {
   }, [favoriteMovies]);
 
   if (isPending) return <div>{t`Loading...`}</div>;
-  if (error) return <div>{t`Error: {error.message}`}</div>;
+  if (error) return <div>{t`Error: ${error.message}`}</div>;
 
   return (
     <>
-      <h1 className="text-center text-xl">{t`Search Movies Page`}</h1>
+      <h1 className="text-center text-xl">{t`Here you can find movies`}</h1>
       <div className="flex flex-row-reverse">
         <ViewButton viewMode={viewMode} setViewMode={setViewMode} />
       </div>
@@ -35,6 +35,7 @@ function SearchMoviesPage() {
         genres={genres}
         viewMode={viewMode}
         handleAdd={handleAdd}
+        favoriteMovies={favoriteMovies}
       ></AddMoviesBlock>
     </>
   );

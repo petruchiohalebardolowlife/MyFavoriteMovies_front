@@ -56,7 +56,7 @@ export const useFetchMovies = (filters: FilterParams) => {
   const { locale } = useLocale();
   const language = getLanguageFromLocale(locale);
   return useQuery<FormatResponse>({
-    queryKey: ["movies", filters],
+    queryKey: ["movies", filters, locale],
     queryFn: async () => {
       const params = new URLSearchParams({
         api_key: API_KEY,

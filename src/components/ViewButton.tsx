@@ -13,13 +13,13 @@ function ViewButton({ viewMode, setViewMode }: ViewButtonProps) {
     <>
       <Button
         onClick={() => setViewMode(GRID_VIEW)}
-        isActive={viewMode == GRID_VIEW}
+        isPressed={viewMode == GRID_VIEW}
       >
         <Grid size={ICON_SIZE} />
       </Button>
       <Button
         onClick={() => setViewMode(LIST_VIEW)}
-        isActive={viewMode == LIST_VIEW}
+        isPressed={viewMode == LIST_VIEW}
       >
         <List size={ICON_SIZE} />
       </Button>

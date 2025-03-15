@@ -62,7 +62,7 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
     <>
       <div className="flex flex-row-reverse my-7 p-2 max-w">
         <ViewButton setViewMode={setViewMode} viewMode={viewMode} />
-        <Button onClick={addMovieClick}>{t`Add movie`}</Button>
+        <Button onClick={addMovieClick}>{t`Add`}</Button>
         <h1 className="mx-8 my-2 text-2xl font-medium flex-grow flex justify-center items-center">{t`Your favorite movies`}</h1>
       </div>
       <div

@@ -14,7 +14,7 @@ function GenresBlock({ genres, onClick, selected }: GenresProps) {
         <Button
           onClick={() => onClick(genre.id)}
           key={genre.id}
-          isActive={selected.includes(genre.id)}
+          isPressed={selected.includes(genre.id)}
         >
           {genre.name}
         </Button>

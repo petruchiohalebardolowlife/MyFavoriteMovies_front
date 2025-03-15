@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import Select from "react-select";
-import getYears from "@utils/getYears";
 import { Genre, useFetchMovies } from "@services/tmdbQuery";
 import { useLingui } from "@lingui/react/macro";
 import Pagination from "@components/Pagination";
@@ -10,27 +8,34 @@ import MovieCard from "@components/MovieCard";
 import { Movie, ViewModeType } from "types";
 import { GRID_VIEW } from "@components/constants";
 import AddMovieButton from "./components/AddMovieButton";
+import { alreadyInFavorites } from "@utils/isActive";
+import FiltersBlock from "./components/InputFilter/InputFilter";
 
 interface AddMoviesBlockProps {
   genres: Genre[];
   viewMode: ViewModeType;
   handleAdd: (movie: Movie) => void;
+  favoriteMovies: Movie[];
 }
 
-interface SelectOption {
+export interface SelectOption {
   value: number;
   label: string;
 }
 
-function AddMoviesBlock({ genres, viewMode, handleAdd }: AddMoviesBlockProps) {
+function AddMoviesBlock({
+  genres,
+  viewMode,
+  handleAdd,
+  favoriteMovies,
+}: AddMoviesBlockProps) {
   const [rating, setRating] = useState(0);
   const [currentPage, setPage] = useState(START_PAGE);
   const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
     null
   );
-  const { t } = useLingui();
-  const years = getYears();
   const [selected, setSelected] = useState<number[]>([]);
+  const { t } = useLingui();
 
   useEffect(() => {
     setSelected(JSON.parse(localStorage.getItem("favoriteGenres") || "[]"));
@@ -59,7 +64,7 @@ function AddMoviesBlock({ genres, viewMode, handleAdd }: AddMoviesBlockProps) {
     withGenres: selected,
   });
 
-  if (error) return <div>{t`Error: {error.message}`}</div>;
+  if (error) return <div>{t`Error: ${error.message}`}</div>;
 
   return (
     <div>
@@ -68,38 +73,12 @@ function AddMoviesBlock({ genres, viewMode, handleAdd }: AddMoviesBlockProps) {
         genres={genres}
         selected={selected}
       />
-
-      {/* Блок фильтров (РЕЙТИНГ) */}
-      <div className="flex flex-row text-lg">
-        <span className="px-4">{t`Rating`}</span>
-        <input
-          id="rating"
-          value={rating}
-          step={0.1}
-          type="range"
-          min={0}
-          max={10}
-          onChange={(e) => setRating(Number(e.target.value))}
-        />
-        <div className="w-16 text-center">
-          <span>{rating}</span>
-        </div>
-      </div>
-
-      {/* Блок фильтров (ГОД) */}
-      <div className="flex flex-row text-lg">
-        <span className="px-4">{t`Primary release year`}</span>
-        <Select
-          className="w-32"
-          options={years}
-          placeholder={t`Choose year`}
-          value={selectedOption}
-          onChange={(selectedOption) => setSelectedOption(selectedOption)}
-        />
-      </div>
-
-      {/* СПИСОК ФИЛЬМОВ */}
-
+      <FiltersBlock
+        rating={rating}
+        setRating={setRating}
+        selectedOption={selectedOption}
+        setSelectedOption={setSelectedOption}
+      />
       <div
         className={`${
           viewMode === GRID_VIEW
@@ -112,19 +91,28 @@ function AddMoviesBlock({ genres, viewMode, handleAdd }: AddMoviesBlockProps) {
         ) : (
           response?.results.map((movie) => (
             <MovieCard
+              key={movie.id}
               movie={movie}
               genres={genres}
               viewMode={viewMode}
               number={response.results.indexOf(movie) + 1 + "."}
-              buttons={<AddMovieButton movie={movie} handleAdd={handleAdd} />}
+              buttons={
+                <AddMovieButton
+                  movie={movie}
+                  handleAdd={
+                    alreadyInFavorites({ favoriteMovies, movieid: movie.id })
+                      ? () => {}
+                      : () => handleAdd(movie)
+                  }
+                  isActive={
+                    !alreadyInFavorites({ favoriteMovies, movieid: movie.id })
+                  }
+                />
+              }
             />
           ))
         )}
       </div>
-
-      <></>
-
-      {/* ПАГИНАЦИЯ */}
       <Pagination
         currentPage={currentPage}
         totalPages={response?.totalPages || START_PAGE}
