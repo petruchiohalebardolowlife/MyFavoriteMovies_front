@@ -68,7 +68,7 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
       <div
         className={`${
           viewMode === GRID_VIEW
-            ? "grid grid-cols-4 gr gap-4"
+            ? "grid grid-cols-4 gap-4"
             : "flex flex-col flex-wrap gap-6 mx-4"
         }`}
       >

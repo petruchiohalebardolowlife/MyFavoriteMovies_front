@@ -20,7 +20,7 @@ msgstr "Добавить"
 
 #: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/InputFilter/InputFilter.tsx:50
 msgid "Choose year"
-msgstr "Выбрать год"
+msgstr "Выберите год"
 
 #: src/pages/SignInPage/index.tsx:64
 msgid "Enter password"
