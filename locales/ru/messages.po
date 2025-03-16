@@ -19,8 +19,8 @@ msgid "Add"
 msgstr "Добавить"
 
 #: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/InputFilter/InputFilter.tsx:50
-msgid "Choose year"
-msgstr "Выберите год"
+#~ msgid "Choose year"
+#~ msgstr "Выберите год"
 
 #: src/pages/SignInPage/index.tsx:64
 msgid "Enter password"
@@ -33,7 +33,7 @@ msgstr "Введите имя пользователя"
 #. placeholder {0}: error.message
 #: src/pages/SearchMoviesPage/index.tsx:26
 #: src/pages/SearchMoviesPage/components/AddMoviesBlock/index.tsx:67
-#: src/pages/MainPage/index.tsx:12
+#: src/pages/MainPage/index.tsx:11
 msgid "Error: {0}"
 msgstr "Ошибка: {0}"
 
@@ -75,7 +75,7 @@ msgstr "Пароль не может быть пустым"
 msgid "poster of {0}"
 msgstr "постер {0}"
 
-#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/InputFilter/InputFilter.tsx:46
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/FiltersBlock/index.tsx:46
 msgid "Primary release year"
 msgstr "Год премьеры"
 
@@ -89,13 +89,17 @@ msgstr "Год премьеры"
 msgid "Primary release year: {1}"
 msgstr "Год премьеры: {1}"
 
-#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/InputFilter/InputFilter.tsx:31
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/FiltersBlock/index.tsx:31
 msgid "Rating"
 msgstr "Рейтинг"
 
 #: src/pages/SearchMoviesPage/index.tsx:12
 #~ msgid "Search Movies Page"
 #~ msgstr "Страница поиска фильмов"
+
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/FiltersBlock/index.tsx:50
+msgid "Select year"
+msgstr "Выберите год"
 
 #: src/pages/MainPage/components/GenresBlock/index.tsx:31
 msgid "Select your favorite genres"

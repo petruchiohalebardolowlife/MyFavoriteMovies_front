@@ -27,8 +27,8 @@ function SearchMoviesPage() {
 
   return (
     <>
-      <h1 className="text-center text-xl">{t`Here you can find movies`}</h1>
-      <div className="flex flex-row-reverse">
+      <h1 className="flex justify-center content-center text-lg font-medium p-3 bg-gray-400">{t`Here you can find movies`}</h1>
+      <div className="flex flex-row-reverse my-2">
         <ViewButton viewMode={viewMode} setViewMode={setViewMode} />
       </div>
       <AddMoviesBlock

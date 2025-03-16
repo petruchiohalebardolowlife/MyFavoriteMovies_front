@@ -22,7 +22,7 @@ function SignInPage() {
     if (result) {
       navigate("/");
     } else {
-      setError(result || "");
+      setError("Invalid username or password");
     }
   };
 

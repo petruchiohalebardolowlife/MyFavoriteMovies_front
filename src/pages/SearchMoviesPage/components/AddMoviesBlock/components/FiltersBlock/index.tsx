@@ -47,7 +47,7 @@ function FiltersBlock({
         <Select
           className="w-60 my-2"
           options={years}
-          placeholder={t`Choose year`}
+          placeholder={t`Select year`}
           value={selectedOption}
           onChange={(selectedOption) => setSelectedOption(selectedOption)}
         />

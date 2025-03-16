@@ -22,10 +22,6 @@ msgstr "Add"
 #~ msgid "Add movie"
 #~ msgstr "Add movie"
 
-#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/InputFilter/InputFilter.tsx:50
-msgid "Choose year"
-msgstr "Choose year"
-
 #: src/pages/SignInPage/index.tsx:64
 msgid "Enter password"
 msgstr "Enter password"
@@ -37,7 +33,7 @@ msgstr "Enter username"
 #. placeholder {0}: error.message
 #: src/pages/SearchMoviesPage/index.tsx:26
 #: src/pages/SearchMoviesPage/components/AddMoviesBlock/index.tsx:67
-#: src/pages/MainPage/index.tsx:12
+#: src/pages/MainPage/index.tsx:11
 msgid "Error: {0}"
 msgstr "Error: {0}"
 
@@ -79,7 +75,7 @@ msgstr "Password cannot be empty"
 msgid "poster of {0}"
 msgstr "poster of {0}"
 
-#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/InputFilter/InputFilter.tsx:46
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/FiltersBlock/index.tsx:46
 msgid "Primary release year"
 msgstr "Primary release year"
 
@@ -93,13 +89,17 @@ msgstr "Primary release year"
 msgid "Primary release year: {1}"
 msgstr "Primary release year: {1}"
 
-#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/InputFilter/InputFilter.tsx:31
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/FiltersBlock/index.tsx:31
 msgid "Rating"
 msgstr "Rating"
 
 #: src/pages/SearchMoviesPage/index.tsx:12
 #~ msgid "Search Movies Page"
 #~ msgstr "Search Movies Page"
+
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/FiltersBlock/index.tsx:50
+msgid "Select year"
+msgstr "Select year"
 
 #: src/pages/MainPage/components/GenresBlock/index.tsx:31
 msgid "Select your favorite genres"
