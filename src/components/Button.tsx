@@ -25,7 +25,7 @@ function Button({
             : "mx-1 py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-600"
         }
         ${isPressed ? "!bg-yellow-500" : ""} 
-        ${isActive !== undefined &&!isActive ? "grayscale opacity-50" : ""}
+        ${isActive !== undefined && !isActive ? "grayscale opacity-50" : ""}
       `}
     >
       {children}

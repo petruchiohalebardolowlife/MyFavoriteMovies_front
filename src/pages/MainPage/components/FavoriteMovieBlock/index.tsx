@@ -22,7 +22,7 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   const [moviesOnPage, setMoviesOnPage] = useState<FavoriteMovie[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
-  const addMovieClick = () => {
+  const handleAdd = () => {
     navigate("/searchmovies");
   };
 
@@ -62,7 +62,7 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
     <>
       <div className="flex flex-row-reverse my-7 p-2 max-w">
         <ViewButton setViewMode={setViewMode} viewMode={viewMode} />
-        <Button onClick={addMovieClick}>{t`Add`}</Button>
+        <Button onClick={handleAdd}>{t`Add`}</Button>
         <h1 className="mx-8 my-2 text-2xl font-medium flex-grow flex justify-center items-center">{t`Your favorite movies`}</h1>
       </div>
       <div
