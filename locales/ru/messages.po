@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/AddMovieButton/index.tsx:17
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/index.tsx:106
 #: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:65
 msgid "Add"
 msgstr "Добавить"
@@ -31,7 +31,7 @@ msgid "Enter username"
 msgstr "Введите имя пользователя"
 
 #. placeholder {0}: error.message
-#: src/pages/SearchMoviesPage/index.tsx:26
+#: src/pages/SearchMoviesPage/index.tsx:30
 #: src/pages/SearchMoviesPage/components/AddMoviesBlock/index.tsx:67
 #: src/pages/MainPage/index.tsx:11
 msgid "Error: {0}"
@@ -42,7 +42,7 @@ msgstr "Ошибка: {0}"
 msgid "Hello, {0}"
 msgstr "Привет, {0}"
 
-#: src/pages/SearchMoviesPage/index.tsx:30
+#: src/pages/SearchMoviesPage/index.tsx:34
 msgid "Here you can find movies"
 msgstr "Здесь Вы можете найти фильмы"
 
@@ -50,7 +50,7 @@ msgstr "Здесь Вы можете найти фильмы"
 msgid "Invalid username or password"
 msgstr "Неверное имя пользователя или пароль"
 
-#: src/pages/SearchMoviesPage/index.tsx:25
+#: src/pages/SearchMoviesPage/index.tsx:29
 #: src/pages/SearchMoviesPage/components/AddMoviesBlock/index.tsx:90
 #: src/pages/MainPage/index.tsx:10
 #: src/middlewares/withAuth.tsx:23
@@ -70,12 +70,12 @@ msgid "Password cannot be empty"
 msgstr "Пароль не может быть пустым"
 
 #. placeholder {0}: movie.title
-#: src/components/MovieListCard.tsx:21
+#: src/components/MovieListCard.tsx:22
 #: src/components/MovieGridCard.tsx:32
 msgid "poster of {0}"
 msgstr "постер {0}"
 
-#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/FiltersBlock/index.tsx:46
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/FiltersBlock/index.tsx:44
 msgid "Primary release year"
 msgstr "Год премьеры"
 
@@ -84,12 +84,12 @@ msgstr "Год премьеры"
 #~ msgstr "Год премьеры: {0}"
 
 #. placeholder {1}: movie.releaseDate.slice(0, 4)
-#: src/components/MovieListCard.tsx:24
+#: src/components/MovieListCard.tsx:25
 #: src/components/MovieGridCard.tsx:38
 msgid "Primary release year: {1}"
 msgstr "Год премьеры: {1}"
 
-#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/FiltersBlock/index.tsx:31
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/FiltersBlock/index.tsx:29
 msgid "Rating"
 msgstr "Рейтинг"
 
@@ -97,7 +97,7 @@ msgstr "Рейтинг"
 #~ msgid "Search Movies Page"
 #~ msgstr "Страница поиска фильмов"
 
-#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/FiltersBlock/index.tsx:50
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/components/FiltersBlock/index.tsx:48
 msgid "Select year"
 msgstr "Выберите год"
 

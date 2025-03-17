@@ -2,18 +2,20 @@ import { ReactNode } from "react";
 
 interface ButtonProps {
   onClick: () => void;
-  isPressed?: boolean;
+  isSelected?: boolean;
   buttonView?: "square";
   children: ReactNode;
   isActive?: boolean;
+  customClassName?: string;
 }
 
 function Button({
   onClick,
-  isPressed,
+  isSelected,
   buttonView,
   children,
   isActive,
+  customClassName,
 }: ButtonProps) {
   return (
     <button
@@ -24,8 +26,8 @@ function Button({
             ? "w-10 h-10 border border-gray-400 rounded hover:bg-gray-600"
             : "mx-1 py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-600"
         }
-        ${isPressed ? "!bg-yellow-500" : ""} 
-        ${isActive !== undefined && !isActive ? "grayscale opacity-50" : ""}
+        ${isSelected ? customClassName : ""} 
+        ${isActive !== undefined && !isActive ? customClassName : ""}
       `}
     >
       {children}

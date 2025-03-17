@@ -1,8 +1,7 @@
 import { useLingui } from "@lingui/react/macro";
 import Select from "react-select";
 import { SelectOption } from "../..";
-import getYears from "@utils/getYears";
-import { useMemo } from "react";
+import { LIST_OF_YEARS } from "@components/constants";
 import {
   INPUT_STEP,
   MAX_VALUE_RANGE,
@@ -23,7 +22,6 @@ function FiltersBlock({
   setSelectedOption,
 }: InputFilterProps) {
   const { t } = useLingui();
-  const years = useMemo(() => getYears(), []);
 
   return (
     <>
@@ -46,7 +44,7 @@ function FiltersBlock({
         <span className="px-4 justify-center">{t`Primary release year`}</span>
         <Select
           className="w-60 my-2"
-          options={years}
+          options={LIST_OF_YEARS}
           placeholder={t`Select year`}
           value={selectedOption}
           onChange={(selectedOption) => setSelectedOption(selectedOption)}

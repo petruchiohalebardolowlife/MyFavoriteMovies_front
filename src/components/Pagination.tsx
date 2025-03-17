@@ -16,7 +16,7 @@ function Pagination({ totalPages, currentPage, setPage }: PaginationProps) {
       {!listOfPages.includes(START_PAGE) ? (
         <>
           <Button
-            isPressed={currentPage === START_PAGE}
+            isSelected={currentPage === START_PAGE}
             onClick={() => setPage(START_PAGE)}
           >
             {START_PAGE}
@@ -28,9 +28,10 @@ function Pagination({ totalPages, currentPage, setPage }: PaginationProps) {
       ) : null}
       {listOfPages.map((pageNumber) => (
         <Button
-          isPressed={currentPage === pageNumber}
+          isSelected={currentPage === pageNumber}
           key={pageNumber}
           onClick={() => setPage(pageNumber)}
+          customClassName="bg-yellow-500"
         >
           {pageNumber}
         </Button>
@@ -41,7 +42,7 @@ function Pagination({ totalPages, currentPage, setPage }: PaginationProps) {
             <Ellipsis size={ICON_SIZE} />
           ) : null}
           <Button
-            isPressed={currentPage === totalPages}
+            isSelected={currentPage === totalPages}
             onClick={() => setPage(totalPages)}
           >
             {totalPages}

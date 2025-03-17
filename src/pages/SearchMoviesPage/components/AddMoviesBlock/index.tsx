@@ -7,9 +7,9 @@ import GenresBlock from "@components/GenresBlock";
 import MovieCard from "@components/MovieCard";
 import { Movie, ViewModeType } from "types";
 import { GRID_VIEW } from "@components/constants";
-import AddMovieButton from "./components/AddMovieButton";
 import { alreadyInFavorites } from "@utils/isActive";
 import FiltersBlock from "./components/FiltersBlock";
+import Button from "@components/Button";
 
 interface AddMoviesBlockProps {
   genres: Genre[];
@@ -56,7 +56,7 @@ function AddMoviesBlock({
   const {
     isPending,
     error,
-    data: response,
+    data: { results: movies = [], totalPages = START_PAGE } = {},
   } = useFetchMovies({
     page: currentPage,
     primaryReleaseYear: selectedOption?.value,
@@ -89,25 +89,21 @@ function AddMoviesBlock({
         {isPending ? (
           <span>{t`Loading...`}</span>
         ) : (
-          response?.results.map((movie) => (
+          movies.map((movie, index) => (
             <MovieCard
               key={movie.id}
               movie={movie}
               genres={genres}
               viewMode={viewMode}
-              number={response.results.indexOf(movie) + 1 + "."}
-              buttons={
-                <AddMovieButton
-                  movie={movie}
-                  handleAdd={
-                    alreadyInFavorites({ favoriteMovies, movieid: movie.id })
-                      ? () => {}
-                      : () => handleAdd(movie)
-                  }
+              number={index + 1 + "."}
+              children={
+                <Button
+                  onClick={() => handleAdd(movie)}
                   isActive={
                     !alreadyInFavorites({ favoriteMovies, movieid: movie.id })
                   }
-                />
+                  customClassName="grayscale opacity-50"
+                >{t`Add`}</Button>
               }
             />
           ))
@@ -115,7 +111,7 @@ function AddMoviesBlock({
       </div>
       <Pagination
         currentPage={currentPage}
-        totalPages={response?.totalPages || START_PAGE}
+        totalPages={totalPages}
         setPage={setPage}
       />
     </div>

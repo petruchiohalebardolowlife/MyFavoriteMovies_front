@@ -3,6 +3,7 @@ import { useLocale } from "@contexts/localeContext";
 import { MovieResponse } from "types";
 import { convertAPIResponse } from "@utils/formatAPIData";
 import { FormatResponse } from "@utils/formatAPIData";
+import { API_KEY, API_URL } from "@components/constants";
 
 export interface Genre {
   id: number;
@@ -25,9 +26,6 @@ interface FilterParams {
   primaryReleaseYear?: number;
   voteAverageGte?: number;
 }
-
-const API_URL = import.meta.env.VITE_BASE_URL;
-const API_KEY = import.meta.env.VITE_API_KEY;
 
 const getLanguageFromLocale = (locale: string) => {
   return locale === "en" ? "en-US" : "ru-RU";

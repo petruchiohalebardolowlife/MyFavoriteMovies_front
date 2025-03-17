@@ -1,15 +1,16 @@
-import NameOfGenres from "@pages/MainPage/components/FavoriteMovieBlock/components/NameOfGenres";
+import NameOfGenres from "./NameOfGenres";
 import { useLingui } from "@lingui/react/macro";
 import { API_PICS } from "@components/constants";
 import { MovieCardProps } from "./MovieGridCard";
+import { isFavoriteMovie } from "@utils/isFavoriteMovie";
 
-function MovieListCard({ movie, genres, number, buttons }: MovieCardProps) {
+function MovieListCard({ movie, genres, number, children }: MovieCardProps) {
   const { t } = useLingui();
 
   return (
     <div
       className={`${
-        "watchedStatus" in movie && movie.watchedStatus
+        isFavoriteMovie(movie) && movie.watchedStatus
           ? "grayscale opacity-50"
           : ""
       } flex flex-row items-center gap-4 justify-between border border-gray-400 rounded-lg bg-gray-100 px-2`}
@@ -23,7 +24,7 @@ function MovieListCard({ movie, genres, number, buttons }: MovieCardProps) {
       />
       <span>{t`Primary release year: ${movie.releaseDate.slice(0, 4)}`}</span>
       <NameOfGenres genreIDs={movie.genreIDs} genres={genres} />
-      <div className="flex flex-row gap-2">{buttons}</div>
+      <div className="flex flex-row gap-2">{children}</div>
     </div>
   );
 }

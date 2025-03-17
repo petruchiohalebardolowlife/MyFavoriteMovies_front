@@ -10,7 +10,7 @@ import { ReactNode } from "react";
 export interface FavoriteMovieCardProps {
   movie: FavoriteMovie | Movie;
   viewMode?: ViewModeType;
-  buttons: ReactNode;
+  children: ReactNode;
   genres: Genre[];
   number: string;
 }
@@ -20,24 +20,23 @@ function MovieCard({
   viewMode,
   genres,
   number,
-  buttons,
+  children,
 }: FavoriteMovieCardProps) {
   return viewMode === LIST_VIEW ? (
     <MovieListCard
       movie={movie}
       genres={genres}
       number={number}
-      buttons={buttons}
+      children={children}
     />
   ) : (
     <MovieGridCard
       movie={movie}
       genres={genres}
       number={number}
-      buttons={buttons}
+      children={children}
     />
   );
 }
-// />
 
 export default MovieCard;
