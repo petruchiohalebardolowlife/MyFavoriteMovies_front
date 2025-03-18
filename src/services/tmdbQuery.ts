@@ -85,8 +85,8 @@ export const useFetchMovies = (filters: FilterParams) => {
   const convertedData = data
     ? convertAPIResponse(data)
     : { results: [], totalPages: START_PAGE };
-  const movies = convertedData.results || [];
-  const totalPages = convertedData.totalPages || START_PAGE;
+  const movies = convertedData.results;
+  const totalPages = convertedData.totalPages;
 
   return {
     movies,
