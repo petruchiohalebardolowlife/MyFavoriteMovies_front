@@ -1,6 +1,6 @@
 import { Movie } from "types";
 
-interface alreadyInFavoritesProps {
+interface AlreadyInFavoritesProps {
   favoriteMovies: Movie[];
   movieid: number;
 }
@@ -8,6 +8,6 @@ interface alreadyInFavoritesProps {
 export function alreadyInFavorites({
   favoriteMovies,
   movieid,
-}: alreadyInFavoritesProps) {
+}: AlreadyInFavoritesProps) {
   return favoriteMovies.some((favMovie) => favMovie.id === movieid);
 }
