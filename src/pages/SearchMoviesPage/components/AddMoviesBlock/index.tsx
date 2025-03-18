@@ -7,7 +7,7 @@ import GenresBlock from "@components/GenresBlock";
 import MovieCard from "@components/MovieCard";
 import { Movie, ViewModeType } from "types";
 import { GRID_VIEW } from "@components/constants";
-import { alreadyInFavorites } from "@utils/isActive";
+import { alreadyInFavorites } from "@utils/alreadyInFavorites";
 import FiltersBlock from "./components/FiltersBlock";
 import Button from "@components/Button";
 
@@ -53,11 +53,7 @@ function AddMoviesBlock({
     );
   };
 
-  const {
-    isPending,
-    error,
-    data: { results: movies = [], totalPages = START_PAGE } = {},
-  } = useFetchMovies({
+  const { isPending, error, movies, totalPages } = useFetchMovies({
     page: currentPage,
     primaryReleaseYear: selectedOption?.value,
     voteAverageGte: rating,
@@ -99,10 +95,10 @@ function AddMoviesBlock({
               children={
                 <Button
                   onClick={() => handleAdd(movie)}
-                  isActive={
-                    !alreadyInFavorites({ favoriteMovies, movieid: movie.id })
-                  }
-                  customClassName="grayscale opacity-50"
+                  isDisabled={alreadyInFavorites({
+                    favoriteMovies,
+                    movieid: movie.id,
+                  })}
                 >{t`Add`}</Button>
               }
             />

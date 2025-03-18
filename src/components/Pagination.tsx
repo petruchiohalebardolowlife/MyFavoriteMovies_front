@@ -15,12 +15,7 @@ function Pagination({ totalPages, currentPage, setPage }: PaginationProps) {
     <div className="flex flex-row justify-center my-4">
       {!listOfPages.includes(START_PAGE) ? (
         <>
-          <Button
-            isSelected={currentPage === START_PAGE}
-            onClick={() => setPage(START_PAGE)}
-          >
-            {START_PAGE}
-          </Button>
+          <Button onClick={() => setPage(START_PAGE)}>{START_PAGE}</Button>
           {Math.min(...listOfPages) - 1 !== START_PAGE ? (
             <Ellipsis size={ICON_SIZE} />
           ) : null}
@@ -28,10 +23,9 @@ function Pagination({ totalPages, currentPage, setPage }: PaginationProps) {
       ) : null}
       {listOfPages.map((pageNumber) => (
         <Button
-          isSelected={currentPage === pageNumber}
           key={pageNumber}
           onClick={() => setPage(pageNumber)}
-          customClassName="bg-yellow-500"
+          className={pageNumber === currentPage ? "bg-yellow-500" : ""}
         >
           {pageNumber}
         </Button>
@@ -41,12 +35,7 @@ function Pagination({ totalPages, currentPage, setPage }: PaginationProps) {
           {Math.max(...listOfPages) + 1 !== totalPages ? (
             <Ellipsis size={ICON_SIZE} />
           ) : null}
-          <Button
-            isSelected={currentPage === totalPages}
-            onClick={() => setPage(totalPages)}
-          >
-            {totalPages}
-          </Button>
+          <Button onClick={() => setPage(totalPages)}>{totalPages}</Button>
         </>
       ) : null}
     </div>

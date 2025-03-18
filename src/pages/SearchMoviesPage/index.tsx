@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Movie, ViewModeType } from "types";
 import AddMoviesBlock from "./components/AddMoviesBlock";
 import { useFetchGenres } from "@services/tmdbQuery";
-import { alreadyInFavorites } from "@utils/isActive";
+import { alreadyInFavorites } from "@utils/alreadyInFavorites";
 
 function SearchMoviesPage() {
   const [viewMode, setViewMode] = useState<ViewModeType>(LIST_VIEW);
@@ -16,9 +16,7 @@ function SearchMoviesPage() {
   });
 
   const handleAdd = (movie: Movie) => {
-    if (alreadyInFavorites({ favoriteMovies, movieid: movie.id })){
-      return ()=>{}
-    }
+    if (alreadyInFavorites({ favoriteMovies, movieid: movie.id })) return;
     setFavoriteMovies((prevState) => [...prevState, movie]);
   };
 

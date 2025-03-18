@@ -1,10 +1,13 @@
 import { Movie } from "types";
 
-interface isActiveProps {
+interface alreadyInFavoritesProps {
   favoriteMovies: Movie[];
   movieid: number;
 }
 
-export function alreadyInFavorites({ favoriteMovies, movieid }: isActiveProps) {
+export function alreadyInFavorites({
+  favoriteMovies,
+  movieid,
+}: alreadyInFavoritesProps) {
   return favoriteMovies.some((favMovie) => favMovie.id === movieid);
 }

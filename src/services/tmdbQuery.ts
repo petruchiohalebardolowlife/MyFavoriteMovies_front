@@ -2,8 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocale } from "@contexts/localeContext";
 import { MovieResponse } from "types";
 import { convertAPIResponse } from "@utils/formatAPIData";
-import { FormatResponse } from "@utils/formatAPIData";
-import { API_KEY, API_URL } from "@components/constants";
+import { API_KEY, API_URL, START_PAGE } from "@components/constants";
 
 export interface Genre {
   id: number;
@@ -53,8 +52,8 @@ export const useFetchGenres = () => {
 export const useFetchMovies = (filters: FilterParams) => {
   const { locale } = useLocale();
   const language = getLanguageFromLocale(locale);
-  return useQuery<FormatResponse>({
-    queryKey: ["movies", filters, locale],
+  const { data, isPending, error } = useQuery<APIResponse>({
+    queryKey: ["movies", filters],
     queryFn: async () => {
       const params = new URLSearchParams({
         api_key: API_KEY,
@@ -80,8 +79,19 @@ export const useFetchMovies = (filters: FilterParams) => {
       if (!response.ok) {
         console.error("Error fetching movies");
       }
-      const data: APIResponse = await response.json();
-      return convertAPIResponse(data);
+      return response.json();
     },
   });
+  const convertedData = data
+    ? convertAPIResponse(data)
+    : { results: [], totalPages: START_PAGE };
+  const movies = convertedData.results || [];
+  const totalPages = convertedData.totalPages || START_PAGE;
+
+  return {
+    movies,
+    totalPages,
+    isPending,
+    error,
+  };
 };

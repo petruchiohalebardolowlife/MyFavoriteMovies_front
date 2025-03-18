@@ -79,14 +79,13 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
             viewMode={viewMode}
             genres={genres}
             number={moviesOnPage.indexOf(favMovie) + 1 + "."}
-            children={
-              <FavoriteMovieCardButtons
-                toggleWatchedStatus={toggleWatchedStatus}
-                handleDelete={handleDelete}
-                movieid={favMovie.id}
-              />
-            }
-          />
+          >
+            <FavoriteMovieCardButtons
+              toggleWatchedStatus={toggleWatchedStatus}
+              handleDelete={handleDelete}
+              movieid={favMovie.id}
+            />
+          </MovieCard>
         ))}
       </div>
       <Pagination

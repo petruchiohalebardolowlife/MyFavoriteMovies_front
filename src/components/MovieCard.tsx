@@ -23,19 +23,13 @@ function MovieCard({
   children,
 }: FavoriteMovieCardProps) {
   return viewMode === LIST_VIEW ? (
-    <MovieListCard
-      movie={movie}
-      genres={genres}
-      number={number}
-      children={children}
-    />
+    <MovieListCard movie={movie} genres={genres} number={number}>
+      {children}
+    </MovieListCard>
   ) : (
-    <MovieGridCard
-      movie={movie}
-      genres={genres}
-      number={number}
-      children={children}
-    />
+    <MovieGridCard movie={movie} genres={genres} number={number}>
+      {children}
+    </MovieGridCard>
   );
 }
 

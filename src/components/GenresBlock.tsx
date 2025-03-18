@@ -14,8 +14,7 @@ function GenresBlock({ genres, onClick, selected }: GenresProps) {
         <Button
           onClick={() => onClick(genre.id)}
           key={genre.id}
-          isSelected={selected.includes(genre.id)}
-          customClassName="bg-yellow-500"
+          className={selected.includes(genre.id) ? "bg-yellow-500" : ""}
         >
           {genre.name}
         </Button>
