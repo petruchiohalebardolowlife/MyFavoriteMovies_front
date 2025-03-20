@@ -16,7 +16,7 @@ function SignInPage() {
   const [error, setError] = useState("");
   const { t } = useLingui();
   const { login } = useAuth();
-  
+
   const onSubmit = async (values: SignInFormValues) => {
     try {
       const isSuccess = await login({

@@ -2,7 +2,6 @@ import LanguageButton from "./LanguageButton";
 import { useAuth } from "@contexts/authContext";
 import { useNavigate } from "react-router-dom";
 import { useLingui } from "@lingui/react/macro";
-// import { useEffect } from "react";
 
 function Header() {
   const { user, logout } = useAuth();
@@ -12,10 +11,6 @@ function Header() {
     logout();
     navigate("/signin");
   };
-
-  // useEffect(() => {
-  //   console.log("User:", user);
-  // }, [user]);
 
   return (
     <header className="p-2 bg-gray-700 text-white flex flex-row">

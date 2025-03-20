@@ -7,7 +7,6 @@ import {
 } from "react";
 import { useSignIn } from "@gqlHooks/useSignIn";
 import { User } from "@gqlHooks/useSignIn";
-// import { useGetUser } from "@gqlHooks/useGetUser";
 import useGetUser from "@gqlHooks/useGetUser";
 import { useApolloClient } from "@apollo/client";
 
