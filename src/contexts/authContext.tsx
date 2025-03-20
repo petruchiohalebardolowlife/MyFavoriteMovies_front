@@ -5,52 +5,62 @@ import {
   useEffect,
   ReactNode,
 } from "react";
+import { useSignIn } from "@gqlHooks/useSignIn";
+import { User } from "@gqlHooks/useSignIn";
+import { useGetUser } from "@gqlHooks/useGetUser";
 
 interface AuthContextType {
-  user: { username: string } | null;
+  user: User | null;
   logout: () => void;
-  login: (username: string, password: string) => boolean;
+  login: (variables: {
+    username: string;
+    password: string;
+  }) => Promise<boolean>;
   loading: boolean;
 }
 
 interface AuthProviderProps {
   children: ReactNode;
 }
-const hardcodedUser = {
-  username: "username",
-  password: "password",
-};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<{ username: string } | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
+  const { currentUser, loading, error: getUserError } = useGetUser();
+  const { signIn, loading: signInLoading, error: signInError } = useSignIn();
 
   useEffect(() => {
-    const token = sessionStorage.getItem("authToken");
-    if (token) {
-      setUser({ username: hardcodedUser.username });
+    if (!loading && !currentUser.id) {
+      setUser(null);
+    } else if (!loading) {
+      setUser(currentUser);
     }
-    setLoading(false);
-  }, []);
-
-  const login = (username: string, password: string) => {
-    if (
-      username == hardcodedUser.username &&
-      password == hardcodedUser.password
-    ) {
-      sessionStorage.setItem("authToken", "some-token");
-      setUser({ username: hardcodedUser.username });
-      return true;
-    } else {
-      return false;
-    }
-  };
+  }, [loading]);
 
   const logout = () => {
-    sessionStorage.removeItem("authToken");
+    localStorage.removeItem("token");
     setUser(null);
+  };
+
+  const login = async ({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) => {
+    try {
+      const { data } = await signIn({ variables: { username, password } });
+      if (data?.signIn.user) {
+        setUser(data.signIn.user);
+        localStorage.setItem("token", data.signIn.token);
+        return true;
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+    }
+    return false;
   };
 
   return (
@@ -67,3 +77,159 @@ export function useAuth() {
   }
   return context;
 }
+
+// import {
+//   createContext,
+//   useContext,
+//   useState,
+//   useEffect,
+//   ReactNode,
+// } from "react";
+// import { useSignIn } from "@gqlHooks/useSignIn";
+// import { User } from "@gqlHooks/useSignIn";
+// import { useGetUser } from "@gqlHooks/useGetUser";
+
+// interface AuthContextType {
+//   user: User | null;
+//   logout: () => void;
+//   login: (variables: { username: string; password: string }) => Promise<boolean>;
+//   loading: boolean;
+// }
+
+// interface AuthProviderProps {
+//   children: ReactNode;
+// }
+
+// const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// export function AuthProvider({ children }: AuthProviderProps) {
+//   const [user, setUser] = useState<User | null>(null);
+//   const { currentUser, loading: getUserLoading, refetchGetUser } = useGetUser();
+//   const { signIn, token, loading: signInLoading } = useSignIn();
+
+//   useEffect(() => {
+//     const storedToken = localStorage.getItem("token");
+//     if (storedToken) {
+//       refetchGetUser();
+//     }
+//   }, [refetchGetUser]);
+
+//   useEffect(() => {
+//     if (!getUserLoading && currentUser.id) {
+//       setUser(currentUser);
+//     }
+//   }, [currentUser, getUserLoading]);
+
+//   const logout = () => {
+//     localStorage.removeItem("token");
+//     setUser(null);
+//   };
+
+//   const login = async ({ username, password }: { username: string; password: string }) => {
+//     try {
+//       const { data } = await signIn({ variables: { username, password } });
+//       if (data?.signIn.user) {
+//         setUser(data.signIn.user);
+//         localStorage.setItem("token", data.signIn.token);
+//         return true;
+//       }
+//     } catch (err) {
+//       console.error("Login error:", err);
+//     }
+//     return false;
+//   };
+
+//   const loading = signInLoading || getUserLoading;
+
+//   return (
+//     <AuthContext.Provider value={{ user, logout, login, loading }}>
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// }
+
+// export function useAuth() {
+//   const context = useContext(AuthContext);
+//   if (!context) {
+//     throw new Error("useAuth() must be used within an AuthProvider");
+//   }
+//   return context;
+// }
+
+// import {
+//   createContext,
+//   useContext,
+//   useState,
+//   useEffect,
+//   ReactNode,
+// } from "react";
+// import { useSignIn } from "@gqlHooks/useSignIn";
+// import { User } from "@gqlHooks/useSignIn";
+// import { useGetUser } from "@gqlHooks/useGetUser";
+
+// interface AuthContextType {
+//   user: User | null;
+//   logout: () => void;
+//   login: (variables: { username: string; password: string }) => Promise<boolean>;
+//   loading: boolean;
+// }
+
+// interface AuthProviderProps {
+//   children: ReactNode;
+// }
+
+// const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// export function AuthProvider({ children }: AuthProviderProps) {
+//   const [user, setUser] = useState<User | null>(null);
+//   const { currentUser, loading: getUserLoading, refetchGetUser } = useGetUser();
+//   const { signIn, token, loading: signInLoading } = useSignIn();
+
+//   useEffect(() => {
+//     const storedToken = localStorage.getItem("token");
+//     if (storedToken) {
+//       refetchGetUser().catch(console.error);
+//     }
+//   }, []);
+//   useEffect(() => {
+//     if (!getUserLoading && currentUser?.id) {
+//       setUser(currentUser);
+//     }
+//   }, [currentUser, getUserLoading]);
+
+//   const logout = () => {
+//     localStorage.removeItem("token");
+//     setUser(null);
+//   };
+
+//   const login = async ({ username, password }: { username: string; password: string }) => {
+//     try {
+//       const { data } = await signIn({ variables: { username, password } });
+//       if (data?.signIn.user) {
+//         setUser(data.signIn.user);
+//         localStorage.setItem("token", data.signIn.token);
+//         return true;
+//       }
+//     } catch (err) {
+//       console.error("Login error:", err);
+//     }
+//     return false;
+//   };
+
+//   // const loading = signInLoading || getUserLoading;
+//   const loading = getUserLoading
+
+//   return (
+//     <AuthContext.Provider value={{ user, logout, login, loading }}>
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// }
+
+// export function useAuth() {
+//   const context = useContext(AuthContext);
+//   if (!context) {
+//     throw new Error("useAuth() must be used within an AuthProvider");
+//   }
+//   return context;
+// }

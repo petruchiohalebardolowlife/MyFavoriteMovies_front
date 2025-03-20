@@ -13,6 +13,7 @@ export function withAuth<T extends object>(
 
     React.useEffect(() => {
       if (!loading && !user) {
+        console.log(user);
         navigate("/signin");
       }
     }, [loading, user, navigate]);

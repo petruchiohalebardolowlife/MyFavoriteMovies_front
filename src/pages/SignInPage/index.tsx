@@ -16,12 +16,21 @@ function SignInPage() {
   const [error, setError] = useState("");
   const { t } = useLingui();
   const { login } = useAuth();
+  
+  const onSubmit = async (values: SignInFormValues) => {
+    try {
+      const isSuccess = await login({
+        username: values.username,
+        password: values.password,
+      });
 
-  const onSubmit = (values: SignInFormValues) => {
-    const result = login(values.username, values.password);
-    if (result) {
-      navigate("/");
-    } else {
+      if (isSuccess) {
+        navigate("/");
+      } else {
+        setError("Invalid username or password");
+      }
+    } catch (err) {
+      console.error("Login failed:", err);
       setError("Invalid username or password");
     }
   };
