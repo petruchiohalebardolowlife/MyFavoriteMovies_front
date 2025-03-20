@@ -1,21 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocale } from "@contexts/localeContext";
+import { MovieResponse } from "types";
+import { convertAPIResponse } from "@utils/formatAPIData";
+import { API_KEY, API_URL, START_PAGE } from "@components/constants";
 
 export interface Genre {
   id: number;
   name: string;
 }
-export interface Movie {
-  id: number;
-  title: string;
-  posterPath: string;
-  genreIDs: number[];
-  releaseDate: string;
-}
 
-interface FilteredMoviesResponse {
+export interface APIResponse {
   page: number;
-  results: Movie[];
+  results: MovieResponse[];
+  total_pages: number;
 }
 
 interface GenreResponse {
@@ -24,13 +21,10 @@ interface GenreResponse {
 
 interface FilterParams {
   page?: number;
-  withGenres?: string[];
+  withGenres?: number[];
   primaryReleaseYear?: number;
   voteAverageGte?: number;
 }
-
-const API_URL = import.meta.env.VITE_BASE_URL;
-const API_KEY = import.meta.env.VITE_API_KEY;
 
 const getLanguageFromLocale = (locale: string) => {
   return locale === "en" ? "en-US" : "ru-RU";
@@ -58,7 +52,7 @@ export const useFetchGenres = () => {
 export const useFetchMovies = (filters: FilterParams) => {
   const { locale } = useLocale();
   const language = getLanguageFromLocale(locale);
-  return useQuery<FilteredMoviesResponse>({
+  const { data, isPending, error } = useQuery<APIResponse>({
     queryKey: ["movies", filters],
     queryFn: async () => {
       const params = new URLSearchParams({
@@ -88,4 +82,16 @@ export const useFetchMovies = (filters: FilterParams) => {
       return response.json();
     },
   });
+  const convertedData = data
+    ? convertAPIResponse(data)
+    : { results: [], totalPages: START_PAGE };
+  const movies = convertedData.results;
+  const totalPages = convertedData.totalPages;
+
+  return {
+    movies,
+    totalPages,
+    isPending,
+    error,
+  };
 };

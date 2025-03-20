@@ -4,14 +4,12 @@ import { useEffect, useState } from "react";
 import Button from "@components/Button.tsx";
 import { Genre } from "@services/tmdbQuery.ts";
 import ViewButton from "@components/ViewButton";
-import FavoriteMovieCard from "./components/FavoriteMovieCard";
-import { ViewModeType } from "types";
-import { GRID_VIEW, LIST_VIEW } from "@components/constants";
-import { FavoriteMovie } from "types";
-import { MOVIES_PER_PAGE } from "@components/constants";
+import MovieCard from "@components/MovieCard";
+import { ViewModeType, FavoriteMovie } from "types";
+import { GRID_VIEW, LIST_VIEW, START_PAGE } from "@components/constants";
 import getPaginatedFavoriteMovies from "@services/getFavoriteMoviesPage";
 import Pagination from "@components/Pagination";
-import { START_PAGE } from "@components/constants";
+import FavoriteMovieCardButtons from "./components/FavoriteMovieCardButtons";
 
 interface FavoriteMoviesBlockProps {
   genres: Genre[];
@@ -24,7 +22,7 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   const [moviesOnPage, setMoviesOnPage] = useState<FavoriteMovie[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
-  const addMovieClick = () => {
+  const handleAdd = () => {
     navigate("/searchmovies");
   };
 
@@ -64,26 +62,30 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
     <>
       <div className="flex flex-row-reverse my-7 p-2 max-w">
         <ViewButton setViewMode={setViewMode} viewMode={viewMode} />
-        <Button onClick={addMovieClick}>{t`Add movie`}</Button>
+        <Button onClick={handleAdd}>{t`Add`}</Button>
         <h1 className="mx-8 my-2 text-2xl font-medium flex-grow flex justify-center items-center">{t`Your favorite movies`}</h1>
       </div>
       <div
         className={`${
           viewMode === GRID_VIEW
-            ? "grid grid-cols-4gr gap-4"
+            ? "grid grid-cols-4 gap-4"
             : "flex flex-col flex-wrap gap-6 mx-4"
         }`}
       >
         {moviesOnPage?.map((favMovie) => (
-          <FavoriteMovieCard
+          <MovieCard
             key={favMovie.id}
-            favMovie={favMovie}
+            movie={favMovie}
             viewMode={viewMode}
-            toggleWatchedStatus={toggleWatchedStatus}
-            handleDelete={handleDelete}
             genres={genres}
             number={moviesOnPage.indexOf(favMovie) + 1 + "."}
-          />
+          >
+            <FavoriteMovieCardButtons
+              toggleWatchedStatus={toggleWatchedStatus}
+              handleDelete={handleDelete}
+              movieid={favMovie.id}
+            />
+          </MovieCard>
         ))}
       </div>
       <Pagination

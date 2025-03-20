@@ -2,12 +2,19 @@ import { ReactNode } from "react";
 
 interface ButtonProps {
   onClick: () => void;
-  isActive?: boolean;
   buttonView?: "square";
   children: ReactNode;
+  isDisabled?: boolean;
+  className?: string;
 }
 
-function Button({ onClick, isActive, buttonView, children }: ButtonProps) {
+function Button({
+  onClick,
+  buttonView,
+  children,
+  isDisabled,
+  className = "",
+}: ButtonProps) {
   return (
     <button
       onClick={onClick}
@@ -17,7 +24,8 @@ function Button({ onClick, isActive, buttonView, children }: ButtonProps) {
             ? "w-10 h-10 border border-gray-400 rounded hover:bg-gray-600"
             : "mx-1 py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-600"
         }
-        ${isActive ? "!bg-yellow-500" : ""}
+        ${isDisabled ? "grayscale opacity-50" : ""}
+        ${className}
       `}
     >
       {children}
