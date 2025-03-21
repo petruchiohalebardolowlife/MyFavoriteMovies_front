@@ -5,35 +5,9 @@ import App from "./App.tsx";
 import { LocaleProvider } from "@contexts/localeContext.tsx";
 import { QueryProvider } from "@contexts/queryContext.tsx";
 import { AuthProvider } from "@contexts/authContext.tsx";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
+import { ApolloProvider } from "@apollo/client";
+import client from "@apolloclient/index.ts";
 
-//DELETE AFTER THIS SHIT
-
-const httpLink = createHttpLink({
-  uri: "http://localhost:8081/query",
-  credentials: "include",
-});
-
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("token");
-  return {
-    headers: {
-      ...headers,
-      Authorization: token ? token : "",
-    },
-  };
-});
-
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
 function Root() {
   return (
     <ApolloProvider client={client}>

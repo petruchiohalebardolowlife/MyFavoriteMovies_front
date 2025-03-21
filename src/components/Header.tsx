@@ -19,7 +19,7 @@ function Header() {
         <LanguageButton locale="ru" />
         {user ? (
           <div className="flex flex-row">
-            <p className="mx-2 my-2 font-medium">{t`Hello, ${user.userName} `}</p>
+            <p className="mx-2 my-2 font-medium">{t`Hello, ${user.nickName} `}</p>
             <button
               onClick={handleClick}
               className="py-2 px-4 bg-gray-800 rounded hover:bg-gray-600"

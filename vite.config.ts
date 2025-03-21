@@ -7,6 +7,7 @@ import path from "path";
 export default defineConfig({
   resolve: {
     alias: {
+      "@apolloclient": path.resolve(__dirname, "src/apolloclient"),
       "@services": path.resolve(__dirname, "src/services"),
       "@pages": path.resolve(__dirname, "src/pages"),
       "@components": path.resolve(__dirname, "src/components"),

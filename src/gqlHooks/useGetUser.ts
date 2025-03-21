@@ -1,16 +1,14 @@
 import { gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 
 const GET_USER = gql`
   query {
     getUser {
       id
       nickName
-      userName
     }
   }
 `;
-
-import { useQuery } from "@apollo/client";
 
 const useGetUser = () => {
   const {

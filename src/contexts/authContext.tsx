@@ -31,20 +31,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isInitialized, setIsInitialized] = useState(false);
   const { currentUser, isLoadingGetUser, errorGetUser, refetchGetUser } =
     useGetUser();
-  const { signIn } = useSignIn();
+  const signIn = useSignIn();
   const client = useApolloClient();
+  // const data = useRefreshToken();
+
+  // useEffect(() => {
+  //   console.log("NEW TOKEN ",data);
+  // }, [data]);
 
   useEffect(() => {
-    console.log("before if", currentUser);
-    console.log("before if", Boolean(currentUser));
     if (!isLoadingGetUser && !errorGetUser && currentUser) {
-      console.log("in if", currentUser);
-
-      setUser({
-        id: currentUser.id,
-        userName: currentUser.userName,
-        nickName: currentUser.nickName,
-      });
+      setUser(currentUser);
       setIsInitialized(true);
     } else if (errorGetUser) {
       setIsInitialized(true);
@@ -59,10 +56,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     password: string;
   }) => {
     try {
-      const responseSignIn = await signIn({
+      const { data: { signIn: response } = {} } = await signIn({
         variables: { username, password },
       });
-      const token = responseSignIn.data?.signIn?.token;
+      const token = response.token;
       if (!token) {
         return false;
       }
@@ -77,7 +74,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const logout = () => {
     localStorage.removeItem("token");
     setUser(null);
-    client.clearStore();
+    client.resetStore();
   };
 
   if (!isInitialized) {

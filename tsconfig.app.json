@@ -25,6 +25,7 @@
     /* Aliases */
     "baseUrl": "./src",
     "paths": {
+      "@apolloclient/*": ["apolloclient/*"],
       "@services/*": ["services/*"],
       "@pages/*": ["pages/*"],
       "@components/*": ["components/*"],
