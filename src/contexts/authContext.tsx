@@ -9,10 +9,11 @@ import { useSignIn } from "@gqlHooks/useSignIn";
 import { User } from "@gqlHooks/useSignIn";
 import useGetUser from "@gqlHooks/useGetUser";
 import { useApolloClient } from "@apollo/client";
+import { useSignOut } from "@gqlHooks/useSignOut";
 
 interface AuthContextType {
   user: User | null;
-  logout: () => void;
+  logout: () => Promise<boolean>;
   login: (variables: {
     username: string;
     password: string;
@@ -32,6 +33,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const { currentUser, isLoadingGetUser, errorGetUser, refetchGetUser } =
     useGetUser();
   const signIn = useSignIn();
+  const signOut = useSignOut();
   const client = useApolloClient();
   // const data = useRefreshToken();
 
@@ -71,11 +73,27 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setUser(null);
-    client.resetStore();
+  const logout = async () => {
+    try {
+      const { data } = await signOut();
+      if (data?.logOut) {
+        localStorage.removeItem("token");
+        setUser(null);
+        client.resetStore();
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.log("ne vishlos", error);
+      return false;
+    }
   };
+
+  // const logout = () => {
+  //   localStorage.removeItem("token");
+  //   setUser(null);
+  //   client.resetStore();
+  // };
 
   if (!isInitialized) {
     return null;
