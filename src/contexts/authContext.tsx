@@ -29,23 +29,27 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
-  const { dataGetUser, isLoadingGetUser, errorGetUser, refetchGetUser } =
+  const { currentUser, isLoadingGetUser, errorGetUser, refetchGetUser } =
     useGetUser();
   const { signIn } = useSignIn();
   const client = useApolloClient();
 
   useEffect(() => {
-    if (!isLoadingGetUser && !errorGetUser && dataGetUser) {
+    console.log("before if", currentUser);
+    console.log("before if", Boolean(currentUser));
+    if (!isLoadingGetUser && !errorGetUser && currentUser) {
+      console.log("in if", currentUser);
+
       setUser({
-        id: dataGetUser.getUser.id,
-        userName: dataGetUser.getUser.userName,
-        nickName: dataGetUser.nickName,
+        id: currentUser.id,
+        userName: currentUser.userName,
+        nickName: currentUser.nickName,
       });
       setIsInitialized(true);
     } else if (errorGetUser) {
       setIsInitialized(true);
     }
-  }, [dataGetUser, errorGetUser, isLoadingGetUser]);
+  }, [currentUser, errorGetUser, isLoadingGetUser]);
 
   const login = async ({
     username,

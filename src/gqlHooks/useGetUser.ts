@@ -14,17 +14,17 @@ import { useQuery } from "@apollo/client";
 
 const useGetUser = () => {
   const {
-    data: dataGetUser,
+    data: { getUser: currentUser } = {},
     loading: isLoadingGetUser,
     error: errorGetUser,
     refetch: refetchGetUser,
   } = useQuery(GET_USER, {
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: "network-only",
     notifyOnNetworkStatusChange: true,
   });
 
   return {
-    dataGetUser,
+    currentUser,
     isLoadingGetUser,
     errorGetUser,
     refetchGetUser,
