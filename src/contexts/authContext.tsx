@@ -29,26 +29,27 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [isInitialized, setIsInitialized] = useState(false);
-  const { currentUser, isLoadingGetUser, errorGetUser, refetchGetUser } =
-    useGetUser();
+  const { currentUser, loadingGetUser, errorGetUser, refetchGetUser } =
+    useGetUser(!token);
   const signIn = useSignIn();
   const signOut = useSignOut();
   const client = useApolloClient();
-  // const data = useRefreshToken();
-
-  // useEffect(() => {
-  //   console.log("NEW TOKEN ",data);
-  // }, [data]);
 
   useEffect(() => {
-    if (!isLoadingGetUser && !errorGetUser && currentUser) {
+    if (!token) {
+      setIsInitialized(true);
+      return;
+    }
+
+    if (!loadingGetUser && !errorGetUser && currentUser) {
       setUser(currentUser);
       setIsInitialized(true);
     } else if (errorGetUser) {
       setIsInitialized(true);
     }
-  }, [currentUser, errorGetUser, isLoadingGetUser]);
+  }, [currentUser, errorGetUser, loadingGetUser, token]);
 
   const login = async ({
     username,
@@ -66,6 +67,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         return false;
       }
       localStorage.setItem("token", token);
+      setToken(token);
       await refetchGetUser();
       return true;
     } catch {
@@ -78,32 +80,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const { data } = await signOut();
       if (data?.logOut) {
         localStorage.removeItem("token");
+        setToken(null);
         setUser(null);
         client.resetStore();
         return true;
       }
       return false;
-    } catch (error) {
-      console.log("ne vishlos", error);
+    } catch {
       return false;
     }
   };
 
-  // const logout = () => {
-  //   localStorage.removeItem("token");
-  //   setUser(null);
-  //   client.resetStore();
-  // };
-
-  if (!isInitialized) {
-    return null;
-  }
-
   return (
     <AuthContext.Provider
-      value={{ user, logout, login, loading: isLoadingGetUser }}
+      value={{ user, logout, login, loading: loadingGetUser }}
     >
-      {children}
+      {isInitialized ? children : null}
     </AuthContext.Provider>
   );
 }

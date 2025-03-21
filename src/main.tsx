@@ -6,7 +6,7 @@ import { LocaleProvider } from "@contexts/localeContext.tsx";
 import { QueryProvider } from "@contexts/queryContext.tsx";
 import { AuthProvider } from "@contexts/authContext.tsx";
 import { ApolloProvider } from "@apollo/client";
-import client from "@apolloclient/index.ts";
+import client from "./client";
 
 function Root() {
   return (

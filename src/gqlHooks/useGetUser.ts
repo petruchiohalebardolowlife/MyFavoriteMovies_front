@@ -1,7 +1,6 @@
-import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 
-const GET_USER = gql`
+export const GET_USER = gql`
   query {
     getUser {
       id
@@ -10,20 +9,22 @@ const GET_USER = gql`
   }
 `;
 
-const useGetUser = () => {
+const useGetUser = (skip: boolean = false) => {
   const {
-    data: { getUser: currentUser } = {},
-    loading: isLoadingGetUser,
+    data,
+    loading: loadingGetUser,
     error: errorGetUser,
     refetch: refetchGetUser,
   } = useQuery(GET_USER, {
+    skip,
     fetchPolicy: "network-only",
-    notifyOnNetworkStatusChange: true,
   });
+
+  const currentUser = data?.getUser || null;
 
   return {
     currentUser,
-    isLoadingGetUser,
+    loadingGetUser,
     errorGetUser,
     refetchGetUser,
   };
