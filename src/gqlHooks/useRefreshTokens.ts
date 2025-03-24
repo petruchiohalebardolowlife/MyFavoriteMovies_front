@@ -3,13 +3,13 @@ import { useMutation } from "@apollo/client";
 
 export const REFRESH_TOKENS = gql`
   mutation {
-    refreshToken
+    newAccessToken
   }
 `;
 
-export function useRefreshToken() {
+export function useRefreshTokens() {
   const [refreshToken] = useMutation(REFRESH_TOKENS);
   return refreshToken;
 }
 
-export default useRefreshToken;
+export default useRefreshTokens;

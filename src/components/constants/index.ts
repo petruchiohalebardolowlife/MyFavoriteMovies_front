@@ -14,3 +14,4 @@ export const MAX_VALUE_RANGE = 10;
 export const LIST_OF_YEARS = getYears();
 export const API_URL = import.meta.env.VITE_BASE_URL;
 export const API_KEY = import.meta.env.VITE_API_KEY;
+export const BACK_URL = import.meta.env.VITE_BACK_URL;

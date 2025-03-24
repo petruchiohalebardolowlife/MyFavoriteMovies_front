@@ -7,10 +7,11 @@ import {
 import { fromPromise } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
+import { BACK_URL } from "@components/constants";
 import { REFRESH_TOKENS } from "@gqlHooks/useRefreshTokens";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:8081/query",
+  uri: BACK_URL,
   credentials: "include",
 });
 
@@ -19,15 +20,15 @@ const refreshClient = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const getRefreshToken = async () => {
+const getNewTokens = async () => {
   try {
     const { data } = await refreshClient.mutate({ mutation: REFRESH_TOKENS });
     localStorage.removeItem("token");
-    if (!data || !data.refreshToken) {
+    if (!data?.newAccessToken) {
       throw new Error("No token in data");
     }
-    localStorage.setItem("token", data.refreshToken);
-    return data.refreshToken;
+    localStorage.setItem("token", data.newAccessToken);
+    return data.newAccessToken;
   } catch (error) {
     console.error("Internal server error:", error);
     return null;
@@ -41,7 +42,7 @@ const errorLink = onError(
         switch (err.extensions?.code) {
           case "401":
             return fromPromise(
-              getRefreshToken().catch((error) => {
+              getNewTokens().catch((error) => {
                 console.error("Failed to refresh token:", error);
                 return null;
               })
