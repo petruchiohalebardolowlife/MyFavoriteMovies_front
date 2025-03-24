@@ -22,9 +22,7 @@ interface AuthProviderProps {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const { currentUser, loading, error } = useGetUser(
-    !localStorage.getItem("token")
-  );
+  const { user, loading, error } = useGetUser(!localStorage.getItem("token"));
   const { t } = useLingui();
   const login = useSignIn();
   const logout = useSignOut();
@@ -38,7 +36,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ user: currentUser, logout, login, loading }}>
+    <AuthContext.Provider value={{ user, logout, login, loading }}>
       {children}
     </AuthContext.Provider>
   );

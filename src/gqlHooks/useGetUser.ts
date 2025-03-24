@@ -15,10 +15,10 @@ const useGetUser = (skip: boolean = false) => {
     fetchPolicy: "cache-and-network",
   });
 
-  const currentUser = data?.getUser || null;
+  const user = data?.getUser || null;
 
   return {
-    currentUser,
+    user,
     loading,
     error,
     refetch,
