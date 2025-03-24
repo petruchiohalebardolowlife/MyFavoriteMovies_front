@@ -7,11 +7,11 @@ import {
 import { fromPromise } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
-import { BACK_URL } from "@components/constants";
+import { API_URL } from "@components/constants";
 import { REFRESH_TOKENS } from "@gqlHooks/useRefreshTokens";
 
 const httpLink = createHttpLink({
-  uri: BACK_URL,
+  uri: API_URL,
   credentials: "include",
 });
 

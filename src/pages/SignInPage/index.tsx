@@ -29,9 +29,8 @@ function SignInPage() {
       } else {
         setError("Invalid username or password");
       }
-    } catch (err) {
-      console.error("Login failed:", err);
-      setError("Invalid username or password");
+    } catch {
+      setError("Failed to connect with server, try again later");
     }
   };
 

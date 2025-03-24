@@ -6,7 +6,6 @@ import FavoriteGenresBlock from "./components/GenresBlock";
 function MainPage() {
   const { t } = useLingui();
   const { isPending, error, data: genres } = useFetchGenres();
-
   if (isPending) return <div>{t`Loading...`}</div>;
   if (error) return <div>{t`Error: ${error.message}`}</div>;
 

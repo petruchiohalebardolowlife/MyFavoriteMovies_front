@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/" element={withAuth(MainPage)({})} />
-        <Route path="/searchmovies" element={withAuth(SearchMoviesPage)({})} />
+        {/* <Route path="/searchmovies" element={withAuth(SearchMoviesPage)({})} /> */}
       </Routes>
     </>
   );

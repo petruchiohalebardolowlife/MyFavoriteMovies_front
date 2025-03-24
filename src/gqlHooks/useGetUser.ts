@@ -12,7 +12,7 @@ export const GET_USER = gql`
 const useGetUser = (skip: boolean = false) => {
   const { data, loading, error, refetch } = useQuery(GET_USER, {
     skip,
-    fetchPolicy: "network-only",
+    fetchPolicy: "cache-and-network",
   });
 
   const currentUser = data?.getUser || null;
