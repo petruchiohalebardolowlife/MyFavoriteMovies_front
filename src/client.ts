@@ -21,13 +21,13 @@ const refreshClient = new ApolloClient({
 
 const getRefreshToken = async () => {
   try {
-    const { data } = await refreshClient.query({ query: REFRESH_TOKENS });
+    const { data } = await refreshClient.mutate({ mutation: REFRESH_TOKENS });
     localStorage.removeItem("token");
-    if (!data || !data.queryRefreshToken) {
+    if (!data || !data.refreshToken) {
       throw new Error("No token in data");
     }
-    localStorage.setItem("token", data.queryRefreshToken);
-    return data.queryRefreshToken;
+    localStorage.setItem("token", data.refreshToken);
+    return data.refreshToken;
   } catch (error) {
     console.error("Internal server error:", error);
     return null;
