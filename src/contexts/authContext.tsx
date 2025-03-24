@@ -31,8 +31,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [isInitialized, setIsInitialized] = useState(false);
-  const { currentUser, loadingGetUser, errorGetUser, refetchGetUser } =
-    useGetUser(!token);
+  const { currentUser, loading, error, refetch } = useGetUser(!token);
   const signIn = useSignIn();
   const signOut = useSignOut();
   const client = useApolloClient();
@@ -43,13 +42,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
       return;
     }
 
-    if (!loadingGetUser && !errorGetUser && currentUser) {
+    if (!loading && !error && currentUser) {
       setUser(currentUser);
       setIsInitialized(true);
-    } else if (errorGetUser) {
+    } else if (error) {
       setIsInitialized(true);
     }
-  }, [currentUser, errorGetUser, loadingGetUser, token]);
+  }, [currentUser, error, loading, token]);
 
   const login = async ({
     username,
@@ -68,7 +67,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       }
       localStorage.setItem("token", token);
       setToken(token);
-      await refetchGetUser();
+      await refetch();
       return true;
     } catch {
       return false;
@@ -92,9 +91,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   return (
-    <AuthContext.Provider
-      value={{ user, logout, login, loading: loadingGetUser }}
-    >
+    <AuthContext.Provider value={{ user, logout, login, loading }}>
       {isInitialized ? children : null}
     </AuthContext.Provider>
   );

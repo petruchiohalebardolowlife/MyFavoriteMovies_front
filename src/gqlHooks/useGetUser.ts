@@ -10,12 +10,7 @@ export const GET_USER = gql`
 `;
 
 const useGetUser = (skip: boolean = false) => {
-  const {
-    data,
-    loading: loadingGetUser,
-    error: errorGetUser,
-    refetch: refetchGetUser,
-  } = useQuery(GET_USER, {
+  const { data, loading, error, refetch } = useQuery(GET_USER, {
     skip,
     fetchPolicy: "network-only",
   });
@@ -24,9 +19,9 @@ const useGetUser = (skip: boolean = false) => {
 
   return {
     currentUser,
-    loadingGetUser,
-    errorGetUser,
-    refetchGetUser,
+    loading,
+    error,
+    refetch,
   };
 };
 
