@@ -29,45 +29,37 @@ const getNewTokens = async () => {
     }
     localStorage.setItem("token", data.newAccessToken);
     return data.newAccessToken;
-  } catch (error) {
-    console.error("Internal server error:", error);
+  } catch {
     return null;
   }
 };
 
-const errorLink = onError(
-  ({ graphQLErrors, networkError, operation, forward }) => {
-    if (graphQLErrors) {
-      for (const err of graphQLErrors) {
-        switch (err.extensions?.code) {
-          case "401":
-            return fromPromise(
-              getNewTokens().catch((error) => {
-                console.error("Failed to refresh token:", error);
-                return null;
-              })
-            )
-              .filter((value) => Boolean(value))
-              .flatMap((accessToken) => {
-                const oldHeaders = operation.getContext().headers;
-                operation.setContext({
-                  headers: {
-                    ...oldHeaders,
-                    authorization: accessToken,
-                  },
-                });
-
-                return forward(operation);
+const errorLink = onError(({ graphQLErrors, operation, forward }) => {
+  if (graphQLErrors) {
+    for (const err of graphQLErrors) {
+      switch (err.extensions?.code) {
+        case "401":
+          return fromPromise(
+            getNewTokens().catch(() => {
+              return null;
+            })
+          )
+            .filter((value) => Boolean(value))
+            .flatMap((accessToken) => {
+              const oldHeaders = operation.getContext().headers;
+              operation.setContext({
+                headers: {
+                  ...oldHeaders,
+                  authorization: accessToken,
+                },
               });
-        }
+
+              return forward(operation);
+            });
       }
     }
-
-    if (networkError) {
-      console.error(networkError);
-    }
   }
-);
+});
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("token");

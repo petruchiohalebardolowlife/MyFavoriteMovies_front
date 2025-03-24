@@ -1,6 +1,5 @@
 import { gql } from "@apollo/client";
 import { useMutation, useApolloClient } from "@apollo/client";
-import { User } from "./useSignIn";
 
 const SIGN_OUT = gql`
   mutation {
@@ -8,9 +7,7 @@ const SIGN_OUT = gql`
   }
 `;
 
-export function useSignOut(
-  setUser: React.Dispatch<React.SetStateAction<User | null>>
-) {
+export function useSignOut() {
   const [signOut] = useMutation(SIGN_OUT);
   const client = useApolloClient();
   const logout = async (): Promise<boolean> => {
@@ -18,13 +15,11 @@ export function useSignOut(
       const { data } = await signOut();
       if (data?.logOut) {
         localStorage.removeItem("token");
-        setUser(null);
         client.resetStore();
         return true;
       }
       return false;
-    } catch (error) {
-      console.error("Login error:", error);
+    } catch {
       return false;
     }
   };

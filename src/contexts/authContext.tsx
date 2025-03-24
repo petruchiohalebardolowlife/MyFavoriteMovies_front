@@ -1,14 +1,9 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
+import { createContext, useContext, ReactNode } from "react";
 import { useSignIn } from "@gqlHooks/useSignIn";
 import { User } from "@gqlHooks/useSignIn";
 import useGetUser from "@gqlHooks/useGetUser";
 import { useSignOut } from "@gqlHooks/useSignOut";
+import { useLingui } from "@lingui/react/macro";
 
 interface AuthContextType {
   user: User | null;
@@ -27,24 +22,23 @@ interface AuthProviderProps {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<User | null>(null);
   const { currentUser, loading, error } = useGetUser(
     !localStorage.getItem("token")
   );
+  const { t } = useLingui();
   const login = useSignIn();
-  const logout = useSignOut(setUser);
+  const logout = useSignOut();
 
-  console.log("Loading in auth context is (1)", loading);
-  console.log("User in auth context is (2)", currentUser);
-
-  useEffect(() => {
-    if (!loading && !error && currentUser) {
-      setUser(currentUser);
-    }
-  }, [currentUser, error, loading]);
+  if (error) {
+    return (
+      <p className="flex flex-col items-center justify-center min-h-screen">
+        {t`Error: ${error.message}`}
+      </p>
+    );
+  }
 
   return (
-    <AuthContext.Provider value={{ user, logout, login, loading }}>
+    <AuthContext.Provider value={{ user: currentUser, logout, login, loading }}>
       {children}
     </AuthContext.Provider>
   );

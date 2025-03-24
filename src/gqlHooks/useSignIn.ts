@@ -42,8 +42,7 @@ export function useSignIn() {
       localStorage.setItem("token", token);
       await refetch();
       return true;
-    } catch (error) {
-      console.error("Login error:", error);
+    } catch {
       return false;
     }
   };

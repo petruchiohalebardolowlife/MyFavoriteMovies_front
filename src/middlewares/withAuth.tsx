@@ -11,13 +11,9 @@ export function withAuth<T extends object>(
     const navigate = useNavigate();
     const { user, loading } = useAuth();
 
-    console.log("Loading in HOC is (3)", loading);
-    console.log("User in HOC is (4)", user);
-
     React.useEffect(() => {
       if (!loading && !user) {
         navigate("/signin");
-        console.log("Navigate from here");
       }
     }, [loading, user, navigate]);
 
