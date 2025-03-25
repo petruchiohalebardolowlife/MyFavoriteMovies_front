@@ -1,5 +1,4 @@
 import { useLingui } from "@lingui/react/macro";
-import { useEffect } from "react";
 import { Genre } from "@services/tmdbQuery";
 import GenresBlock from "@components/GenresBlock";
 import useGetFavoriteGenres from "@gqlHooks/useGetFavoriteGenres";
@@ -13,17 +12,11 @@ interface GenresBlockProps {
 function FavoriteGenresBlock({ genres }: GenresBlockProps) {
   const { t } = useLingui();
   const { selected } = useGetFavoriteGenres();
-
-  useEffect(() => {
-    localStorage.setItem("favoriteGenres", JSON.stringify(selected));
-  }, [selected]);
-
   const addFavGenre = useAddFavoriteGenre();
   const deleteFavGenre = useDeleteFavoriteGenre();
 
   const handleAddFavoriteGenre = (id: number) => {
-    if (selected.includes(Number(id))) {
-      // console.log("Dont work");
+    if (selected.includes(id)) {
       deleteFavGenre(id);
     } else {
       addFavGenre(id);
@@ -39,7 +32,7 @@ function FavoriteGenresBlock({ genres }: GenresBlockProps) {
         <GenresBlock
           onClick={handleAddFavoriteGenre}
           genres={genres}
-          selected={selected.map(String)}
+          selected={selected}
         />
       </div>
     </>

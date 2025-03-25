@@ -15,7 +15,6 @@ export interface APIResponse {
   total_pages: number;
 }
 
-
 interface FilterParams {
   page?: number;
   withGenres?: number[];

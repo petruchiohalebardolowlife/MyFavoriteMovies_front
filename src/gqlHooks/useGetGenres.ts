@@ -1,4 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
+import { Genre } from "@services/tmdbQuery";
 
 export const GET_GENRES = gql`
   query getAllGenres($language: String!) {
@@ -10,15 +11,22 @@ export const GET_GENRES = gql`
 `;
 
 const useGetGenres = (language: string) => {
-  const { data, loading, error } = useQuery(GET_GENRES, {
-    variables: { language },
-    fetchPolicy: "cache-and-network",
-  });
+  const { data, loading, error } = useQuery<{ getAllGenres: Genre[] }>(
+    GET_GENRES,
+    {
+      variables: { language },
+      fetchPolicy: "cache-and-network",
+    }
+  );
 
   const genres = data?.getAllGenres || [];
+  const convertedGenres = genres?.map((genre) => ({
+    ...genre, 
+    id: Number(genre.id)
+  }));
 
   return {
-    genres,
+    genres: convertedGenres,
     loading,
     error,
   };

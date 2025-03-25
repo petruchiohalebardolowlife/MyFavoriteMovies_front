@@ -10,6 +10,7 @@ import { GRID_VIEW } from "@components/constants";
 import { alreadyInFavorites } from "@utils/alreadyInFavorites";
 import FiltersBlock from "./components/FiltersBlock";
 import Button from "@components/Button";
+import useGetFavoriteGenres from "@gqlHooks/useGetFavoriteGenres";
 
 interface AddMoviesBlockProps {
   genres: Genre[];
@@ -34,22 +35,22 @@ function AddMoviesBlock({
   const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
     null
   );
-  const [selected, setSelected] = useState<number[]>(() => {
-    return JSON.parse(localStorage.getItem("favoriteGenres") || "[]");
-  });
-
+  const { selected } = useGetFavoriteGenres();
+  const [selectedGenres, setSelectedGenres] = useState<number[]>(selected);
   const { t } = useLingui();
 
   useEffect(() => {
-    setSelected(JSON.parse(localStorage.getItem("favoriteGenres") || "[]"));
-  }, []);
+    if (selected) {
+      setSelectedGenres(selected);
+    }
+  }, [selected]);
 
   useEffect(() => {
     setPage(START_PAGE);
   }, [selectedOption, rating]);
 
   const toggleGenreForFilter = (id: number) => {
-    setSelected((prevState) =>
+    setSelectedGenres((prevState) =>
       prevState.includes(id)
         ? prevState.filter((value) => value !== id)
         : [...prevState, id]
@@ -60,7 +61,7 @@ function AddMoviesBlock({
     page: currentPage,
     primaryReleaseYear: selectedOption?.value,
     voteAverageGte: rating,
-    withGenres: selected,
+    withGenres: selectedGenres,
   });
 
   if (error) return <div>{t`Error: ${error.message}`}</div>;
@@ -70,7 +71,7 @@ function AddMoviesBlock({
       <GenresBlock
         onClick={toggleGenreForFilter}
         genres={genres}
-        selected={selected}
+        selected={selectedGenres}
       />
       <FiltersBlock
         rating={rating}

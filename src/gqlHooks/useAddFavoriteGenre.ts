@@ -8,17 +8,19 @@ const ADD_FAVORITE_GENRE = gql`
 `;
 
 export function useAddFavoriteGenre() {
-  const [addFavoriteGenre] = useMutation(ADD_FAVORITE_GENRE, {refetchQueries:[{query: GET_FAVORITE_GENRES}]});
+  const [addFavoriteGenre] = useMutation(ADD_FAVORITE_GENRE, {
+    refetchQueries: [{ query: GET_FAVORITE_GENRES }],
+  });
 
-  const addFavGenre = async (genreID: number): Promise<number> => {
+  const addFavGenre = async (genreID: number): Promise<boolean> => {
     try {
       const { data } = await addFavoriteGenre({ variables: { genreID } });
       if (!data?.getFavoriteGenres) {
-        return 0;
+        return false;
       }
       return data.addFavoriteGenre;
     } catch {
-      return 0;
+      return false;
     }
   };
 
