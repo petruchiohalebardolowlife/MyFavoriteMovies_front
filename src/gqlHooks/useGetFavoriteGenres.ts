@@ -7,7 +7,7 @@ export const GET_FAVORITE_GENRES = gql`
 `;
 
 const useGetFavoriteGenres = () => {
-  const { data, loading, error } = useQuery(GET_FAVORITE_GENRES, {
+  const { data, loading, error, refetch } = useQuery(GET_FAVORITE_GENRES, {
     fetchPolicy: "cache-and-network",
   });
 
@@ -16,6 +16,7 @@ const useGetFavoriteGenres = () => {
   return {
     selected: favoriteGenres,
     loading,
+    refetch,
     error,
   };
 };

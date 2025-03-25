@@ -1,4 +1,5 @@
 import { useMutation, gql } from "@apollo/client";
+import { GET_FAVORITE_GENRES } from "./useGetFavoriteGenres";
 
 const ADD_FAVORITE_GENRE = gql`
   mutation addFavoriteGenre($genreID: ID!) {
@@ -7,7 +8,7 @@ const ADD_FAVORITE_GENRE = gql`
 `;
 
 export function useAddFavoriteGenre() {
-  const [addFavoriteGenre] = useMutation(ADD_FAVORITE_GENRE);
+  const [addFavoriteGenre] = useMutation(ADD_FAVORITE_GENRE, {refetchQueries:[{query: GET_FAVORITE_GENRES}]});
 
   const addFavGenre = async (genreID: number): Promise<number> => {
     try {

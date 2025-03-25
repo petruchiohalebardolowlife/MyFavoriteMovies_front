@@ -4,6 +4,7 @@ import { Genre } from "@services/tmdbQuery";
 import GenresBlock from "@components/GenresBlock";
 import useGetFavoriteGenres from "@gqlHooks/useGetFavoriteGenres";
 import { useAddFavoriteGenre } from "@gqlHooks/useAddFavoriteGenre";
+import { useDeleteFavoriteGenre } from "@gqlHooks/useDeleteFavoriteGenres";
 
 interface GenresBlockProps {
   genres: Genre[];
@@ -12,27 +13,22 @@ interface GenresBlockProps {
 function FavoriteGenresBlock({ genres }: GenresBlockProps) {
   const { t } = useLingui();
   const { selected } = useGetFavoriteGenres();
-  console.log("Selected genres from DB", selected);
-
-  console.log("All genres", typeof genres[0].id);
 
   useEffect(() => {
     localStorage.setItem("favoriteGenres", JSON.stringify(selected));
   }, [selected]);
 
   const addFavGenre = useAddFavoriteGenre();
+  const deleteFavGenre = useDeleteFavoriteGenre();
 
   const handleAddFavoriteGenre = (id: number) => {
-    addFavGenre(id)
+    if (selected.includes(Number(id))) {
+      // console.log("Dont work");
+      deleteFavGenre(id);
+    } else {
+      addFavGenre(id);
+    }
   };
-
-  // const toggleFavoriteGenre = (id: number) => {
-  //   setSelected((prevState) =>
-  //     prevState.includes(id)
-  //       ? prevState.filter((genreId) => genreId !== id)
-  //       : [...prevState, id]
-  //   );
-  // };
 
   return (
     <>
