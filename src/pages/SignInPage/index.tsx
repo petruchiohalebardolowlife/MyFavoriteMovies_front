@@ -17,12 +17,20 @@ function SignInPage() {
   const { t } = useLingui();
   const { login } = useAuth();
 
-  const onSubmit = (values: SignInFormValues) => {
-    const result = login(values.username, values.password);
-    if (result) {
-      navigate("/");
-    } else {
-      setError("Invalid username or password");
+  const onSubmit = async (values: SignInFormValues) => {
+    try {
+      const isSuccess = await login({
+        username: values.username,
+        password: values.password,
+      });
+
+      if (isSuccess) {
+        navigate("/");
+      } else {
+        setError("Invalid username or password");
+      }
+    } catch {
+      setError("Failed to connect with server, try again later");
     }
   };
 

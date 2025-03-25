@@ -11,6 +11,7 @@ function Header() {
     logout();
     navigate("/signin");
   };
+
   return (
     <header className="p-2 bg-gray-700 text-white flex flex-row">
       <div className="ml-auto space-x-2 flex flex-row">
@@ -18,7 +19,7 @@ function Header() {
         <LanguageButton locale="ru" />
         {user ? (
           <div className="flex flex-row">
-            <p className="mx-2 my-2 font-medium">{t`Hello, ${user.username}`}</p>
+            <p className="mx-2 my-2 font-medium">{t`Hello, ${user.nickName} `}</p>
             <button
               onClick={handleClick}
               className="py-2 px-4 bg-gray-800 rounded hover:bg-gray-600"

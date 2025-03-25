@@ -1,57 +1,39 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
+import { createContext, useContext, ReactNode } from "react";
+import { useSignIn } from "@gqlHooks/useSignIn";
+import { User } from "@gqlHooks/useSignIn";
+import useGetUser from "@gqlHooks/useGetUser";
+import { useSignOut } from "@gqlHooks/useSignOut";
+import { useLingui } from "@lingui/react/macro";
 
 interface AuthContextType {
-  user: { username: string } | null;
-  logout: () => void;
-  login: (username: string, password: string) => boolean;
+  user: User | null;
+  logout: () => Promise<boolean>;
+  login: (variables: {
+    username: string;
+    password: string;
+  }) => Promise<boolean>;
   loading: boolean;
 }
 
 interface AuthProviderProps {
   children: ReactNode;
 }
-const hardcodedUser = {
-  username: "username",
-  password: "password",
-};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<{ username: string } | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { user, loading, error } = useGetUser(!localStorage.getItem("token"));
+  const { t } = useLingui();
+  const login = useSignIn();
+  const logout = useSignOut();
 
-  useEffect(() => {
-    const token = sessionStorage.getItem("authToken");
-    if (token) {
-      setUser({ username: hardcodedUser.username });
-    }
-    setLoading(false);
-  }, []);
-
-  const login = (username: string, password: string) => {
-    if (
-      username == hardcodedUser.username &&
-      password == hardcodedUser.password
-    ) {
-      sessionStorage.setItem("authToken", "some-token");
-      setUser({ username: hardcodedUser.username });
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  const logout = () => {
-    sessionStorage.removeItem("authToken");
-    setUser(null);
-  };
+  if (error) {
+    return (
+      <p className="flex flex-col items-center justify-center min-h-screen">
+        {t`Error: ${error.message}`}
+      </p>
+    );
+  }
 
   return (
     <AuthContext.Provider value={{ user, logout, login, loading }}>

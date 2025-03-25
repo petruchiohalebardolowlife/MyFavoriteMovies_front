@@ -30,7 +30,8 @@
       "@components/*": ["components/*"],
       "@contexts/*": ["contexts/*"],
       "@middlewares/*": ["middlewares/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@gqlHooks/*": ["gqlHooks/*"]
     }
   },
   "include": ["src"]

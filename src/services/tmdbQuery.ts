@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocale } from "@contexts/localeContext";
 import { MovieResponse } from "types";
 import { convertAPIResponse } from "@utils/formatAPIData";
-import { API_KEY, API_URL, START_PAGE } from "@components/constants";
+import { API_KEY, API_TMDB_URL, START_PAGE } from "@components/constants";
 
 export interface Genre {
   id: number;
@@ -37,7 +37,7 @@ export const useFetchGenres = () => {
     queryKey: ["genres", locale],
     queryFn: async () => {
       const response = await fetch(
-        `${API_URL}/genre/movie/list?api_key=${API_KEY}&language=${language}`
+        `${API_TMDB_URL}/genre/movie/list?api_key=${API_KEY}&language=${language}`
       );
       if (!response.ok) {
         throw console.error("Error fetching genres");
@@ -74,7 +74,7 @@ export const useFetchMovies = (filters: FilterParams) => {
         params.append("vote_average.gte", filters.voteAverageGte.toString());
       }
       const response = await fetch(
-        `${API_URL}/discover/movie?${params}&language=${language}`
+        `${API_TMDB_URL}/discover/movie?${params}&language=${language}`
       );
       if (!response.ok) {
         console.error("Error fetching movies");

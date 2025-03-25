@@ -12,5 +12,6 @@ export const INPUT_STEP = 0.1;
 export const MIN_VALUE_RANGE = 0;
 export const MAX_VALUE_RANGE = 10;
 export const LIST_OF_YEARS = getYears();
-export const API_URL = import.meta.env.VITE_BASE_URL;
+export const API_TMDB_URL = import.meta.env.VITE_BASE_URL;
 export const API_KEY = import.meta.env.VITE_API_KEY;
+export const API_URL = import.meta.env.VITE_API_URL;
