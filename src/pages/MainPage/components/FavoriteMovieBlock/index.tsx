@@ -1,15 +1,16 @@
 import { useLingui } from "@lingui/react/macro";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "@components/Button.tsx";
 import { Genre } from "@services/tmdbQuery.ts";
 import ViewButton from "@components/ViewButton";
 import MovieCard from "@components/MovieCard";
-import { ViewModeType, FavoriteMovie } from "types";
+import { ViewModeType } from "types";
 import { GRID_VIEW, LIST_VIEW, START_PAGE } from "@components/constants";
-import getPaginatedFavoriteMovies from "@services/getFavoriteMoviesPage";
 import Pagination from "@components/Pagination";
 import FavoriteMovieCardButtons from "./components/FavoriteMovieCardButtons";
+import useGetFavoriteMovies from "@gqlHooks/useGetFavoriteMovies";
+import { MOVIES_PER_PAGE } from "@components/constants";
 
 interface FavoriteMoviesBlockProps {
   genres: Genre[];
@@ -19,45 +20,50 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   const { t } = useLingui();
   const [viewMode, setViewMode] = useState<ViewModeType>(LIST_VIEW);
   const [currentPage, setPage] = useState(START_PAGE);
-  const [moviesOnPage, setMoviesOnPage] = useState<FavoriteMovie[]>([]);
-  const [totalPages, setTotalPages] = useState(0);
+  // const [moviesOnPage, setMoviesOnPage] = useState<FavoriteMovie[]>([]);
+  // const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
   const handleAdd = () => {
     navigate("/searchmovies");
   };
-
-  const [favoriteMovies, setFavoriteMovies] = useState<FavoriteMovie[]>(
-    JSON.parse(localStorage.getItem("favoriteMovies") || "[]")
+  const { moviesOnPage, totalPages, loading, error } = useGetFavoriteMovies(
+    currentPage,
+    MOVIES_PER_PAGE
   );
+  // const [favoriteMovies, setFavoriteMovies] = useState<FavoriteMovie[]>(
+  //   JSON.parse(localStorage.getItem("favoriteMovies") || "[]")
+  // );
 
-  useEffect(() => {
-    const { paginatedFavoriteMovies, totalPages } =
-      getPaginatedFavoriteMovies(currentPage);
-    setMoviesOnPage(paginatedFavoriteMovies);
-    setTotalPages(totalPages);
-  }, [currentPage, favoriteMovies]);
+  // useEffect(() => {
+  //   const { paginatedFavoriteMovies, totalPages } =
+  //     getPaginatedFavoriteMovies(currentPage);
+  //   setMoviesOnPage(paginatedFavoriteMovies);
+  //   setTotalPages(totalPages);
+  // }, [currentPage, favoriteMovies]);
 
-  const toggleWatchedStatus = (id: number) => {
-    const updatedMovies = favoriteMovies.map((movie) => {
-      if (movie.id === id) {
-        return {
-          ...movie,
-          watchedStatus: !movie.watchedStatus,
-        };
-      }
-      return movie;
-    });
-    setFavoriteMovies(updatedMovies);
-    localStorage.setItem("favoriteMovies", JSON.stringify(updatedMovies));
-  };
+  // const toggleWatchedStatus = (id: number) => {
+  //   const updatedMovies = favoriteMovies.map((movie) => {
+  //     if (movie.id === id) {
+  //       return {
+  //         ...movie,
+  //         watchedStatus: !movie.watchedStatus,
+  //       };
+  //     }
+  //     return movie;
+  //   });
+  //   // setFavoriteMovies(updatedMovies);
+  //   localStorage.setItem("favoriteMovies", JSON.stringify(updatedMovies));
+  // };
 
-  const handleDelete = (id: number) => {
-    const updatedMovies = favoriteMovies.filter(
-      (favMovie: FavoriteMovie) => favMovie.id !== id
-    );
-    setFavoriteMovies(updatedMovies);
-    localStorage.setItem("favoriteMovies", JSON.stringify(updatedMovies));
-  };
+  // const handleDelete = (id: number) => {
+  //   const updatedMovies = favoriteMovies.filter(
+  //     (favMovie: FavoriteMovie) => favMovie.id !== id
+  //   );
+  //   // setFavoriteMovies(updatedMovies);
+  //   localStorage.setItem("favoriteMovies", JSON.stringify(updatedMovies));
+  // };
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error.message}</p>;
   return (
     <>
       <div className="flex flex-row-reverse my-7 p-2 max-w">
@@ -74,16 +80,16 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
       >
         {moviesOnPage?.map((favMovie) => (
           <MovieCard
-            key={favMovie.id}
+            key={favMovie.movieID}
             movie={favMovie}
             viewMode={viewMode}
             genres={genres}
             number={moviesOnPage.indexOf(favMovie) + 1 + "."}
           >
             <FavoriteMovieCardButtons
-              toggleWatchedStatus={toggleWatchedStatus}
-              handleDelete={handleDelete}
-              movieid={favMovie.id}
+              toggleWatchedStatus={() => {}}
+              handleDelete={() => {}}
+              movieid={favMovie.movieID}
             />
           </MovieCard>
         ))}
