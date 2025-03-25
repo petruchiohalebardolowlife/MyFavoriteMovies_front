@@ -1,7 +1,9 @@
 import { useLingui } from "@lingui/react/macro";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Genre } from "@services/tmdbQuery";
 import GenresBlock from "@components/GenresBlock";
+import useGetFavoriteGenres from "@gqlHooks/useGetFavoriteGenres";
+import { useAddFavoriteGenre } from "@gqlHooks/useAddFavoriteGenre";
 
 interface GenresBlockProps {
   genres: Genre[];
@@ -9,21 +11,28 @@ interface GenresBlockProps {
 
 function FavoriteGenresBlock({ genres }: GenresBlockProps) {
   const { t } = useLingui();
-  const [selected, setSelected] = useState<number[]>(() => {
-    return JSON.parse(localStorage.getItem("favoriteGenres") || "[]");
-  });
+  const { selected } = useGetFavoriteGenres();
+  console.log("Selected genres from DB", selected);
+
+  console.log("All genres", typeof genres[0].id);
 
   useEffect(() => {
     localStorage.setItem("favoriteGenres", JSON.stringify(selected));
   }, [selected]);
 
-  const toggleFavoriteGenre = (id: number) => {
-    setSelected((prevState) =>
-      prevState.includes(id)
-        ? prevState.filter((genreId) => genreId !== id)
-        : [...prevState, id]
-    );
+  const addFavGenre = useAddFavoriteGenre();
+
+  const handleAddFavoriteGenre = (id: number) => {
+    addFavGenre(id)
   };
+
+  // const toggleFavoriteGenre = (id: number) => {
+  //   setSelected((prevState) =>
+  //     prevState.includes(id)
+  //       ? prevState.filter((genreId) => genreId !== id)
+  //       : [...prevState, id]
+  //   );
+  // };
 
   return (
     <>
@@ -32,9 +41,9 @@ function FavoriteGenresBlock({ genres }: GenresBlockProps) {
       </div>
       <div className="flex flex-wrap justify-center content-center px-4 gap-2">
         <GenresBlock
-          onClick={toggleFavoriteGenre}
+          onClick={handleAddFavoriteGenre}
           genres={genres}
-          selected={selected}
+          selected={selected.map(String)}
         />
       </div>
     </>

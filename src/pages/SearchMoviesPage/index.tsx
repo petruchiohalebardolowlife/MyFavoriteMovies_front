@@ -4,13 +4,15 @@ import { useLingui } from "@lingui/react/macro";
 import { useState, useEffect } from "react";
 import { Movie, ViewModeType } from "types";
 import AddMoviesBlock from "./components/AddMoviesBlock";
-import { useFetchGenres } from "@services/tmdbQuery";
+import useGetGenres from "@gqlHooks/useGetGenres";
 import { alreadyInFavorites } from "@utils/alreadyInFavorites";
+import { useLocale } from "@contexts/localeContext";
 
 function SearchMoviesPage() {
   const [viewMode, setViewMode] = useState<ViewModeType>(LIST_VIEW);
   const { t } = useLingui();
-  const { isPending, error, data: genres } = useFetchGenres();
+  const { locale } = useLocale();
+  const { loading, error, genres } = useGetGenres(locale);
   const [favoriteMovies, setFavoriteMovies] = useState<Movie[]>(() => {
     return JSON.parse(localStorage.getItem("favoriteMovies") || "[]");
   });
@@ -24,7 +26,7 @@ function SearchMoviesPage() {
     localStorage.setItem("favoriteMovies", JSON.stringify(favoriteMovies));
   }, [favoriteMovies]);
 
-  if (isPending) return <div>{t`Loading...`}</div>;
+  if (loading) return <div>{t`Loading...`}</div>;
   if (error) return <div>{t`Error: ${error.message}`}</div>;
 
   return (

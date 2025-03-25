@@ -15,9 +15,6 @@ export interface APIResponse {
   total_pages: number;
 }
 
-interface GenreResponse {
-  genres: Genre[];
-}
 
 interface FilterParams {
   page?: number;
@@ -28,25 +25,6 @@ interface FilterParams {
 
 const getLanguageFromLocale = (locale: string) => {
   return locale === "en" ? "en-US" : "ru-RU";
-};
-
-export const useFetchGenres = () => {
-  const { locale } = useLocale();
-  const language = getLanguageFromLocale(locale);
-  return useQuery<Genre[]>({
-    queryKey: ["genres", locale],
-    queryFn: async () => {
-      const response = await fetch(
-        `${API_TMDB_URL}/genre/movie/list?api_key=${API_KEY}&language=${language}`
-      );
-      if (!response.ok) {
-        throw console.error("Error fetching genres");
-      }
-
-      const data: GenreResponse = await response.json();
-      return data.genres;
-    },
-  });
 };
 
 export const useFetchMovies = (filters: FilterParams) => {

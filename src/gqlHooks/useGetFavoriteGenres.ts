@@ -1,26 +1,23 @@
 import { gql, useQuery } from "@apollo/client";
 
-export const GET_GENRES = gql`
+export const GET_FAVORITE_GENRES = gql`
   query {
-    getAllGenres {
-      id
-      name
-    }
+    getFavoriteGenres
   }
 `;
 
-const useGetGenres = () => {
-  const { data, loading, error } = useQuery(GET_GENRES, {
+const useGetFavoriteGenres = () => {
+  const { data, loading, error } = useQuery(GET_FAVORITE_GENRES, {
     fetchPolicy: "cache-and-network",
   });
 
-  const genres = data?.getAllGenres || [];
+  const favoriteGenres = data?.getFavoriteGenres || [];
 
   return {
-    genres,
+    selected: favoriteGenres,
     loading,
     error,
   };
 };
 
-export default useGetGenres;
+export default useGetFavoriteGenres;

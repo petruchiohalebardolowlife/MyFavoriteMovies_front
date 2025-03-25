@@ -34,7 +34,10 @@ function AddMoviesBlock({
   const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
     null
   );
-  const [selected, setSelected] = useState<number[]>([]);
+  const [selected, setSelected] = useState<number[]>(() => {
+    return JSON.parse(localStorage.getItem("favoriteGenres") || "[]");
+  });
+
   const { t } = useLingui();
 
   useEffect(() => {
