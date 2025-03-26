@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Genre, useFetchMovies } from "@services/tmdbQuery";
+import { Genre } from "@services/tmdbQuery";
 import { useLingui } from "@lingui/react/macro";
 import Pagination from "@components/Pagination";
 import { START_PAGE } from "@components/constants";
@@ -11,6 +11,8 @@ import { alreadyInFavorites } from "@utils/alreadyInFavorites";
 import FiltersBlock from "./components/FiltersBlock";
 import Button from "@components/Button";
 import useGetFavoriteGenres from "@gqlHooks/useGetFavoriteGenres";
+import useGetFilteredMovies from "@gqlHooks/useGetFilteredMovies";
+import { useLocale } from "@contexts/localeContext";
 
 interface AddMoviesBlockProps {
   genres: Genre[];
@@ -36,13 +38,14 @@ function AddMoviesBlock({
     null
   );
   const { selected } = useGetFavoriteGenres();
+  console.log("selected", selected);
   const [selectedGenres, setSelectedGenres] = useState<number[]>(selected);
+  console.log("selectedGenres", selectedGenres);
   const { t } = useLingui();
+  const { locale } = useLocale();
 
   useEffect(() => {
-    if (selected) {
-      setSelectedGenres(selected);
-    }
+    setSelectedGenres(selected);
   }, [selected]);
 
   useEffect(() => {
@@ -57,12 +60,13 @@ function AddMoviesBlock({
     );
   };
 
-  const { isPending, error, movies, totalPages } = useFetchMovies({
-    page: currentPage,
-    primaryReleaseYear: selectedOption?.value,
-    voteAverageGte: rating,
-    withGenres: selectedGenres,
-  });
+  const { movies, totalPages, loading, error } = useGetFilteredMovies(
+    currentPage,
+    locale,
+    selectedOption?.value,
+    rating,
+    selectedGenres
+  );
 
   if (error) return <div>{t`Error: ${error.message}`}</div>;
 
@@ -86,7 +90,7 @@ function AddMoviesBlock({
             : "flex flex-col flex-wrap gap-6 mx-4"
         }`}
       >
-        {isPending ? (
+        {loading ? (
           <span>{t`Loading...`}</span>
         ) : (
           movies.map((movie, index) => (

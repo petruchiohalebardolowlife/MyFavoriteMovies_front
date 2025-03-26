@@ -36,7 +36,7 @@ function MovieGridCard({ movie, genres, number, children }: MovieCardProps) {
       </div>
       <p className="break-words overflow-hidden">{movie.title}</p>
       <span>{t`Primary release year: ${movie.releaseDate.slice(0, 4)}`}</span>
-      <NameOfGenres genreIDs={movie.genreIDs} genres={genres} />
+      <NameOfGenres genreIDs={movie?.genreIDs} genres={genres} />
     </div>
   );
 }

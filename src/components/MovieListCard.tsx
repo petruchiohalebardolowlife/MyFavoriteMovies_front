@@ -23,7 +23,7 @@ function MovieListCard({ movie, genres, number, children }: MovieCardProps) {
         src={API_PICS + movie.posterPath}
       />
       <span>{t`Primary release year: ${movie.releaseDate.slice(0, 4)}`}</span>
-      <NameOfGenres genreIDs={movie.genreIDs} genres={genres} />
+      <NameOfGenres genreIDs={movie?.genreIDs} genres={genres} />
       <div className="flex flex-row gap-2">{children}</div>
     </div>
   );
