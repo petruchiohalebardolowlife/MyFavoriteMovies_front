@@ -6,6 +6,8 @@ import { isFavoriteMovie } from "@utils/isFavoriteMovie";
 
 function MovieListCard({ movie, genres, number, children }: MovieCardProps) {
   const { t } = useLingui();
+  // console.log("Type of genres in Movie ", typeof(movie?.genreIDs[0]))
+  // console.log("Type of genres in array genres ", typeof(genres[0].id))
 
   return (
     <div

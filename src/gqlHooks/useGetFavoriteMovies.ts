@@ -28,7 +28,7 @@ const useGetFavoriteMovies = (currentPage: number, moviesPerPage: number) => {
   });
 
   const favoriteMovies: FavoriteMovie[] = data?.getFavoriteMovies.results || [];
-  const totalPages = data?.getFavoriteMovies.totalPages || 1;
+  const totalPages = data?.getFavoriteMovies.totalPages ?? 1;
   return {
     moviesOnPage: favoriteMovies,
     totalPages,

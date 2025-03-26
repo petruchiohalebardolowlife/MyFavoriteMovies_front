@@ -38,9 +38,7 @@ function AddMoviesBlock({
     null
   );
   const { selected } = useGetFavoriteGenres();
-  console.log("selected", selected);
   const [selectedGenres, setSelectedGenres] = useState<number[]>(selected);
-  console.log("selectedGenres", selectedGenres);
   const { t } = useLingui();
   const { locale } = useLocale();
 
@@ -67,6 +65,8 @@ function AddMoviesBlock({
     rating,
     selectedGenres
   );
+  console.log("GENRES OF MOVIE :", movies[0]?.genreIDs);
+  console.log("TotalPages:", totalPages)
 
   if (error) return <div>{t`Error: ${error.message}`}</div>;
 
