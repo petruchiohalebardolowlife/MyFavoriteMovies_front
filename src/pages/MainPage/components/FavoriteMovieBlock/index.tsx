@@ -11,6 +11,8 @@ import Pagination from "@components/Pagination";
 import FavoriteMovieCardButtons from "./components/FavoriteMovieCardButtons";
 import useGetFavoriteMovies from "@gqlHooks/useGetFavoriteMovies";
 import { MOVIES_PER_PAGE } from "@components/constants";
+import { useToggleWatchedStatus } from "@gqlHooks/useToggleWatchedStatus";
+import { useDeleteFavoriteMovie } from "@gqlHooks/useDeleteFavoriteMovie";
 
 interface FavoriteMoviesBlockProps {
   genres: Genre[];
@@ -18,50 +20,25 @@ interface FavoriteMoviesBlockProps {
 
 function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   const { t } = useLingui();
+  const navigate = useNavigate();
   const [viewMode, setViewMode] = useState<ViewModeType>(LIST_VIEW);
   const [currentPage, setPage] = useState(START_PAGE);
-  // const [moviesOnPage, setMoviesOnPage] = useState<FavoriteMovie[]>([]);
-  // const [totalPages, setTotalPages] = useState(0);
-  const navigate = useNavigate();
-  const handleAdd = () => {
-    navigate("/searchmovies");
-  };
   const { moviesOnPage, totalPages, loading, error } = useGetFavoriteMovies(
     currentPage,
     MOVIES_PER_PAGE
   );
-  // const [favoriteMovies, setFavoriteMovies] = useState<FavoriteMovie[]>(
-  //   JSON.parse(localStorage.getItem("favoriteMovies") || "[]")
-  // );
+  const toggleWatched = useToggleWatchedStatus(currentPage);
+  const deleteFavMovie = useDeleteFavoriteMovie(currentPage);
+  const toggleWatchedStatus = (id: number) => {
+    toggleWatched(id);
+  };
+  const handleDelete = (id: number) => {
+    deleteFavMovie(id);
+  };
+  const handleAdd = () => {
+    navigate("/searchmovies");
+  };
 
-  // useEffect(() => {
-  //   const { paginatedFavoriteMovies, totalPages } =
-  //     getPaginatedFavoriteMovies(currentPage);
-  //   setMoviesOnPage(paginatedFavoriteMovies);
-  //   setTotalPages(totalPages);
-  // }, [currentPage, favoriteMovies]);
-
-  // const toggleWatchedStatus = (id: number) => {
-  //   const updatedMovies = favoriteMovies.map((movie) => {
-  //     if (movie.id === id) {
-  //       return {
-  //         ...movie,
-  //         watchedStatus: !movie.watchedStatus,
-  //       };
-  //     }
-  //     return movie;
-  //   });
-  //   // setFavoriteMovies(updatedMovies);
-  //   localStorage.setItem("favoriteMovies", JSON.stringify(updatedMovies));
-  // };
-
-  // const handleDelete = (id: number) => {
-  //   const updatedMovies = favoriteMovies.filter(
-  //     (favMovie: FavoriteMovie) => favMovie.id !== id
-  //   );
-  //   // setFavoriteMovies(updatedMovies);
-  //   localStorage.setItem("favoriteMovies", JSON.stringify(updatedMovies));
-  // };
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
   return (
@@ -87,8 +64,8 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
             number={moviesOnPage.indexOf(favMovie) + 1 + "."}
           >
             <FavoriteMovieCardButtons
-              toggleWatchedStatus={() => {}}
-              handleDelete={() => {}}
+              toggleWatchedStatus={toggleWatchedStatus}
+              handleDelete={handleDelete}
               movieid={favMovie.movieID}
             />
           </MovieCard>

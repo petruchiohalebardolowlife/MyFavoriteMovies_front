@@ -11,7 +11,7 @@ export const GET_FAVORITE_MOVIES = gql`
         title
         posterPath
         voteAverage
-        watched
+        watchedStatus
         releaseDate
         genres {
           id
