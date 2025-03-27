@@ -13,9 +13,7 @@ export const GET_FAVORITE_MOVIES = gql`
         voteAverage
         watchedStatus
         releaseDate
-        genres {
-          id
-        }
+        genreIDs
       }
     }
   }
