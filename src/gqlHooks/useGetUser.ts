@@ -9,7 +9,7 @@ export const GET_USER = gql`
   }
 `;
 
-const useGetUser = (skip: boolean = false) => {
+function useGetUser(skip = false) {
   const { data, loading, error, refetch } = useQuery(GET_USER, {
     skip,
     fetchPolicy: "cache-and-network",
@@ -23,6 +23,6 @@ const useGetUser = (skip: boolean = false) => {
     error,
     refetch,
   };
-};
+}
 
 export default useGetUser;

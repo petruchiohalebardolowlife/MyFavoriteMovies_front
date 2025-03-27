@@ -1,12 +1,14 @@
 import { useLingui } from "@lingui/react/macro";
-import { useFetchGenres } from "@services/tmdbQuery";
 import FavoriteMoviesBlock from "./components/FavoriteMovieBlock";
 import FavoriteGenresBlock from "./components/GenresBlock";
+import useGetGenres from "@gqlHooks/useGetGenres";
+import { useLocale } from "@contexts/localeContext";
 
 function MainPage() {
   const { t } = useLingui();
-  const { isPending, error, data: genres } = useFetchGenres();
-  if (isPending) return <div>{t`Loading...`}</div>;
+  const { locale } = useLocale();
+  const { loading, error, genres } = useGetGenres(locale);
+  if (loading) return <div>{t`Loading...`}</div>;
   if (error) return <div>{t`Error: ${error.message}`}</div>;
 
   return (

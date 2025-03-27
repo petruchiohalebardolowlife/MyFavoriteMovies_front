@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Genre, useFetchMovies } from "@services/tmdbQuery";
+import { Genre } from "types";
 import { useLingui } from "@lingui/react/macro";
 import Pagination from "@components/Pagination";
 import { START_PAGE } from "@components/constants";
@@ -7,15 +7,17 @@ import GenresBlock from "@components/GenresBlock";
 import MovieCard from "@components/MovieCard";
 import { Movie, ViewModeType } from "types";
 import { GRID_VIEW } from "@components/constants";
-import { alreadyInFavorites } from "@utils/alreadyInFavorites";
 import FiltersBlock from "./components/FiltersBlock";
 import Button from "@components/Button";
+import useGetFavoriteGenres from "@gqlHooks/useGetFavoriteGenres";
+import useGetFilteredMovies from "@gqlHooks/useGetFilteredMovies";
+import { useLocale } from "@contexts/localeContext";
 
 interface AddMoviesBlockProps {
   genres: Genre[];
   viewMode: ViewModeType;
   handleAdd: (movie: Movie) => void;
-  favoriteMovies: Movie[];
+  favoriteMoviesIDs: number[];
 }
 
 export interface SelectOption {
@@ -27,38 +29,41 @@ function AddMoviesBlock({
   genres,
   viewMode,
   handleAdd,
-  favoriteMovies,
+  favoriteMoviesIDs,
 }: AddMoviesBlockProps) {
   const [rating, setRating] = useState(0);
   const [currentPage, setPage] = useState(START_PAGE);
   const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
     null
   );
-  const [selected, setSelected] = useState<number[]>([]);
+  const { selected } = useGetFavoriteGenres();
+  const [selectedGenres, setSelectedGenres] = useState<number[]>(selected);
   const { t } = useLingui();
+  const { locale } = useLocale();
 
   useEffect(() => {
-    setSelected(JSON.parse(localStorage.getItem("favoriteGenres") || "[]"));
-  }, []);
+    setSelectedGenres(selected);
+  }, [selected]);
 
   useEffect(() => {
     setPage(START_PAGE);
   }, [selectedOption, rating]);
 
   const toggleGenreForFilter = (id: number) => {
-    setSelected((prevState) =>
+    setSelectedGenres((prevState) =>
       prevState.includes(id)
         ? prevState.filter((value) => value !== id)
         : [...prevState, id]
     );
   };
 
-  const { isPending, error, movies, totalPages } = useFetchMovies({
-    page: currentPage,
-    primaryReleaseYear: selectedOption?.value,
-    voteAverageGte: rating,
-    withGenres: selected,
-  });
+  const { movies, totalPages, loading, error } = useGetFilteredMovies(
+    currentPage,
+    locale,
+    selectedOption?.value,
+    rating,
+    selectedGenres
+  );
 
   if (error) return <div>{t`Error: ${error.message}`}</div>;
 
@@ -67,7 +72,7 @@ function AddMoviesBlock({
       <GenresBlock
         onClick={toggleGenreForFilter}
         genres={genres}
-        selected={selected}
+        selected={selectedGenres}
       />
       <FiltersBlock
         rating={rating}
@@ -82,7 +87,7 @@ function AddMoviesBlock({
             : "flex flex-col flex-wrap gap-6 mx-4"
         }`}
       >
-        {isPending ? (
+        {loading ? (
           <span>{t`Loading...`}</span>
         ) : (
           movies.map((movie, index) => (
@@ -95,10 +100,7 @@ function AddMoviesBlock({
               children={
                 <Button
                   onClick={() => handleAdd(movie)}
-                  isDisabled={alreadyInFavorites({
-                    favoriteMovies,
-                    movieid: movie.id,
-                  })}
+                  isDisabled={favoriteMoviesIDs.includes(Number(movie?.id))}
                 >{t`Add`}</Button>
               }
             />

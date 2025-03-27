@@ -1,6 +1,6 @@
 import NameOfGenres from "./NameOfGenres";
 import { useLingui } from "@lingui/react/macro";
-import { Genre } from "@services/tmdbQuery";
+import { Genre } from "types";
 import { FavoriteMovie } from "types";
 import { Movie } from "types";
 import { ReactNode } from "react";
@@ -36,7 +36,7 @@ function MovieGridCard({ movie, genres, number, children }: MovieCardProps) {
       </div>
       <p className="break-words overflow-hidden">{movie.title}</p>
       <span>{t`Primary release year: ${movie.releaseDate.slice(0, 4)}`}</span>
-      <NameOfGenres genreIDs={movie.genreIDs} genres={genres} />
+      <NameOfGenres genreIDs={movie?.genreIDs} genres={genres} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Genre } from "@services/tmdbQuery";
+import { Genre } from "types";
 import Button from "./Button";
 
 interface GenresProps {
