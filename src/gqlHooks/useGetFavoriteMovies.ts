@@ -19,7 +19,7 @@ export const GET_FAVORITE_MOVIES = gql`
   }
 `;
 
-const useGetFavoriteMovies = (currentPage: number, moviesPerPage: number) => {
+function useGetFavoriteMovies(currentPage: number, moviesPerPage: number) {
   const { data, loading, error, refetch } = useQuery(GET_FAVORITE_MOVIES, {
     variables: { page: currentPage, moviesPerPage },
     fetchPolicy: "cache-and-network",
@@ -27,6 +27,7 @@ const useGetFavoriteMovies = (currentPage: number, moviesPerPage: number) => {
 
   const favoriteMovies: FavoriteMovie[] = data?.getFavoriteMovies.results || [];
   const totalPages = data?.getFavoriteMovies.totalPages ?? 1;
+
   return {
     moviesOnPage: favoriteMovies,
     totalPages,
@@ -34,6 +35,6 @@ const useGetFavoriteMovies = (currentPage: number, moviesPerPage: number) => {
     refetch,
     error,
   };
-};
+}
 
 export default useGetFavoriteMovies;

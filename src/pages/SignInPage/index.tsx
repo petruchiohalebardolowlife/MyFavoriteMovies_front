@@ -23,7 +23,6 @@ function SignInPage() {
         username: values.username,
         password: values.password,
       });
-
       if (isSuccess) {
         navigate("/");
       } else {

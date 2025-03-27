@@ -1,5 +1,5 @@
 import { useMutation, gql } from "@apollo/client";
-import useGetUser from "./useGetUser";
+import { GET_USER } from "./useGetUser";
 
 const SIGN_IN = gql`
   mutation signIn($username: String!, $password: String!) {
@@ -24,8 +24,9 @@ export interface User {
 }
 
 export function useSignIn() {
-  const [signIn] = useMutation(SIGN_IN);
-  const { refetch } = useGetUser(!localStorage.getItem("token"));
+  const [signIn] = useMutation(SIGN_IN, {
+    refetchQueries: [{ query: GET_USER }],
+  });
 
   const login = async ({
     username,
@@ -40,7 +41,6 @@ export function useSignIn() {
         return false;
       }
       localStorage.setItem("token", token);
-      await refetch();
       return true;
     } catch {
       return false;

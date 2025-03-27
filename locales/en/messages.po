@@ -13,8 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/SearchMoviesPage/components/AddMoviesBlock/index.tsx:102
-#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:65
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/index.tsx:104
+#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:58
+#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:66
 msgid "Add"
 msgstr "Add"
 
@@ -22,19 +23,19 @@ msgstr "Add"
 #~ msgid "Add movie"
 #~ msgstr "Add movie"
 
-#: src/pages/SignInPage/index.tsx:72
+#: src/pages/SignInPage/index.tsx:71
 msgid "Enter password"
 msgstr "Enter password"
 
-#: src/pages/SignInPage/index.tsx:64
+#: src/pages/SignInPage/index.tsx:63
 msgid "Enter username"
 msgstr "Enter username"
 
 #. placeholder {0}: error.message
-#: src/pages/SearchMoviesPage/index.tsx:28
-#: src/pages/SearchMoviesPage/components/AddMoviesBlock/index.tsx:63
-#: src/pages/MainPage/index.tsx:10
-#: src/contexts/authContext.tsx:35
+#: src/pages/SearchMoviesPage/index.tsx:24
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/index.tsx:68
+#: src/pages/MainPage/index.tsx:12
+#: src/contexts/authContext.tsx:33
 msgid "Error: {0}"
 msgstr "Error: {0}"
 
@@ -43,18 +44,18 @@ msgstr "Error: {0}"
 msgid "Hello, {0} "
 msgstr "Hello, {0} "
 
-#: src/pages/SearchMoviesPage/index.tsx:32
+#: src/pages/SearchMoviesPage/index.tsx:28
 msgid "Here you can find movies"
 msgstr "Here you can find movies"
 
-#: src/pages/SignInPage/index.tsx:83
+#: src/pages/SignInPage/index.tsx:82
 msgid "Invalid username or password"
 msgstr "Invalid username or password"
 
-#: src/pages/SearchMoviesPage/index.tsx:27
-#: src/pages/SearchMoviesPage/components/AddMoviesBlock/index.tsx:86
-#: src/pages/MainPage/index.tsx:9
-#: src/middlewares/withAuth.tsx:26
+#: src/pages/SearchMoviesPage/index.tsx:23
+#: src/pages/SearchMoviesPage/components/AddMoviesBlock/index.tsx:91
+#: src/pages/MainPage/index.tsx:11
+#: src/middlewares/withAuth.tsx:23
 msgid "Loading..."
 msgstr "Loading..."
 
@@ -62,11 +63,11 @@ msgstr "Loading..."
 msgid "Logout"
 msgstr "Logout"
 
-#: src/pages/SignInPage/index.tsx:68
+#: src/pages/SignInPage/index.tsx:67
 msgid "Password"
 msgstr "Password"
 
-#: src/pages/SignInPage/index.tsx:43
+#: src/pages/SignInPage/index.tsx:42
 msgid "Password cannot be empty"
 msgstr "Password cannot be empty"
 
@@ -102,22 +103,26 @@ msgstr "Rating"
 msgid "Select year"
 msgstr "Select year"
 
-#: src/pages/MainPage/components/GenresBlock/index.tsx:31
+#: src/pages/MainPage/components/GenresBlock/index.tsx:29
 msgid "Select your favorite genres"
 msgstr "Select your favorite genres"
 
-#: src/pages/SignInPage/index.tsx:80
+#: src/pages/SignInPage/index.tsx:79
 msgid "Sign In"
 msgstr "Sign In"
 
-#: src/pages/SignInPage/index.tsx:60
+#: src/pages/SignInPage/index.tsx:59
 msgid "Username"
 msgstr "Username"
 
-#: src/pages/SignInPage/index.tsx:40
+#: src/pages/SignInPage/index.tsx:39
 msgid "Username cannot be empty"
 msgstr "Username cannot be empty"
 
-#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:66
+#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:57
+msgid "You don't have any favorite movies yet, but you can add them"
+msgstr "You don't have any favorite movies yet, but you can add them"
+
+#: src/pages/MainPage/components/FavoriteMovieBlock/index.tsx:67
 msgid "Your favorite movies"
 msgstr "Your favorite movies"

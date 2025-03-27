@@ -1,5 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import { Movie } from "types";
+
 export const GET_FILTERED_MOVIES = gql`
   query getFilteredMovies(
     $genreIDs: [Int!]
@@ -30,13 +31,13 @@ export const GET_FILTERED_MOVIES = gql`
   }
 `;
 
-const useGetFilteredMovies = (
+function useGetFilteredMovies(
   currentPage: number,
   locale: string,
   year: number | undefined,
   popularity: number,
   genreIDs: number[]
-) => {
+) {
   const { data, loading, error, refetch } = useQuery(GET_FILTERED_MOVIES, {
     variables: {
       page: currentPage,
@@ -50,6 +51,7 @@ const useGetFilteredMovies = (
 
   const movies: Movie[] = data?.getFilteredMovies.results || [];
   const totalPages = data?.getFilteredMovies.totalPages || 1;
+
   return {
     movies,
     totalPages,
@@ -57,6 +59,6 @@ const useGetFilteredMovies = (
     refetch,
     error,
   };
-};
+}
 
 export default useGetFilteredMovies;

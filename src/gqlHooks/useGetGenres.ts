@@ -10,7 +10,7 @@ export const GET_GENRES = gql`
   }
 `;
 
-const useGetGenres = (language: string) => {
+function useGetGenres(language: string) {
   const { data, loading, error } = useQuery<{ getAllGenres: Genre[] }>(
     GET_GENRES,
     {
@@ -21,8 +21,8 @@ const useGetGenres = (language: string) => {
 
   const genres = data?.getAllGenres || [];
   const convertedGenres = genres?.map((genre) => ({
-    ...genre, 
-    id: Number(genre.id)
+    ...genre,
+    id: Number(genre.id),
   }));
 
   return {
@@ -30,6 +30,6 @@ const useGetGenres = (language: string) => {
     loading,
     error,
   };
-};
+}
 
 export default useGetGenres;
