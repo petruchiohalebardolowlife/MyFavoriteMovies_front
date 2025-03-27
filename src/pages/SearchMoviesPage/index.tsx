@@ -7,6 +7,7 @@ import AddMoviesBlock from "./components/AddMoviesBlock";
 import useGetGenres from "@gqlHooks/useGetGenres";
 import { alreadyInFavorites } from "@utils/alreadyInFavorites";
 import { useLocale } from "@contexts/localeContext";
+import { useAddFavoriteMovie } from "@gqlHooks/useAddFavoriteMovie";
 
 function SearchMoviesPage() {
   const [viewMode, setViewMode] = useState<ViewModeType>(LIST_VIEW);
@@ -17,9 +18,22 @@ function SearchMoviesPage() {
     return JSON.parse(localStorage.getItem("favoriteMovies") || "[]");
   });
 
+  const addFavMovie = useAddFavoriteMovie();
+
+  // const handleAdd = (movie: Movie) => {
+  //   if (alreadyInFavorites({ favoriteMovies, movieid: movie.id })) return;
+  //   setFavoriteMovies((prevState) => [...prevState, movie]);
+  // };
+
   const handleAdd = (movie: Movie) => {
-    if (alreadyInFavorites({ favoriteMovies, movieid: movie.id })) return;
-    setFavoriteMovies((prevState) => [...prevState, movie]);
+    addFavMovie(
+      movie.id,
+      movie.title,
+      movie.posterPath,
+      movie.releaseDate,
+      movie.voteAverage,
+      movie.genreIDs
+    );
   };
 
   useEffect(() => {

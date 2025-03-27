@@ -16,6 +16,7 @@ export interface MovieResponse {
   poster_path: string;
   genre_ids: number[];
   release_date: string;
+  vote_average: number;
 }
 
 export interface Movie {
@@ -24,4 +25,5 @@ export interface Movie {
   posterPath: string;
   genreIDs: number[];
   releaseDate: string;
+  voteAverage: number;
 }

@@ -65,9 +65,7 @@ function AddMoviesBlock({
     rating,
     selectedGenres
   );
-  console.log("GENRES OF MOVIE :", movies[0]?.genreIDs);
-  console.log("TotalPages:", totalPages)
-
+  
   if (error) return <div>{t`Error: ${error.message}`}</div>;
 
   return (

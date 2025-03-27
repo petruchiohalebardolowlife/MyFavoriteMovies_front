@@ -13,6 +13,7 @@ function convertMovieResponse(movie: MovieResponse): Movie {
     title: movie.title,
     posterPath: movie.poster_path,
     genreIDs: movie.genre_ids,
+    voteAverage: movie.vote_average,
     releaseDate: movie.release_date,
   };
 }
