@@ -1,8 +1,8 @@
 import { useLingui } from "@lingui/react/macro";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@components/Button.tsx";
-import { Genre } from "@services/tmdbQuery.ts";
+import { Genre } from "types";
 import ViewButton from "@components/ViewButton";
 import MovieCard from "@components/MovieCard";
 import { ViewModeType } from "types";
@@ -34,12 +34,30 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   };
   const handleDelete = (id: number) => {
     deleteFavMovie(id);
+    if (moviesOnPage.length === 1 && currentPage !== 1) {
+      deleteFavMovie(id);
+      setPage(currentPage - 1);
+    }
+    deleteFavMovie(id);
   };
   const handleAdd = () => {
     navigate("/searchmovies");
   };
 
+  useEffect(() => {
+    if (!loading && moviesOnPage?.length === 0 && currentPage > 1) {
+      setPage((prevPage) => prevPage - 1);
+    }
+  }, [moviesOnPage, loading, currentPage]);
+
   if (loading) return <p>Loading...</p>;
+  if (totalPages == 0)
+    return (
+      <div className="flex text-center items-center flex-col my-7 p-2 ">
+        <p>{t`You don't have any favorite movies yet, but you can add them`}</p>
+        <Button className="w-xs" onClick={handleAdd}>{t`Add`}</Button>
+      </div>
+    );
   if (error) return <p>{error.message}</p>;
   return (
     <>

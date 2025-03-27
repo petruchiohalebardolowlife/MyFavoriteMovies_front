@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Genre } from "@services/tmdbQuery";
+import { Genre } from "types";
 import { useLingui } from "@lingui/react/macro";
 import Pagination from "@components/Pagination";
 import { START_PAGE } from "@components/constants";
@@ -7,7 +7,6 @@ import GenresBlock from "@components/GenresBlock";
 import MovieCard from "@components/MovieCard";
 import { Movie, ViewModeType } from "types";
 import { GRID_VIEW } from "@components/constants";
-import { alreadyInFavorites } from "@utils/alreadyInFavorites";
 import FiltersBlock from "./components/FiltersBlock";
 import Button from "@components/Button";
 import useGetFavoriteGenres from "@gqlHooks/useGetFavoriteGenres";
@@ -18,7 +17,7 @@ interface AddMoviesBlockProps {
   genres: Genre[];
   viewMode: ViewModeType;
   handleAdd: (movie: Movie) => void;
-  favoriteMovies: Movie[];
+  favoriteMoviesIDs: number[];
 }
 
 export interface SelectOption {
@@ -30,7 +29,7 @@ function AddMoviesBlock({
   genres,
   viewMode,
   handleAdd,
-  favoriteMovies,
+  favoriteMoviesIDs,
 }: AddMoviesBlockProps) {
   const [rating, setRating] = useState(0);
   const [currentPage, setPage] = useState(START_PAGE);
@@ -65,7 +64,7 @@ function AddMoviesBlock({
     rating,
     selectedGenres
   );
-  
+
   if (error) return <div>{t`Error: ${error.message}`}</div>;
 
   return (
@@ -101,10 +100,7 @@ function AddMoviesBlock({
               children={
                 <Button
                   onClick={() => handleAdd(movie)}
-                  isDisabled={alreadyInFavorites({
-                    favoriteMovies,
-                    movieid: movie.id,
-                  })}
+                  isDisabled={favoriteMoviesIDs.includes(Number(movie?.id))}
                 >{t`Add`}</Button>
               }
             />

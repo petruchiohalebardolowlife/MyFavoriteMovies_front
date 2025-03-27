@@ -1,7 +1,6 @@
 export type ViewModeType = "list" | "grid";
 
 export interface FavoriteMovie {
-  // id: number;
   movieID: number;
   title: string;
   posterPath: string;
@@ -26,4 +25,9 @@ export interface Movie {
   genreIDs: number[];
   releaseDate: string;
   voteAverage: number;
+}
+
+export interface Genre {
+  id: number;
+  name: string;
 }

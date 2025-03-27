@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { Genre } from "@services/tmdbQuery";
+import { Genre } from "types";
 
 export const GET_GENRES = gql`
   query getAllGenres($language: String!) {

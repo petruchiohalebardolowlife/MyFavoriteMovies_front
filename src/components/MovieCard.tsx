@@ -1,5 +1,5 @@
 import { FavoriteMovie } from "types";
-import { Genre } from "@services/tmdbQuery";
+import { Genre } from "types";
 import { ViewModeType } from "types";
 import { LIST_VIEW } from "@components/constants";
 import MovieGridCard from "@components/MovieGridCard";

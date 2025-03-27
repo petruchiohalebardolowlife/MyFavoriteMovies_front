@@ -1,6 +1,6 @@
 import NameOfGenres from "./NameOfGenres";
 import { useLingui } from "@lingui/react/macro";
-import { Genre } from "@services/tmdbQuery";
+import { Genre } from "types";
 import { FavoriteMovie } from "types";
 import { Movie } from "types";
 import { ReactNode } from "react";

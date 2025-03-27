@@ -1,4 +1,4 @@
-import { Genre } from "@services/tmdbQuery";
+import { Genre } from "types";
 
 interface NameOfGenresProps {
   genreIDs: number[];

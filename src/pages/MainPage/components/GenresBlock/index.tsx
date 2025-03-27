@@ -1,5 +1,5 @@
 import { useLingui } from "@lingui/react/macro";
-import { Genre } from "@services/tmdbQuery";
+import { Genre } from "types";
 import GenresBlock from "@components/GenresBlock";
 import useGetFavoriteGenres from "@gqlHooks/useGetFavoriteGenres";
 import { useAddFavoriteGenre } from "@gqlHooks/useAddFavoriteGenre";
