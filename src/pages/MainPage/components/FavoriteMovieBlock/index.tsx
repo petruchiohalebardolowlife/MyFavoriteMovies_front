@@ -34,7 +34,7 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   };
   const handleDelete = (id: number) => {
     deleteFavMovie(id);
-    if (moviesOnPage.length === 1 && currentPage !== 1) {
+    if (moviesOnPage.length === 1 && currentPage !== START_PAGE) {
       deleteFavMovie(id);
       setPage(currentPage - 1);
     }
@@ -45,7 +45,7 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   };
 
   useEffect(() => {
-    if (!loading && moviesOnPage?.length === 0 && currentPage > 1) {
+    if (!loading && moviesOnPage?.length === 0 && currentPage > START_PAGE) {
       setPage((prevPage) => prevPage - 1);
     }
   }, [moviesOnPage, loading, currentPage]);
