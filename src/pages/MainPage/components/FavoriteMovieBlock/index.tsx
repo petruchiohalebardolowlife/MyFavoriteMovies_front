@@ -6,11 +6,15 @@ import { Genre } from "types";
 import ViewButton from "@components/ViewButton";
 import MovieCard from "@components/MovieCard";
 import { ViewModeType } from "types";
-import { GRID_VIEW, LIST_VIEW, START_PAGE } from "@components/constants";
+import {
+  GRID_VIEW,
+  LIST_VIEW,
+  MOVIES_PER_PAGE,
+  START_PAGE,
+} from "@components/constants";
 import Pagination from "@components/Pagination";
 import FavoriteMovieCardButtons from "./components/FavoriteMovieCardButtons";
 import useGetFavoriteMovies from "@gqlHooks/useGetFavoriteMovies";
-import { MOVIES_PER_PAGE } from "@components/constants";
 import { useToggleWatchedStatus } from "@gqlHooks/useToggleWatchedStatus";
 import { useDeleteFavoriteMovie } from "@gqlHooks/useDeleteFavoriteMovie";
 
@@ -23,32 +27,34 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState<ViewModeType>(LIST_VIEW);
   const [currentPage, setPage] = useState(START_PAGE);
-  const { moviesOnPage, totalPages, loading, error } = useGetFavoriteMovies(
-    currentPage,
-    MOVIES_PER_PAGE
-  );
+  const { moviesOnPage, totalPages, loading, error, refetchFavMovies } =
+    useGetFavoriteMovies(currentPage, MOVIES_PER_PAGE);
   const toggleWatched = useToggleWatchedStatus(currentPage);
-  const deleteFavMovie = useDeleteFavoriteMovie(currentPage);
+  const deleteFavMovie = useDeleteFavoriteMovie();
   const toggleWatchedStatus = (id: number) => {
     toggleWatched(id);
   };
   const handleDelete = async (id: number) => {
-    deleteFavMovie(id);
+    await deleteFavMovie(id);
+    await refetchFavMovies();
+    // console.log(
+    //   "total pages from refetch func",
+    //   data.getFavoriteMovies.totalPages
+    // );
   };
   const handleAdd = () => {
     navigate("/searchmovies");
   };
 
-  console.log("totalPages:", totalPages);
-
   useEffect(() => {
-    if (!loading && moviesOnPage?.length === 0 && currentPage > START_PAGE) {
-      setPage((prevPage) => prevPage - 1);
-    }
-  }, [moviesOnPage, loading, currentPage]);
+    console.log("Total pages from useEffect",totalPages)
+    // if (!loading && moviesOnPage?.length === 0 && currentPage > START_PAGE) {
+    //   setPage((prevPage) => prevPage - 1);
+    // }
+  }, [totalPages]);
 
   if (loading) return <p>Loading...</p>;
-  if (totalPages == 0)
+  if (totalPages === 0)
     return (
       <div className="flex text-center items-center flex-col my-7 p-2 ">
         <p>{t`You don't have any favorite movies yet, but you can add them`}</p>

@@ -19,20 +19,20 @@ export const GET_FAVORITE_MOVIES = gql`
   }
 `;
 
-function useGetFavoriteMovies(currentPage: number, moviesPerPage: number) {
+function useGetFavoriteMovies(page: number, moviesPerPage: number) {
   const { data, loading, error, refetch } = useQuery(GET_FAVORITE_MOVIES, {
-    variables: { page: currentPage, moviesPerPage },
-    fetchPolicy: "cache-and-network",
+    variables: { page, moviesPerPage },
   });
-
   const favoriteMovies: FavoriteMovie[] = data?.getFavoriteMovies.results || [];
   const totalPages = data?.getFavoriteMovies.totalPages ?? 1;
+
+  console.log("TOTAL PAGES FROm FILE WITH HOOK ", totalPages)
 
   return {
     moviesOnPage: favoriteMovies,
     totalPages,
     loading,
-    refetch,
+    refetchFavMovies: refetch,
     error,
   };
 }

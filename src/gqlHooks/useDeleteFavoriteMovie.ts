@@ -11,15 +11,8 @@ const DELETE_FAVORITE_MOVIE = gql`
   }
 `;
 
-export function useDeleteFavoriteMovie(page: number) {
-  const [deleteFavoriteMovie] = useMutation(DELETE_FAVORITE_MOVIE, {
-    refetchQueries: [
-      {
-        query: GET_FAVORITE_MOVIES,
-        variables: { page: page, moviesPerPage: MOVIES_PER_PAGE },
-      },
-    ],
-  });
+export function useDeleteFavoriteMovie() {
+  const [deleteFavoriteMovie] = useMutation(DELETE_FAVORITE_MOVIE,{fetchPolicy:"no-cache"});
 
   const deleteFavMovie = useCallback(
     async (favMovieID: number): Promise<boolean> => {

@@ -20,9 +20,8 @@ export function useAddFavoriteGenre() {
       try {
         const { data } = await addFavoriteGenre({ variables: { genreID } });
         return data?.addFavoriteGenre.success;
-      } catch (error) {
-        console.error(error);
-        return false;
+      } catch {
+          return false
       }
     },
     [addFavoriteGenre]
