@@ -92,7 +92,7 @@ function AddMoviesBlock({
         ) : (
           movies.map((movie, index) => (
             <MovieCard
-              key={movie.id}
+              key={movie.movieID}
               movie={movie}
               genres={genres}
               viewMode={viewMode}
@@ -100,7 +100,9 @@ function AddMoviesBlock({
               children={
                 <Button
                   onClick={() => handleAdd(movie)}
-                  isDisabled={favoriteMoviesIDs.includes(Number(movie?.id))}
+                  isDisabled={favoriteMoviesIDs.includes(
+                    Number(movie?.movieID)
+                  )}
                 >{t`Add`}</Button>
               }
             />

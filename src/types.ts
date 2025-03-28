@@ -19,7 +19,7 @@ export interface MovieResponse {
 }
 
 export interface Movie {
-  id: number;
+  movieID: number;
   title: string;
   posterPath: string;
   genreIDs: number[];

@@ -20,7 +20,7 @@ export const GET_FILTERED_MOVIES = gql`
     ) {
       totalPages
       results {
-        id
+        movieID
         title
         posterPath
         voteAverage

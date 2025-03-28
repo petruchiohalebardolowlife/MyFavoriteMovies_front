@@ -17,10 +17,9 @@ function FavoriteGenresBlock({ genres }: GenresBlockProps) {
 
   const handleAddFavoriteGenre = (id: number) => {
     if (selected.includes(id)) {
-      deleteFavGenre(id);
-    } else {
-      addFavGenre(id);
+      return deleteFavGenre(id);
     }
+    return addFavGenre(id);
   };
 
   return (

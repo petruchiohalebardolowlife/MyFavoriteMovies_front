@@ -32,17 +32,14 @@ function FavoriteMoviesBlock({ genres }: FavoriteMoviesBlockProps) {
   const toggleWatchedStatus = (id: number) => {
     toggleWatched(id);
   };
-  const handleDelete = (id: number) => {
-    deleteFavMovie(id);
-    if (moviesOnPage.length === 1 && currentPage !== START_PAGE) {
-      deleteFavMovie(id);
-      setPage(currentPage - 1);
-    }
+  const handleDelete = async (id: number) => {
     deleteFavMovie(id);
   };
   const handleAdd = () => {
     navigate("/searchmovies");
   };
+
+  console.log("totalPages:", totalPages);
 
   useEffect(() => {
     if (!loading && moviesOnPage?.length === 0 && currentPage > START_PAGE) {

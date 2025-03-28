@@ -1,6 +1,7 @@
 import { useMutation, gql } from "@apollo/client";
 import { GET_FAVORITE_MOVIES } from "./useGetFavoriteMovies";
 import { MOVIES_PER_PAGE } from "@components/constants";
+import { useCallback } from "react";
 
 const TOGGLE_WATCHED_STATUS = gql`
   mutation toggleWatchedStatus($favMovieID: ID!) {
@@ -20,16 +21,21 @@ export function useToggleWatchedStatus(page: number) {
     ],
   });
 
-  const toggleWatched = async (favMovieID: number): Promise<boolean> => {
-    try {
-      const { data } = await toggleWatchedStatus({ variables: { favMovieID } });
-      if (!data?.toggleWatchedStatus.watchedStatus) {
+  const toggleWatched = useCallback(
+    async (favMovieID: number): Promise<boolean> => {
+      try {
+        const { data } = await toggleWatchedStatus({
+          variables: { favMovieID },
+        });
+        if (!data?.toggleWatchedStatus.watchedStatus) {
+          return false;
+        }
+        return data.toggleWatchedStatus.watchedStatus;
+      } catch {
         return false;
       }
-      return data.toggleWatchedStatus.watchedStatus;
-    } catch {
-      return false;
-    }
-  };
+    },
+    [toggleWatchedStatus]
+  );
   return toggleWatched;
 }
